@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Elitez Events portfolio — past corporate events including DSTA D&D, SingHealth Gala, SIT Staff Night, and more." />
+  <title>Portfolio — Elitez Events</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    /* ── FILTER BAR ─────────────────────────────────── */
+    .filter-bar {
+      padding: 32px var(--pad-x);
+      background: var(--navy);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--steel);
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+    .filter-btn {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--steel);
+      border: 1px solid var(--border);
+      background: none;
+      padding: 8px 18px;
+      cursor: pointer;
+      transition: border-color 0.28s, color 0.28s, background 0.28s;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      border-color: var(--gold);
+      color: var(--cream);
+      background: var(--gold-dim);
+    }
+
+    /* ── PORTFOLIO GRID ─────────────────────────────── */
+    .port-section {
+      padding: var(--pad-sect) var(--pad-x);
+      background: var(--midnight);
+    }
+    .portfolio-masonry {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .portfolio-card {
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      transition: opacity 0.3s;
+    }
+    .portfolio-card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--midnight);
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-card:nth-child(1) .portfolio-card-img,
+    .portfolio-card:nth-child(7) .portfolio-card-img { aspect-ratio: 16/9; }
+
+    .portfolio-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-out);
+    }
+    .portfolio-card:hover .portfolio-card-img img { transform: scale(1.04); }
+
+    .port-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .port-placeholder::after {
+      content: attr(data-lbl);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(240,235,224,0.18);
+    }
+    .portfolio-card:nth-child(1)  .port-placeholder { background: linear-gradient(145deg,#1a1428,#0d0e22 50%,#1a100a); }
+    .portfolio-card:nth-child(2)  .port-placeholder { background: linear-gradient(145deg,#0e1820,#0a1218); }
+    .portfolio-card:nth-child(3)  .port-placeholder { background: linear-gradient(145deg,#1c1208,#0e0c18); }
+    .portfolio-card:nth-child(4)  .port-placeholder { background: linear-gradient(145deg,#0c1a14,#081018); }
+    .portfolio-card:nth-child(5)  .port-placeholder { background: linear-gradient(145deg,#14100a,#1c1420); }
+    .portfolio-card:nth-child(6)  .port-placeholder { background: linear-gradient(145deg,#0a1428,#100a1c); }
+    .portfolio-card:nth-child(7)  .port-placeholder { background: linear-gradient(145deg,#1a0c14,#0e1820); }
+    .portfolio-card:nth-child(8)  .port-placeholder { background: linear-gradient(145deg,#121828,#0a0e14); }
+    .portfolio-card:nth-child(9)  .port-placeholder { background: linear-gradient(145deg,#181410,#0c1814); }
+    .portfolio-card:nth-child(10) .port-placeholder { background: linear-gradient(145deg,#0e1420,#14100c); }
+    .portfolio-card:nth-child(11) .port-placeholder { background: linear-gradient(145deg,#100a20,#0a1614); }
+    .portfolio-card:nth-child(12) .port-placeholder { background: linear-gradient(145deg,#1c1010,#100e1c); }
+
+    .portfolio-card-meta {
+      padding: 18px 22px 20px;
+    }
+    .portfolio-card-type {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .portfolio-card-name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--cream);
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .portfolio-card-detail {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--steel);
+    }
+
+    .portfolio-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(201,146,58,0.04);
+      opacity: 0;
+      transition: opacity 0.35s;
+      pointer-events: none;
+    }
+    .portfolio-card:hover::after { opacity: 1; }
+
+    /* Gold top accent on hover */
+    .portfolio-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s var(--ease-out);
+      z-index: 1;
+    }
+    .portfolio-card:hover::before { transform: scaleX(1); }
+
+    /* ── PLACEHOLDER NOTE ───────────────────────────── */
+    .photo-note {
+      background: var(--navy);
+      border: 1px solid var(--gold-border);
+      padding: 20px 28px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--steel);
+    }
+    .photo-note::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .portfolio-masonry { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .portfolio-masonry { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../index.html" class="nav-logo">
+      <img src="../assets/img/logo-white.png" alt="Elitez Events" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="nav-logo-text" style="display:none">Elitez <em>Events</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html" class="active">Portfolio</a></li>
+      <li><a href="rallies.html">Rallies™</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Get a Quote</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-breadcrumb"><a href="../index.html">Home</a><span>/</span> Portfolio</div>
+      <div class="eyebrow reveal">Our Work</div>
+      <h1 class="display-lg reveal" data-d="1">Events that<br>earned their<br><em class="gold">standing ovation</em></h1>
+      <p class="reveal" data-d="2" style="margin-top:20px;font-size:15px;font-weight:300;color:var(--steel);line-height:1.85;max-width:520px;">Every event below represents a brief we took seriously, a client we served well, and a night that left people with something to remember.</p>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-bar">
+    <span class="filter-label">Filter by</span>
+    <button class="filter-btn active" data-filter="all">All Events</button>
+    <button class="filter-btn" data-filter="dd">Dinner &amp; Dance</button>
+    <button class="filter-btn" data-filter="awards">Awards</button>
+    <button class="filter-btn" data-filter="familyday">Family Day</button>
+    <button class="filter-btn" data-filter="conference">Conference</button>
+    <button class="filter-btn" data-filter="rallies">Rallies™</button>
+  </div>
+
+  <!-- PORTFOLIO GRID -->
+  <section class="port-section">
+    <div class="photo-note">Photos will be added once provided — placeholders shown below indicate each confirmed event.</div>
+    <div class="portfolio-masonry reveal">
+      <div class="portfolio-card" data-type="dd">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Dinner &amp; Dance</div><div class="portfolio-card-name">DSTA Annual D&amp;D</div><div class="portfolio-card-detail">1,400 pax · Marina Bay Sands</div></div>
+      </div>
+      <div class="portfolio-card" data-type="dd">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">CNY Dinner</div><div class="portfolio-card-name">Chip Eng Seng CNY</div><div class="portfolio-card-detail">1,500 pax · Suntec City</div></div>
+      </div>
+      <div class="portfolio-card" data-type="conference">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Staff Night</div><div class="portfolio-card-name">SIT Staff Night</div><div class="portfolio-card-detail">1,100 pax · Ritz Carlton / Orchard Hotel</div></div>
+      </div>
+      <div class="portfolio-card" data-type="awards">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Gala Dinner</div><div class="portfolio-card-name">SingHealth Gala</div><div class="portfolio-card-detail">800 pax · Shangri-La Hotel</div></div>
+      </div>
+      <div class="portfolio-card" data-type="rallies">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Rallies™ Activation</div><div class="portfolio-card-name">Mandai Wildlife Group</div><div class="portfolio-card-detail">Rallies™ Employee Engagement</div></div>
+      </div>
+      <div class="portfolio-card" data-type="dd">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Dinner &amp; Dance</div><div class="portfolio-card-name">Corporate D&amp;D</div><div class="portfolio-card-detail">500+ pax · Singapore</div></div>
+      </div>
+      <div class="portfolio-card" data-type="familyday">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Family Day</div><div class="portfolio-card-name">Corporate Family Day</div><div class="portfolio-card-detail">Outdoor venue · Singapore</div></div>
+      </div>
+      <div class="portfolio-card" data-type="awards">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Awards Ceremony</div><div class="portfolio-card-name">Annual Awards Night</div><div class="portfolio-card-detail">Government agency · Singapore</div></div>
+      </div>
+      <div class="portfolio-card" data-type="conference">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Conference</div><div class="portfolio-card-name">Leadership Summit</div><div class="portfolio-card-detail">C-suite conference · Singapore</div></div>
+      </div>
+      <div class="portfolio-card" data-type="rallies">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Rallies™ Activation</div><div class="portfolio-card-name">Rallies™ — Corporate</div><div class="portfolio-card-detail">Multi-department teams · Singapore</div></div>
+      </div>
+      <div class="portfolio-card" data-type="dd">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Dinner &amp; Dance</div><div class="portfolio-card-name">Annual D&amp;D</div><div class="portfolio-card-detail">300+ pax · Singapore</div></div>
+      </div>
+      <div class="portfolio-card" data-type="familyday">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Family Day</div><div class="portfolio-card-name">Staff Appreciation Day</div><div class="portfolio-card-detail">Outdoor event · Singapore</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" data-ghost="WORK">
+    <div class="cta-inner reveal">
+      <div class="cta-eyebrow">Add your event to this list</div>
+      <div class="cta-title">Let's create something<br><em>worth remembering.</em></div>
+      <div class="btn-pair btn-pair-center">
+        <a href="contact.html" class="btn btn-gold">Get a Quote</a>
+        <a href="services.html" class="btn btn-outline">Our Services</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-brand"><img src="../assets/img/logo-white.png" alt="Elitez Events" class="footer-logo" onerror="this.style.display='none'"><p class="footer-tagline">"We stage moments that matter."</p></div>
+      <div><div class="footer-col-title">Services</div><ul class="footer-col-links"><li><a href="services.html#dd">Dinner &amp; Dance</a></li><li><a href="services.html#awards">Awards Ceremonies</a></li><li><a href="rallies.html">Rallies™</a></li><li><a href="services.html#teambuilding">Team Building</a></li></ul></div>
+      <div><div class="footer-col-title">Company</div><ul class="footer-col-links"><li><a href="about.html">About Us</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer-col-title">Contact</div><div class="footer-contact-item"><div class="footer-contact-label">Email</div><div class="footer-contact-value"><a href="mailto:eevann.seah@elitez.asia">eevann.seah@elitez.asia</a></div></div><div class="footer-contact-item"><div class="footer-contact-label">Phone</div><div class="footer-contact-value"><a href="tel:+6581800994">+65 8180 0994</a></div></div></div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Elitez Events. Part of <span>Elitez Group of Companies</span>.</div>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

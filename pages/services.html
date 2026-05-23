@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Elitez Events services — Corporate D&D, Awards Ceremonies, Family Day, Conferences, Rallies™, and Team Building in Singapore." />
+  <title>Services — Elitez Events</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    /* ── SERVICE BLOCK ──────────────────────────────── */
+    .service-block {
+      padding: var(--pad-sect) var(--pad-x);
+      border-bottom: 1px solid var(--border);
+    }
+    .service-block:nth-child(even) { background: var(--navy); }
+    .service-block:nth-child(odd)  { background: var(--midnight); }
+
+    .service-block-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 96px;
+      align-items: center;
+    }
+    .service-block:nth-child(even) .service-block-inner { direction: rtl; }
+    .service-block:nth-child(even) .service-block-inner > * { direction: ltr; }
+
+    .service-block-img {
+      aspect-ratio: 4/3;
+      background: var(--midnight);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-block:nth-child(even) .service-block-img { background: var(--navy-2); }
+
+    .service-block-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .service-img-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .service-img-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 60%, rgba(201,146,58,0.08) 0%, transparent 70%);
+    }
+    .service-img-label {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(240,235,224,0.2);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Gold accent line on image */
+    .service-block-img::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s var(--ease-out);
+    }
+    .service-block:hover .service-block-img::after { transform: scaleX(1); }
+
+    .service-block-content {}
+    .service-block-num {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 48px;
+      color: rgba(201,146,58,0.15);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .service-block-title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(32px, 3.5vw, 52px);
+      line-height: 1.05;
+      color: var(--cream);
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+    .service-block-body {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--steel);
+      line-height: 1.85;
+      margin-bottom: 32px;
+    }
+
+    .service-includes {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 36px;
+      border-top: 1px solid var(--border);
+    }
+    .service-include-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--cream);
+    }
+    .service-include-item::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--gold);
+      flex-shrink: 0;
+      transform: rotate(45deg);
+    }
+
+    /* ── SCALE STRIP ────────────────────────────────── */
+    .scale-strip {
+      background: var(--gold);
+      padding: 40px var(--pad-x);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .scale-item { text-align: center; }
+    .scale-num {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 44px;
+      line-height: 1;
+      color: var(--midnight);
+      letter-spacing: -0.02em;
+    }
+    .scale-lbl {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(8,12,24,0.6);
+      margin-top: 6px;
+    }
+    .scale-divider {
+      width: 1px; height: 48px;
+      background: rgba(8,12,24,0.15);
+    }
+
+    @media (max-width: 1024px) {
+      .service-block-inner { grid-template-columns: 1fr; gap: 48px; }
+      .service-block:nth-child(even) .service-block-inner { direction: ltr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="../index.html" class="nav-logo">
+      <img src="../assets/img/logo-white.png" alt="Elitez Events" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="nav-logo-text" style="display:none">Elitez <em>Events</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="rallies.html">Rallies™</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Get a Quote</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-breadcrumb"><a href="../index.html">Home</a><span>/</span> Services</div>
+      <div class="eyebrow reveal">What We Offer</div>
+      <h1 class="display-lg reveal" data-d="1">Six ways we<br>bring your event<br><em class="gold">to life</em></h1>
+      <p class="reveal" data-d="2" style="margin-top:20px;font-size:15px;font-weight:300;color:var(--steel);line-height:1.85;max-width:560px;">Every service we offer is underpinned by the same commitment: no templates, no guesswork. Your organisation's culture shapes every decision we make.</p>
+    </div>
+  </div>
+
+  <!-- SCALE STRIP -->
+  <div class="scale-strip">
+    <div class="scale-item"><div class="scale-num">200–2,000</div><div class="scale-lbl">Guest capacity range</div></div>
+    <div class="scale-divider"></div>
+    <div class="scale-item"><div class="scale-num">4,800+</div><div class="scale-lbl">Guests served across flagship events</div></div>
+    <div class="scale-divider"></div>
+    <div class="scale-item"><div class="scale-num">6</div><div class="scale-lbl">Service categories</div></div>
+    <div class="scale-divider"></div>
+    <div class="scale-item"><div class="scale-num">1</div><div class="scale-lbl">Proprietary IP in Singapore</div></div>
+  </div>
+
+  <!-- SERVICE 1: D&D -->
+  <div class="service-block" id="dd">
+    <div class="service-block-inner reveal">
+      <div class="service-block-img">
+        <div class="service-img-placeholder">
+          <span class="service-img-label">Event photo coming soon</span>
+        </div>
+      </div>
+      <div class="service-block-content">
+        <div class="service-block-num">01</div>
+        <div class="eyebrow">Flagship Service</div>
+        <h2 class="service-block-title">Corporate Dinner<br>&amp; Dance</h2>
+        <p class="service-block-body">Your annual D&amp;D is the event your people look forward to most. We make sure it earns that anticipation. From theme concepting to the final encore, every element is designed to reflect your company culture and give guests a night worth talking about.</p>
+        <div class="service-includes">
+          <div class="service-include-item">Full theme concept &amp; creative direction</div>
+          <div class="service-include-item">Venue liaison &amp; floor plan management</div>
+          <div class="service-include-item">Entertainment booking &amp; curation</div>
+          <div class="service-include-item">Professional show-calling</div>
+          <div class="service-include-item">AV, lighting &amp; staging coordination</div>
+          <div class="service-include-item">Guest experience &amp; logistics management</div>
+        </div>
+        <p style="font-size:12px;font-weight:500;letter-spacing:0.1em;color:var(--steel);margin-bottom:20px;">SCALE: 200 – 2,000 guests &nbsp;·&nbsp; Venues: Marina Bay Sands, Suntec, Ritz Carlton, Shangri-La and more</p>
+        <a href="contact.html" class="btn btn-gold">
+          Enquire Now
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICE 2: Awards -->
+  <div class="service-block" id="awards">
+    <div class="service-block-inner reveal">
+      <div class="service-block-img">
+        <div class="service-img-placeholder"><span class="service-img-label">Event photo coming soon</span></div>
+      </div>
+      <div class="service-block-content">
+        <div class="service-block-num">02</div>
+        <div class="eyebrow">Government &amp; Corporate</div>
+        <h2 class="service-block-title">Awards<br>Ceremonies</h2>
+        <p class="service-block-body">Recognition events only work if they feel earned. We design award ceremonies where the staging, flow, and atmosphere tell your audience that this moment matters. From script to spotlight, we own every detail.</p>
+        <div class="service-includes">
+          <div class="service-include-item">Show script &amp; run-of-show planning</div>
+          <div class="service-include-item">Broadcast-quality staging &amp; set design</div>
+          <div class="service-include-item">MC briefing &amp; awards presentation flow</div>
+          <div class="service-include-item">Video production &amp; sizzle reels</div>
+          <div class="service-include-item">Guest &amp; VIP management</div>
+          <div class="service-include-item">Post-event photo &amp; video coordination</div>
+        </div>
+        <a href="contact.html" class="btn btn-gold">
+          Enquire Now
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICE 3: Family Day -->
+  <div class="service-block" id="familyday">
+    <div class="service-block-inner reveal">
+      <div class="service-block-img">
+        <div class="service-img-placeholder"><span class="service-img-label">Event photo coming soon</span></div>
+      </div>
+      <div class="service-block-content">
+        <div class="service-block-num">03</div>
+        <div class="eyebrow">Community Events</div>
+        <h2 class="service-block-title">Family Day<br>Events</h2>
+        <p class="service-block-body">Family days are about more than an afternoon out — they're a statement about your organisation's culture. We design events that welcome families and create memories that connect people to your company beyond the office.</p>
+        <div class="service-includes">
+          <div class="service-include-item">Site layout &amp; activity zone design</div>
+          <div class="service-include-item">Game booths &amp; carnival activities</div>
+          <div class="service-include-item">Stage shows &amp; live entertainment</div>
+          <div class="service-include-item">F&amp;B coordination &amp; logistics</div>
+          <div class="service-include-item">Kids' programming &amp; engagement</div>
+          <div class="service-include-item">End-to-end event operations</div>
+        </div>
+        <a href="contact.html" class="btn btn-gold">
+          Enquire Now
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICE 4: Conferences -->
+  <div class="service-block" id="conferences">
+    <div class="service-block-inner reveal">
+      <div class="service-block-img">
+        <div class="service-img-placeholder"><span class="service-img-label">Event photo coming soon</span></div>
+      </div>
+      <div class="service-block-content">
+        <div class="service-block-num">04</div>
+        <div class="eyebrow">Corporate</div>
+        <h2 class="service-block-title">Conferences<br>&amp; Seminars</h2>
+        <p class="service-block-body">From town halls and leadership summits to multi-day industry conferences — we handle the operational complexity so your speakers and stakeholders can focus on the content. Clear logistics, reliable AV, and a flow that keeps audiences engaged.</p>
+        <div class="service-includes">
+          <div class="service-include-item">Venue selection &amp; contract management</div>
+          <div class="service-include-item">Full AV &amp; technical production</div>
+          <div class="service-include-item">Speaker coordination &amp; briefings</div>
+          <div class="service-include-item">Registration &amp; delegate management</div>
+          <div class="service-include-item">Hybrid &amp; livestream capability</div>
+          <div class="service-include-item">On-site event management team</div>
+        </div>
+        <a href="contact.html" class="btn btn-gold">
+          Enquire Now
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICE 5: Rallies -->
+  <div class="service-block" id="rallies" style="background:var(--navy-2)!important;">
+    <div class="service-block-inner reveal">
+      <div class="service-block-img" style="border:1px solid var(--gold-border);">
+        <div class="service-img-placeholder"><span class="service-img-label">Rallies photo coming soon</span></div>
+      </div>
+      <div class="service-block-content">
+        <div class="service-block-num">05</div>
+        <div class="eyebrow">Proprietary IP</div>
+        <h2 class="service-block-title">Rallies™</h2>
+        <p class="service-block-body">Rallies™ is a one-of-a-kind employee engagement format created and owned by Elitez Events. A competitive, team-based sports activation designed for organisations that want more than just a fun day — they want a shared experience that builds real team spirit.</p>
+        <p style="font-size:13px;font-weight:400;color:var(--gold);margin-bottom:28px;">No other agency in Singapore offers this format.</p>
+        <a href="rallies.html" class="btn btn-gold" style="margin-right:12px;">
+          Learn About Rallies™
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICE 6: Team Building -->
+  <div class="service-block" id="teambuilding">
+    <div class="service-block-inner reveal">
+      <div class="service-block-img">
+        <div class="service-img-placeholder"><span class="service-img-label">Event photo coming soon</span></div>
+      </div>
+      <div class="service-block-content">
+        <div class="service-block-num">06</div>
+        <div class="eyebrow">Employee Engagement</div>
+        <h2 class="service-block-title">Team<br>Building</h2>
+        <p class="service-block-body">Structured programmes designed to build culture and cohesion. We go beyond trust falls and rope courses — our team building formats create real interaction, healthy competition, and conversations that last beyond the event day.</p>
+        <div class="service-includes">
+          <div class="service-include-item">Customised activity design for your team</div>
+          <div class="service-include-item">Indoor &amp; outdoor formats available</div>
+          <div class="service-include-item">Facilitation by experienced event professionals</div>
+          <div class="service-include-item">Scalable from 20 to 500+ participants</div>
+          <div class="service-include-item">Post-event debrief &amp; culture alignment</div>
+        </div>
+        <a href="contact.html" class="btn btn-gold">
+          Enquire Now
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section" data-ghost="EVENTS">
+    <div class="cta-inner reveal">
+      <div class="cta-eyebrow">Not sure which service fits?</div>
+      <div class="cta-title">Tell us about<br>your event and<br><em>we'll advise.</em></div>
+      <div class="btn-pair btn-pair-center">
+        <a href="contact.html" class="btn btn-gold">Get a Quote</a>
+        <a href="portfolio.html" class="btn btn-outline">See Our Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <img src="../assets/img/logo-white.png" alt="Elitez Events" class="footer-logo" onerror="this.style.display='none'">
+        <p class="footer-tagline">"We stage moments that matter."</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-col-links">
+          <li><a href="services.html#dd">Dinner &amp; Dance</a></li>
+          <li><a href="services.html#awards">Awards Ceremonies</a></li>
+          <li><a href="services.html#familyday">Family Day</a></li>
+          <li><a href="services.html#conferences">Conferences</a></li>
+          <li><a href="rallies.html">Rallies™</a></li>
+          <li><a href="services.html#teambuilding">Team Building</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-col-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-contact-item"><div class="footer-contact-label">Email</div><div class="footer-contact-value"><a href="mailto:eevann.seah@elitez.asia">eevann.seah@elitez.asia</a></div></div>
+        <div class="footer-contact-item"><div class="footer-contact-label">Phone</div><div class="footer-contact-value"><a href="tel:+6581800994">+65 8180 0994</a></div></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Elitez Events. Part of <span>Elitez Group of Companies</span>.</div>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
