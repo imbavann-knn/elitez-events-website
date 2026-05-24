@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Elitez Events portfolio — past corporate events including DSTA D&D, SingHealth Gala, SIT Staff Night, and more." />
+  <meta name="description" content="Elitez Events portfolio — DSTA, SIT, Mandai Wildlife, Hermes, Toyota, Allied World, L'Oreal and more across Singapore's corporate events landscape." />
   <title>Portfolio — Elitez Events</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -48,6 +48,38 @@
       background: var(--gold-dim);
     }
 
+    /* ── PORTFOLIO STATS STRIP ──────────────────────── */
+    .port-stats {
+      background: var(--midnight);
+      border-bottom: 1px solid var(--border);
+      padding: 28px var(--pad-x);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 56px;
+      flex-wrap: wrap;
+    }
+    .port-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .port-stat-num {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .port-stat-lbl {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--steel);
+    }
+
     /* ── PORTFOLIO GRID ─────────────────────────────── */
     .port-section {
       padding: var(--pad-sect) var(--pad-x);
@@ -66,6 +98,8 @@
       overflow: hidden;
       transition: opacity 0.3s;
     }
+    .portfolio-card.hidden { display: none; }
+
     .portfolio-card-img {
       width: 100%;
       aspect-ratio: 4/3;
@@ -73,9 +107,6 @@
       position: relative;
       overflow: hidden;
     }
-    .portfolio-card:nth-child(1) .portfolio-card-img,
-    .portfolio-card:nth-child(7) .portfolio-card-img { aspect-ratio: 16/9; }
-
     .portfolio-card-img img {
       width: 100%; height: 100%;
       object-fit: cover;
@@ -98,18 +129,14 @@
       text-transform: uppercase;
       color: rgba(240,235,224,0.18);
     }
-    .portfolio-card:nth-child(1)  .port-placeholder { background: linear-gradient(145deg,#1a1428,#0d0e22 50%,#1a100a); }
-    .portfolio-card:nth-child(2)  .port-placeholder { background: linear-gradient(145deg,#0e1820,#0a1218); }
-    .portfolio-card:nth-child(3)  .port-placeholder { background: linear-gradient(145deg,#1c1208,#0e0c18); }
-    .portfolio-card:nth-child(4)  .port-placeholder { background: linear-gradient(145deg,#0c1a14,#081018); }
-    .portfolio-card:nth-child(5)  .port-placeholder { background: linear-gradient(145deg,#14100a,#1c1420); }
-    .portfolio-card:nth-child(6)  .port-placeholder { background: linear-gradient(145deg,#0a1428,#100a1c); }
-    .portfolio-card:nth-child(7)  .port-placeholder { background: linear-gradient(145deg,#1a0c14,#0e1820); }
-    .portfolio-card:nth-child(8)  .port-placeholder { background: linear-gradient(145deg,#121828,#0a0e14); }
-    .portfolio-card:nth-child(9)  .port-placeholder { background: linear-gradient(145deg,#181410,#0c1814); }
-    .portfolio-card:nth-child(10) .port-placeholder { background: linear-gradient(145deg,#0e1420,#14100c); }
-    .portfolio-card:nth-child(11) .port-placeholder { background: linear-gradient(145deg,#100a20,#0a1614); }
-    .portfolio-card:nth-child(12) .port-placeholder { background: linear-gradient(145deg,#1c1010,#100e1c); }
+
+    /* Unique gradient per card type */
+    [data-type="dd"]         .port-placeholder { background: linear-gradient(145deg,#1a1428,#0d0e22 50%,#1a100a); }
+    [data-type="awards"]     .port-placeholder { background: linear-gradient(145deg,#0c1a14,#081018); }
+    [data-type="familyday"]  .port-placeholder { background: linear-gradient(145deg,#0e1820,#0a1218); }
+    [data-type="conference"] .port-placeholder { background: linear-gradient(145deg,#0a1428,#100a1c); }
+    [data-type="activation"] .port-placeholder { background: linear-gradient(145deg,#1c1208,#0e0c18); }
+    [data-type="rallies"]    .port-placeholder { background: linear-gradient(145deg,#1a0c14,#0e1820); }
 
     .portfolio-card-meta {
       padding: 18px 22px 20px;
@@ -135,6 +162,13 @@
       font-weight: 300;
       color: var(--steel);
     }
+    .portfolio-card-year {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: rgba(201,146,58,0.5);
+      margin-top: 6px;
+    }
 
     .portfolio-card::after {
       content: '';
@@ -147,7 +181,6 @@
     }
     .portfolio-card:hover::after { opacity: 1; }
 
-    /* Gold top accent on hover */
     .portfolio-card::before {
       content: '';
       position: absolute;
@@ -161,28 +194,45 @@
     }
     .portfolio-card:hover::before { transform: scaleX(1); }
 
-    /* ── PLACEHOLDER NOTE ───────────────────────────── */
-    .photo-note {
+    /* ── SECTOR TAGS ROW ────────────────────────────── */
+    .sector-strip {
       background: var(--navy);
-      border: 1px solid var(--gold-border);
-      padding: 20px 28px;
-      margin-bottom: 40px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--steel);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 48px var(--pad-x);
     }
-    .photo-note::before {
-      content: '✦';
-      color: var(--gold);
-      font-size: 16px;
-      flex-shrink: 0;
+    .sector-strip-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .sector-strip-title {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--steel);
+      margin-bottom: 24px;
+    }
+    .sector-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    .sector-tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cream);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
     }
 
     @media (max-width: 768px) {
       .portfolio-masonry { grid-template-columns: 1fr 1fr; }
+      .port-stats { gap: 32px; }
     }
     @media (max-width: 480px) {
       .portfolio-masonry { grid-template-columns: 1fr; }
@@ -211,8 +261,16 @@
       <div class="page-hero-breadcrumb"><a href="../index.html">Home</a><span>/</span> Portfolio</div>
       <div class="eyebrow reveal">Our Work</div>
       <h1 class="display-lg reveal" data-d="1">Events that<br>earned their<br><em class="gold">standing ovation</em></h1>
-      <p class="reveal" data-d="2" style="margin-top:20px;font-size:15px;font-weight:300;color:var(--steel);line-height:1.85;max-width:520px;">Every event below represents a brief we took seriously, a client we served well, and a night that left people with something to remember.</p>
+      <p class="reveal" data-d="2" style="margin-top:20px;font-size:15px;font-weight:300;color:var(--steel);line-height:1.85;max-width:520px;">Four years of corporate events across Singapore's most trusted names — government agencies, luxury brands, healthcare institutions, and Fortune 500 companies.</p>
     </div>
+  </div>
+
+  <!-- STATS STRIP -->
+  <div class="port-stats">
+    <div class="port-stat"><div class="port-stat-num">4+</div><div class="port-stat-lbl">Years Delivering</div></div>
+    <div class="port-stat"><div class="port-stat-num">80+</div><div class="port-stat-lbl">Events Completed</div></div>
+    <div class="port-stat"><div class="port-stat-num">60+</div><div class="port-stat-lbl">Clients Served</div></div>
+    <div class="port-stat"><div class="port-stat-num">1,500</div><div class="port-stat-lbl">Largest Event (pax)</div></div>
   </div>
 
   <!-- FILTER -->
@@ -223,63 +281,380 @@
     <button class="filter-btn" data-filter="awards">Awards</button>
     <button class="filter-btn" data-filter="familyday">Family Day</button>
     <button class="filter-btn" data-filter="conference">Conference</button>
+    <button class="filter-btn" data-filter="activation">Brand Activation</button>
     <button class="filter-btn" data-filter="rallies">Rallies™</button>
   </div>
 
   <!-- PORTFOLIO GRID -->
   <section class="port-section">
-    <div class="photo-note">Photos will be added once provided — placeholders shown below indicate each confirmed event.</div>
-    <div class="portfolio-masonry reveal">
+    <div class="portfolio-masonry reveal" id="portfolioGrid">
+
+      <!-- D&D -->
       <div class="portfolio-card" data-type="dd">
         <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
-        <div class="portfolio-card-meta"><div class="portfolio-card-type">Dinner &amp; Dance</div><div class="portfolio-card-name">DSTA Annual D&amp;D</div><div class="portfolio-card-detail">1,400 pax · Marina Bay Sands</div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Dinner &amp; Dance</div>
+          <div class="portfolio-card-name">DSTA Annual D&amp;D</div>
+          <div class="portfolio-card-detail">1,400 pax · Marina Bay Sands</div>
+          <div class="portfolio-card-year">2024</div>
+        </div>
       </div>
+
       <div class="portfolio-card" data-type="dd">
         <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
-        <div class="portfolio-card-meta"><div class="portfolio-card-type">CNY Dinner</div><div class="portfolio-card-name">Chip Eng Seng CNY</div><div class="portfolio-card-detail">1,500 pax · Suntec City</div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">CNY Dinner</div>
+          <div class="portfolio-card-name">Chip Eng Seng CNY Dinner</div>
+          <div class="portfolio-card-detail">1,500 pax · Suntec City</div>
+          <div class="portfolio-card-year">2025</div>
+        </div>
       </div>
-      <div class="portfolio-card" data-type="conference">
+
+      <div class="portfolio-card" data-type="dd">
         <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
-        <div class="portfolio-card-meta"><div class="portfolio-card-type">Staff Night</div><div class="portfolio-card-name">SIT Staff Night</div><div class="portfolio-card-detail">1,100 pax · Ritz Carlton / Orchard Hotel</div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Annual Staff Night</div>
+          <div class="portfolio-card-name">SIT Annual Staff Night</div>
+          <div class="portfolio-card-detail">1,100 pax · Ritz Carlton</div>
+          <div class="portfolio-card-year">2023 – 2024</div>
+        </div>
       </div>
+
       <div class="portfolio-card" data-type="awards">
         <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
-        <div class="portfolio-card-meta"><div class="portfolio-card-type">Gala Dinner</div><div class="portfolio-card-name">SingHealth Gala</div><div class="portfolio-card-detail">800 pax · Shangri-La Hotel</div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Awards Night</div>
+          <div class="portfolio-card-name">Allied World Awards Night</div>
+          <div class="portfolio-card-detail">Insurance sector · Singapore</div>
+          <div class="portfolio-card-year">2025</div>
+        </div>
       </div>
-      <div class="portfolio-card" data-type="rallies">
-        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
-        <div class="portfolio-card-meta"><div class="portfolio-card-type">Rallies™ Activation</div><div class="portfolio-card-name">Mandai Wildlife Group</div><div class="portfolio-card-detail">Rallies™ Employee Engagement</div></div>
-      </div>
+
       <div class="portfolio-card" data-type="dd">
         <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
-        <div class="portfolio-card-meta"><div class="portfolio-card-type">Dinner &amp; Dance</div><div class="portfolio-card-name">Corporate D&amp;D</div><div class="portfolio-card-detail">500+ pax · Singapore</div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Dinner &amp; Dance</div>
+          <div class="portfolio-card-name">Mandai Wildlife Group D&amp;D</div>
+          <div class="portfolio-card-detail">Wildlife Conservation · Singapore</div>
+          <div class="portfolio-card-year">2025</div>
+        </div>
       </div>
-      <div class="portfolio-card" data-type="familyday">
-        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
-        <div class="portfolio-card-meta"><div class="portfolio-card-type">Family Day</div><div class="portfolio-card-name">Corporate Family Day</div><div class="portfolio-card-detail">Outdoor venue · Singapore</div></div>
-      </div>
-      <div class="portfolio-card" data-type="awards">
-        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
-        <div class="portfolio-card-meta"><div class="portfolio-card-type">Awards Ceremony</div><div class="portfolio-card-name">Annual Awards Night</div><div class="portfolio-card-detail">Government agency · Singapore</div></div>
-      </div>
+
       <div class="portfolio-card" data-type="conference">
         <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
-        <div class="portfolio-card-meta"><div class="portfolio-card-type">Conference</div><div class="portfolio-card-name">Leadership Summit</div><div class="portfolio-card-detail">C-suite conference · Singapore</div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Sales Kick-Off</div>
+          <div class="portfolio-card-name">BytePlus Sales Kick-Off</div>
+          <div class="portfolio-card-detail">Tech sector · Singapore</div>
+          <div class="portfolio-card-year">2024</div>
+        </div>
       </div>
-      <div class="portfolio-card" data-type="rallies">
+
+      <div class="portfolio-card" data-type="activation">
         <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
-        <div class="portfolio-card-meta"><div class="portfolio-card-type">Rallies™ Activation</div><div class="portfolio-card-name">Rallies™ — Corporate</div><div class="portfolio-card-detail">Multi-department teams · Singapore</div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Brand Activation</div>
+          <div class="portfolio-card-name">L'Oréal Singapore Activation</div>
+          <div class="portfolio-card-detail">Beauty &amp; Retail · Singapore</div>
+          <div class="portfolio-card-year">2024</div>
+        </div>
       </div>
+
+      <div class="portfolio-card" data-type="awards">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Awards Ceremony</div>
+          <div class="portfolio-card-name">NTU-NIE Caring Teacher Awards</div>
+          <div class="portfolio-card-detail">Education sector · Singapore</div>
+          <div class="portfolio-card-year">2024</div>
+        </div>
+      </div>
+
       <div class="portfolio-card" data-type="dd">
         <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
-        <div class="portfolio-card-meta"><div class="portfolio-card-type">Dinner &amp; Dance</div><div class="portfolio-card-name">Annual D&amp;D</div><div class="portfolio-card-detail">300+ pax · Singapore</div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Dinner &amp; Dance</div>
+          <div class="portfolio-card-name">Hermes D&amp;D</div>
+          <div class="portfolio-card-detail">Luxury brand · Singapore</div>
+          <div class="portfolio-card-year">2025</div>
+        </div>
       </div>
+
       <div class="portfolio-card" data-type="familyday">
         <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
-        <div class="portfolio-card-meta"><div class="portfolio-card-type">Family Day</div><div class="portfolio-card-name">Staff Appreciation Day</div><div class="portfolio-card-detail">Outdoor event · Singapore</div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Family Day</div>
+          <div class="portfolio-card-name">Morrison Express Family Day</div>
+          <div class="portfolio-card-detail">Logistics sector · Singapore</div>
+          <div class="portfolio-card-year">2025</div>
+        </div>
       </div>
+
+      <div class="portfolio-card" data-type="awards">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Awards Ceremony</div>
+          <div class="portfolio-card-name">MWR E&amp;I Hero Awards</div>
+          <div class="portfolio-card-detail">Engineering sector · Singapore</div>
+          <div class="portfolio-card-year">2024 – 2025</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Dinner &amp; Dance</div>
+          <div class="portfolio-card-name">MOE Dinner &amp; Dance</div>
+          <div class="portfolio-card-detail">Government sector · Singapore</div>
+          <div class="portfolio-card-year">2024</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="activation">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Brand Activation</div>
+          <div class="portfolio-card-name">DBS Paylah! Roadshow</div>
+          <div class="portfolio-card-detail">Financial services · Singapore</div>
+          <div class="portfolio-card-year">2023</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="awards">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Groundbreaking Ceremony</div>
+          <div class="portfolio-card-name">SAESL Groundbreaking Ceremony</div>
+          <div class="portfolio-card-detail">Aerospace &amp; Engineering · Singapore</div>
+          <div class="portfolio-card-year">2025</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="familyday">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Family Day</div>
+          <div class="portfolio-card-name">Hong Leong Club Family Day</div>
+          <div class="portfolio-card-detail">Finance sector · Singapore</div>
+          <div class="portfolio-card-year">2024</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Dinner &amp; Dance</div>
+          <div class="portfolio-card-name">Toyota Motor Asia D&amp;D</div>
+          <div class="portfolio-card-detail">Automotive · Singapore</div>
+          <div class="portfolio-card-year">2025</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="conference">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Company Townhall</div>
+          <div class="portfolio-card-name">Aibel Townhall</div>
+          <div class="portfolio-card-detail">Oil &amp; Gas sector · Singapore</div>
+          <div class="portfolio-card-year">2024</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Dinner &amp; Dance</div>
+          <div class="portfolio-card-name">KKH Dinner &amp; Dance</div>
+          <div class="portfolio-card-detail">Healthcare · Singapore</div>
+          <div class="portfolio-card-year">2025</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="familyday">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Teambuilding</div>
+          <div class="portfolio-card-name">NUH DDI Teambuilding</div>
+          <div class="portfolio-card-detail">Healthcare · Singapore</div>
+          <div class="portfolio-card-year">2024 – 2025</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="activation">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Brand Activation</div>
+          <div class="portfolio-card-name">M1 Carnival</div>
+          <div class="portfolio-card-detail">Telco · Singapore</div>
+          <div class="portfolio-card-year">2024</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="conference">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Partners Summit</div>
+          <div class="portfolio-card-name">GrabGifts Certified Partners Summit</div>
+          <div class="portfolio-card-detail">Tech sector · Singapore</div>
+          <div class="portfolio-card-year">2023</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Dinner &amp; Dance</div>
+          <div class="portfolio-card-name">KTPH &amp; YCH D&amp;D</div>
+          <div class="portfolio-card-detail">Healthcare · Singapore</div>
+          <div class="portfolio-card-year">2025</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="awards">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Anniversary Dinner</div>
+          <div class="portfolio-card-name">Alexandra Hospital Townhall</div>
+          <div class="portfolio-card-detail">Healthcare · Singapore</div>
+          <div class="portfolio-card-year">2025</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Anniversary Celebration</div>
+          <div class="portfolio-card-name">EBARA 40th Anniversary</div>
+          <div class="portfolio-card-detail">Industrial equipment · Singapore</div>
+          <div class="portfolio-card-year">2023</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Dinner &amp; Dance</div>
+          <div class="portfolio-card-name">Capitol Kempinski D&amp;D</div>
+          <div class="portfolio-card-detail">Hospitality · Singapore</div>
+          <div class="portfolio-card-year">2022 – 2024</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Dinner &amp; Dance</div>
+          <div class="portfolio-card-name">Entegris D&amp;D</div>
+          <div class="portfolio-card-detail">Semiconductor · Singapore</div>
+          <div class="portfolio-card-year">2023 – 2024</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="awards">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Awards &amp; Recognition</div>
+          <div class="portfolio-card-name">SingHealth Allied Health Day</div>
+          <div class="portfolio-card-detail">Healthcare · Singapore</div>
+          <div class="portfolio-card-year">2024 – 2025</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="familyday">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Family Day</div>
+          <div class="portfolio-card-name">Wood Group Family Day</div>
+          <div class="portfolio-card-detail">Energy sector · Singapore</div>
+          <div class="portfolio-card-year">2024</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="rallies">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Rallies™ Activation</div>
+          <div class="portfolio-card-name">ACUVUE × Rallies 1.0</div>
+          <div class="portfolio-card-detail">5.2M+ reach · 278 players · +26 NPS</div>
+          <div class="portfolio-card-year">2024</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Dinner &amp; Dance</div>
+          <div class="portfolio-card-name">SNEC 35th Annual D&amp;D</div>
+          <div class="portfolio-card-detail">Healthcare · Singapore</div>
+          <div class="portfolio-card-year">2025</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="activation">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">KOL Event</div>
+          <div class="portfolio-card-name">Shopee KOL Event</div>
+          <div class="portfolio-card-detail">E-commerce · Singapore</div>
+          <div class="portfolio-card-year">2025</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="conference">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Networking Event</div>
+          <div class="portfolio-card-name">Elitez × e2i Networking Event</div>
+          <div class="portfolio-card-detail">Workforce development · Singapore</div>
+          <div class="portfolio-card-year">2025 – 2026</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Dinner &amp; Dance</div>
+          <div class="portfolio-card-name">HMM Anniversary Celebration</div>
+          <div class="portfolio-card-detail">Shipping &amp; Logistics · Singapore</div>
+          <div class="portfolio-card-year">2024 – 2025</div>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-type="familyday">
+        <div class="portfolio-card-img"><div class="port-placeholder" data-lbl="Photo coming soon"></div></div>
+        <div class="portfolio-card-meta">
+          <div class="portfolio-card-type">Teambuilding</div>
+          <div class="portfolio-card-name">Toyota Motor Asia Teambuilding</div>
+          <div class="portfolio-card-detail">Automotive · Singapore</div>
+          <div class="portfolio-card-year">2026</div>
+        </div>
+      </div>
+
     </div>
   </section>
+
+  <!-- SECTOR TAGS -->
+  <div class="sector-strip">
+    <div class="sector-strip-inner">
+      <div class="sector-strip-title">Industries we've served</div>
+      <div class="sector-tags">
+        <span class="sector-tag">Government &amp; Defence</span>
+        <span class="sector-tag">Healthcare</span>
+        <span class="sector-tag">Education</span>
+        <span class="sector-tag">Technology</span>
+        <span class="sector-tag">Finance &amp; Insurance</span>
+        <span class="sector-tag">Luxury &amp; Hospitality</span>
+        <span class="sector-tag">Automotive</span>
+        <span class="sector-tag">Logistics &amp; Shipping</span>
+        <span class="sector-tag">Semiconductor</span>
+        <span class="sector-tag">Energy &amp; Engineering</span>
+        <span class="sector-tag">FMCG &amp; Retail</span>
+        <span class="sector-tag">Aerospace</span>
+        <span class="sector-tag">Telco</span>
+        <span class="sector-tag">E-Commerce</span>
+      </div>
+    </div>
+  </div>
 
   <section class="cta-section" data-ghost="WORK">
     <div class="cta-inner reveal">
@@ -306,5 +681,25 @@
   </footer>
 
   <script src="../assets/js/main.js"></script>
+  <script>
+    // Portfolio filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.portfolio-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        cards.forEach(card => {
+          if (filter === 'all' || card.dataset.type === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
