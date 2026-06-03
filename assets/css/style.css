@@ -444,11 +444,36 @@ section { padding: var(--pad-sect) var(--pad-x); }
 .card {
   background: var(--navy);
   border: 1px solid var(--border);
-  transition: border-color 0.35s, transform 0.35s;
+  transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
 }
 .card:hover {
   border-color: var(--gold-border);
   transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.5), 0 0 0 1px var(--gold-border);
+}
+
+/* ─── TOAST NOTIFICATION ────────────────────────────── */
+#ee-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--navy);
+  border: 1px solid var(--gold-border);
+  color: var(--cream);
+  font-size: 13px;
+  font-weight: 400;
+  padding: 14px 28px;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  white-space: nowrap;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+#ee-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* ─── SCROLL REVEAL ──────────────────────────────────── */
