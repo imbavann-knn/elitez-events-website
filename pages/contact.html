@@ -301,7 +301,14 @@
       </div>
 
       <div class="reveal" data-d="1">
-        <form class="contact-form" name="enquiry" netlify>
+        <form class="contact-form" id="enquiry-form" action="https://formsubmit.co/fmcg@elitez.asia" method="POST">
+          <!-- Formsubmit config -->
+          <input type="hidden" name="_replyto"   id="fs-replyto">
+          <input type="hidden" name="_subject"   id="fs-subject">
+          <input type="hidden" name="_next"      value="https://events.elitez.ai/pages/contact?sent=1">
+          <input type="hidden" name="_captcha"   value="false">
+          <input type="hidden" name="_template"  value="table">
+
           <div class="form-title">Send us an enquiry</div>
           <p class="form-subtitle">Fill in as much or as little as you know at this stage. We'll follow up with questions.</p>
 
@@ -330,26 +337,26 @@
           <div class="form-row">
             <div class="form-group">
               <label for="event-type">Event Type *</label>
-              <select id="event-type" name="event-type" required>
+              <select id="event-type" name="Event Type" required>
                 <option value="" disabled selected>Select event type</option>
-                <option value="dd">Corporate Dinner &amp; Dance</option>
-                <option value="awards">Awards Ceremony</option>
-                <option value="familyday">Family Day</option>
-                <option value="conference">Conference / Seminar</option>
-                <option value="rallies">Rallies™</option>
-                <option value="teambuilding">Team Building</option>
-                <option value="other">Other / Not sure yet</option>
+                <option value="Corporate Dinner &amp; Dance">Corporate Dinner &amp; Dance</option>
+                <option value="Awards Ceremony">Awards Ceremony</option>
+                <option value="Family Day">Family Day</option>
+                <option value="Conference / Seminar">Conference / Seminar</option>
+                <option value="Rallies™">Rallies™</option>
+                <option value="Team Building">Team Building</option>
+                <option value="Other / Not sure yet">Other / Not sure yet</option>
               </select>
             </div>
             <div class="form-group">
               <label for="pax">Estimated Guest Count</label>
-              <select id="pax" name="pax">
+              <select id="pax" name="Guest Count">
                 <option value="" disabled selected>Approximate size</option>
-                <option value="under100">Under 100 pax</option>
-                <option value="100-300">100 – 300 pax</option>
-                <option value="300-600">300 – 600 pax</option>
-                <option value="600-1000">600 – 1,000 pax</option>
-                <option value="1000plus">1,000+ pax</option>
+                <option value="Under 100 pax">Under 100 pax</option>
+                <option value="100 – 300 pax">100 – 300 pax</option>
+                <option value="300 – 600 pax">300 – 600 pax</option>
+                <option value="600 – 1,000 pax">600 – 1,000 pax</option>
+                <option value="1,000+ pax">1,000+ pax</option>
               </select>
             </div>
           </div>
@@ -357,17 +364,17 @@
           <div class="form-row">
             <div class="form-group">
               <label for="date">Preferred Event Date</label>
-              <input type="date" id="date" name="date" />
+              <input type="date" id="date" name="Preferred Date" />
             </div>
             <div class="form-group">
               <label for="venue">Venue (if known)</label>
-              <input type="text" id="venue" name="venue" placeholder="Venue or preferred area" />
+              <input type="text" id="venue" name="Venue" placeholder="Venue or preferred area" />
             </div>
           </div>
 
           <div class="form-group">
             <label for="message">Tell Us About Your Event</label>
-            <textarea id="message" name="message" placeholder="Theme ideas, past event history, key requirements, anything that helps us understand what you need..."></textarea>
+            <textarea id="message" name="Message" placeholder="Theme ideas, past event history, key requirements, anything that helps us understand what you need..."></textarea>
           </div>
 
           <button type="submit" class="form-submit">Send Enquiry</button>
