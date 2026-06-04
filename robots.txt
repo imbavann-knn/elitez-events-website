@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://events.elitez.ai/sitemap.xml
