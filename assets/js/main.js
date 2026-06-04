@@ -77,27 +77,34 @@ if (toggle && navLinks) {
 })();
 
 /* ── Contact form ──────────────────────────────────── */
-const form = document.querySelector('.contact-form');
+const form = document.querySelector('#enquiry-form');
 if (form) {
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const btn = form.querySelector('[type="submit"]');
-    const original = btn.textContent;
-    btn.textContent = 'Sending…';
-    btn.disabled = true;
+  // Show success toast if redirected back after submission
+  if (window.location.search.includes('sent=1')) {
+    toast('✓ Enquiry sent — we\'ll be in touch within 24 hours.', 5000);
+    window.history.replaceState({}, '', window.location.pathname);
+  }
 
-    // Simulate send (Netlify handles actual submission)
-    setTimeout(() => {
-      btn.textContent = '✓ Enquiry Sent';
-      btn.style.background = '#3D7A5A';
-      toast('Enquiry sent — we\'ll be in touch within 24 hours.');
-      setTimeout(() => {
-        btn.textContent = original;
-        btn.style.background = '';
-        btn.disabled = false;
-        form.reset();
-      }, 4000);
-    }, 800);
+  const eventTypeLabels = {
+    'Corporate Dinner & Dance': 'Corporate Dinner & Dance',
+    'Awards Ceremony':          'Awards Ceremony',
+    'Family Day':               'Family Day',
+    'Conference / Seminar':     'Conference / Seminar',
+    'Rallies™':                 'Rallies™',
+    'Team Building':            'Team Building',
+    'Other / Not sure yet':     'Other'
+  };
+
+  form.addEventListener('submit', () => {
+    const company   = (form.querySelector('[name="company"]').value   || '').trim();
+    const eventVal  = form.querySelector('[name="Event Type"]').value || '';
+    const eventLabel = eventTypeLabels[eventVal] || eventVal || 'Event Enquiry';
+    const email     = form.querySelector('[name="email"]').value || '';
+
+    // Set dynamic subject and reply-to for Formsubmit
+    document.getElementById('fs-subject').value =
+      'New EVENTS enquiry! ' + company + ' — ' + eventLabel;
+    document.getElementById('fs-replyto').value = email;
   });
 }
 
