@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Admin — Elitez Events</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,600;1,6..96,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --midnight: #080C18; --navy: #0F1526; --gold: #C9923A;
+      --gold-light: #E0AC56; --gold-dim: rgba(201,146,58,0.12);
+      --gold-border: rgba(201,146,58,0.30); --cream: #F0EBE0;
+      --steel: #8A8FA8; --border: #1E2540; --danger: #C0392B;
+      --success: #27AE60;
+      --font-display: 'Bodoni Moda', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--midnight); color: var(--cream); font-family: var(--font-body); font-size: 14px; line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Login ── */
+    #login-screen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(ellipse 60% 60% at 50% 40%, rgba(201,146,58,0.06) 0%, transparent 70%);
+    }
+    .login-box {
+      background: var(--navy); border: 1px solid var(--border);
+      padding: 48px; width: 100%; max-width: 400px;
+    }
+    .login-logo { font-family: var(--font-display); font-size: 22px; color: var(--cream); margin-bottom: 6px; }
+    .login-logo em { font-style: italic; color: var(--gold); }
+    .login-sub { font-size: 12px; color: var(--steel); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 40px; }
+    .field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+    .field label { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--steel); }
+    .field input {
+      background: var(--midnight); border: 1px solid var(--border); color: var(--cream);
+      font-family: var(--font-body); font-size: 14px; padding: 12px 16px; outline: none;
+      transition: border-color 0.25s;
+    }
+    .field input:focus { border-color: var(--gold); }
+    .btn-login {
+      width: 100%; background: var(--gold); color: var(--midnight);
+      border: none; padding: 14px; font-family: var(--font-body);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; cursor: pointer; transition: background 0.25s;
+      margin-top: 8px;
+    }
+    .btn-login:hover { background: var(--gold-light); }
+    #login-error { color: #e74c3c; font-size: 12px; margin-top: 12px; display: none; }
+
+    /* ── App shell ── */
+    #app { display: none; }
+    .top-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 60px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; background: rgba(8,12,24,0.96);
+      backdrop-filter: blur(16px); border-bottom: 1px solid var(--border);
+    }
+    .top-bar-logo { font-family: var(--font-display); font-size: 16px; }
+    .top-bar-logo em { color: var(--gold); font-style: italic; }
+    .top-bar-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-left: 12px; }
+    .top-bar-right { display: flex; align-items: center; gap: 20px; }
+    .btn-signout {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--steel); background: none; border: 1px solid var(--border);
+      padding: 7px 16px; cursor: pointer; transition: all 0.25s;
+    }
+    .btn-signout:hover { border-color: var(--gold-border); color: var(--cream); }
+
+    .main { padding: 80px 32px 48px; max-width: 1200px; margin: 0 auto; }
+
+    /* ── Stats row ── */
+    .stats-row { display: flex; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 32px; }
+    .stat-box { flex: 1; background: var(--navy); padding: 20px 24px; }
+    .stat-box-num { font-family: var(--font-display); font-size: 32px; font-weight: 600; color: var(--gold); line-height: 1; }
+    .stat-box-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--steel); margin-top: 4px; }
+
+    /* ── Action bar ── */
+    .action-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+    .action-bar-title { font-family: var(--font-display); font-size: 22px; }
+    .btn-add {
+      background: var(--gold); color: var(--midnight); border: none;
+      padding: 11px 28px; font-family: var(--font-body); font-size: 11px;
+      font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.25s, box-shadow 0.25s;
+    }
+    .btn-add:hover { background: var(--gold-light); box-shadow: 0 6px 20px rgba(201,146,58,0.3); }
+
+    /* Filter chips */
+    .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .filter-chip {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--steel); border: 1px solid var(--border); background: none;
+      padding: 6px 14px; cursor: pointer; transition: all 0.2s;
+    }
+    .filter-chip.active, .filter-chip:hover { border-color: var(--gold); color: var(--cream); background: var(--gold-dim); }
+
+    /* ── Portfolio table ── */
+    .port-table { width: 100%; border-collapse: collapse; }
+    .port-table th {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--steel); border-bottom: 1px solid var(--border); padding: 10px 14px; text-align: left;
+    }
+    .port-table td { padding: 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .port-table tr:hover td { background: rgba(201,146,58,0.03); }
+    .port-thumb {
+      width: 64px; height: 48px; object-fit: cover; border: 1px solid var(--border);
+      background: var(--midnight); display: block;
+    }
+    .port-thumb-placeholder { width: 64px; height: 48px; background: var(--midnight); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+    .port-thumb-placeholder span { font-size: 18px; }
+    .tag {
+      display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 3px 9px; border-radius: 2px;
+    }
+    .tag-dd         { background: rgba(26,20,40,0.8); color: #a78bfa; border: 1px solid rgba(167,139,250,0.3); }
+    .tag-awards     { background: rgba(12,26,20,0.8); color: #6ee7b7; border: 1px solid rgba(110,231,183,0.3); }
+    .tag-familyday  { background: rgba(14,24,32,0.8); color: #7dd3fc; border: 1px solid rgba(125,211,252,0.3); }
+    .tag-conference { background: rgba(10,20,40,0.8); color: #c4b5fd; border: 1px solid rgba(196,181,253,0.3); }
+    .tag-activation { background: rgba(28,18,8,0.8);  color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+    .tag-rallies    { background: rgba(26,12,20,0.8); color: #f9a8d4; border: 1px solid rgba(249,168,212,0.3); }
+    .btn-edit, .btn-delete {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      border: none; padding: 6px 14px; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-edit   { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold-border); }
+    .btn-edit:hover { background: var(--gold); color: var(--midnight); }
+    .btn-delete { background: rgba(192,57,43,0.1); color: #e74c3c; border: 1px solid rgba(192,57,43,0.3); margin-left: 6px; }
+    .btn-delete:hover { background: rgba(192,57,43,0.25); }
+
+    /* ── Modal ── */
+    .modal-bg {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
+      display: none; align-items: center; justify-content: center; padding: 24px;
+    }
+    .modal-bg.open { display: flex; }
+    .modal {
+      background: var(--navy); border: 1px solid var(--border);
+      width: 100%; max-width: 640px; max-height: 90vh; overflow-y: auto;
+      padding: 40px;
+    }
+    .modal-title { font-family: var(--font-display); font-size: 24px; margin-bottom: 28px; }
+    .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .modal-grid .full { grid-column: 1 / -1; }
+    .modal .field input, .modal .field select, .modal .field textarea {
+      background: var(--midnight); border: 1px solid var(--border); color: var(--cream);
+      font-family: var(--font-body); font-size: 14px; padding: 11px 14px; outline: none;
+      width: 100%; transition: border-color 0.25s; appearance: none;
+    }
+    .modal .field select {
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8FA8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer;
+    }
+    .modal .field select option { background: var(--midnight); }
+    .modal .field textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+    .modal .field input:focus, .modal .field select:focus, .modal .field textarea:focus { border-color: var(--gold); }
+
+    /* Image upload */
+    .upload-zone {
+      border: 1px dashed var(--border); background: var(--midnight);
+      padding: 24px; text-align: center; cursor: pointer; transition: border-color 0.25s;
+      position: relative;
+    }
+    .upload-zone:hover { border-color: var(--gold-border); }
+    .upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .upload-zone-icon { font-size: 28px; margin-bottom: 8px; }
+    .upload-zone-text { font-size: 12px; color: var(--steel); }
+    .upload-zone-text strong { color: var(--gold); }
+    .upload-preview { margin-top: 12px; max-height: 140px; max-width: 100%; object-fit: contain; border: 1px solid var(--border); display: none; }
+    .upload-progress { height: 3px; background: var(--border); margin-top: 8px; display: none; }
+    .upload-progress-bar { height: 100%; background: var(--gold); width: 0%; transition: width 0.3s; }
+    .current-image { margin-top: 10px; }
+    .current-image img { max-height: 80px; border: 1px solid var(--border); }
+    .current-image-label { font-size: 10px; color: var(--steel); margin-bottom: 4px; }
+
+    .modal-actions { display: flex; gap: 12px; margin-top: 28px; justify-content: flex-end; }
+    .btn-cancel { background: none; border: 1px solid var(--border); color: var(--steel); padding: 11px 24px; font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+    .btn-cancel:hover { border-color: var(--gold-border); color: var(--cream); }
+    .btn-save { background: var(--gold); color: var(--midnight); border: none; padding: 11px 32px; font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: background 0.25s; }
+    .btn-save:hover { background: var(--gold-light); }
+    .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed; bottom: 28px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--navy); border: 1px solid var(--gold-border);
+      color: var(--cream); font-size: 13px; padding: 13px 28px;
+      z-index: 9999; opacity: 0; pointer-events: none; transition: all 0.3s; white-space: nowrap;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Empty state */
+    .empty { text-align: center; padding: 64px; color: var(--steel); }
+    .empty-icon { font-size: 48px; margin-bottom: 16px; }
+
+    @media (max-width: 768px) {
+      .main { padding: 76px 16px 48px; }
+      .modal { padding: 28px 20px; }
+      .modal-grid { grid-template-columns: 1fr; }
+      .stats-row { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ─────────────────────────────────────────── -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Elitez <em>Events</em></div>
+    <div class="login-sub">Portfolio Admin</div>
+    <div class="field">
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" placeholder="your@email.com" />
+    </div>
+    <div class="field">
+      <label for="login-password">Password</label>
+      <input type="password" id="login-password" placeholder="••••••••" />
+    </div>
+    <button class="btn-login" id="btn-login">Sign In</button>
+    <div id="login-error"></div>
+  </div>
+</div>
+
+<!-- ── APP ───────────────────────────────────────────── -->
+<div id="app">
+  <div class="top-bar">
+    <div style="display:flex;align-items:center;gap:4px;">
+      <div class="top-bar-logo">Elitez <em>Events</em></div>
+      <div class="top-bar-tag">Admin</div>
+    </div>
+    <div class="top-bar-right">
+      <span id="user-email" style="font-size:12px;color:var(--steel);"></span>
+      <button class="btn-signout" id="btn-signout">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- Stats -->
+    <div class="stats-row" id="stats-row">
+      <div class="stat-box"><div class="stat-box-num" id="stat-total">–</div><div class="stat-box-lbl">Total Entries</div></div>
+      <div class="stat-box"><div class="stat-box-num" id="stat-with-photo">–</div><div class="stat-box-lbl">With Photos</div></div>
+      <div class="stat-box"><div class="stat-box-num" id="stat-no-photo">–</div><div class="stat-box-lbl">Awaiting Photos</div></div>
+    </div>
+
+    <!-- Action bar -->
+    <div class="action-bar">
+      <div class="action-bar-title">Portfolio Entries</div>
+      <button class="btn-add" id="btn-add">+ Add Entry</button>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-row">
+      <button class="filter-chip active" data-filter="all">All</button>
+      <button class="filter-chip" data-filter="dd">D&amp;D</button>
+      <button class="filter-chip" data-filter="awards">Awards</button>
+      <button class="filter-chip" data-filter="familyday">Family Day</button>
+      <button class="filter-chip" data-filter="conference">Conference</button>
+      <button class="filter-chip" data-filter="activation">Activation</button>
+      <button class="filter-chip" data-filter="rallies">Rallies™</button>
+    </div>
+
+    <!-- Table -->
+    <table class="port-table" id="port-table">
+      <thead>
+        <tr>
+          <th>Photo</th>
+          <th>Client</th>
+          <th>Type</th>
+          <th>Year</th>
+          <th>Venue</th>
+          <th>Pax</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="port-tbody"></tbody>
+    </table>
+    <div class="empty" id="empty-state" style="display:none;">
+      <div class="empty-icon">📋</div>
+      <div>No entries found</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL ─────────────────────────────────────────── -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <div class="modal-title" id="modal-title">Add Portfolio Entry</div>
+    <div class="modal-grid">
+      <div class="field full">
+        <label>Client / Event Name *</label>
+        <input type="text" id="f-client" placeholder="e.g. DSTA Annual D&D" required />
+      </div>
+      <div class="field">
+        <label>Event Type *</label>
+        <select id="f-type">
+          <option value="dd">Dinner &amp; Dance</option>
+          <option value="awards">Awards Ceremony</option>
+          <option value="familyday">Family Day / Teambuilding</option>
+          <option value="conference">Conference / Townhall</option>
+          <option value="activation">Brand Activation</option>
+          <option value="rallies">Rallies™</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Display Label</label>
+        <input type="text" id="f-label" placeholder="e.g. Dinner &amp; Dance" />
+      </div>
+      <div class="field">
+        <label>Year</label>
+        <input type="text" id="f-year" placeholder="e.g. 2025" />
+      </div>
+      <div class="field">
+        <label>Venue</label>
+        <input type="text" id="f-venue" placeholder="e.g. Marina Bay Sands" />
+      </div>
+      <div class="field">
+        <label>Guest Count</label>
+        <input type="text" id="f-pax" placeholder="e.g. 1,200 pax" />
+      </div>
+      <div class="field full">
+        <label>Description</label>
+        <textarea id="f-desc" placeholder="Brief description of the event..."></textarea>
+      </div>
+      <div class="field full">
+        <label>Event Photo</label>
+        <div class="upload-zone" id="upload-zone">
+          <input type="file" id="f-image" accept="image/*" />
+          <div class="upload-zone-icon">📸</div>
+          <div class="upload-zone-text">Drop photo here or <strong>click to browse</strong></div>
+          <div class="upload-zone-text" style="margin-top:4px;font-size:11px;">JPG, PNG, WebP — max 5MB</div>
+        </div>
+        <img class="upload-preview" id="upload-preview" alt="Preview" />
+        <div class="upload-progress" id="upload-progress"><div class="upload-progress-bar" id="upload-progress-bar"></div></div>
+        <div class="current-image" id="current-image" style="display:none;">
+          <div class="current-image-label">Current photo:</div>
+          <img id="current-image-img" alt="Current" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="btn-cancel">Cancel</button>
+      <button class="btn-save" id="btn-save">Save Entry</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const SUPABASE_URL  = 'https://rqqgrnttbelsxpmfikaa.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxcWdybnR0YmVsc3hwbWZpa2FhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3ODYzNzIsImV4cCI6MjA5NjM2MjM3Mn0.cfSwq0ie2fsiwOgYYGgpS5WTj_eCZkYXJFntDNgbn94';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+const TYPE_LABELS = {
+  dd:'Dinner & Dance', awards:'Awards', familyday:'Family Day',
+  conference:'Conference', activation:'Brand Activation', rallies:'Rallies™'
+};
+
+// ── State ──────────────────────────────────────────────
+let allEntries = [];
+let currentFilter = 'all';
+let editingId = null;
+let newImageFile = null;
+
+// ── Toast ──────────────────────────────────────────────
+function toast(msg, duration = 2800) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), duration);
+}
+
+// ── Auth ──────────────────────────────────────────────
+sb.auth.onAuthStateChange((event, session) => {
+  if (session) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('user-email').textContent = session.user.email;
+    loadPortfolio();
+  } else {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('app').style.display = 'none';
+  }
+});
+
+document.getElementById('btn-login').addEventListener('click', async () => {
+  const email    = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errEl    = document.getElementById('login-error');
+  errEl.style.display = 'none';
+  const btn = document.getElementById('btn-login');
+  btn.textContent = 'Signing in…'; btn.disabled = true;
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  btn.textContent = 'Sign In'; btn.disabled = false;
+  if (error) { errEl.textContent = error.message; errEl.style.display = 'block'; }
+});
+
+document.getElementById('login-password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('btn-login').click();
+});
+
+document.getElementById('btn-signout').addEventListener('click', () => sb.auth.signOut());
+
+// ── Load data ─────────────────────────────────────────
+async function loadPortfolio() {
+  const { data, error } = await sb.from('portfolio').select('*').order('display_order').order('created_at');
+  if (error) { toast('Error loading data'); return; }
+  allEntries = data || [];
+  updateStats();
+  renderTable(currentFilter);
+}
+
+function updateStats() {
+  const withPhoto = allEntries.filter(e => e.image_url).length;
+  document.getElementById('stat-total').textContent    = allEntries.length;
+  document.getElementById('stat-with-photo').textContent = withPhoto;
+  document.getElementById('stat-no-photo').textContent  = allEntries.length - withPhoto;
+}
+
+// ── Render table ──────────────────────────────────────
+function renderTable(filter) {
+  const entries = filter === 'all' ? allEntries : allEntries.filter(e => e.event_type === filter);
+  const tbody   = document.getElementById('port-tbody');
+  const empty   = document.getElementById('empty-state');
+  tbody.innerHTML = '';
+  if (!entries.length) { empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  entries.forEach(e => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>
+        ${e.image_url
+          ? `<img class="port-thumb" src="${e.image_url}" alt="${e.client_name}" />`
+          : `<div class="port-thumb-placeholder"><span>📷</span></div>`}
+      </td>
+      <td>
+        <div style="font-weight:500;color:var(--cream);">${e.client_name}</div>
+        ${e.description ? `<div style="font-size:12px;color:var(--steel);margin-top:3px;">${e.description.slice(0,60)}${e.description.length>60?'…':''}</div>` : ''}
+      </td>
+      <td><span class="tag tag-${e.event_type}">${TYPE_LABELS[e.event_type]||e.event_type}</span></td>
+      <td style="color:var(--steel);">${e.year||'–'}</td>
+      <td style="color:var(--steel);font-size:13px;">${e.venue||'–'}</td>
+      <td style="color:var(--steel);">${e.pax||'–'}</td>
+      <td>
+        <button class="btn-edit"   onclick="openEdit('${e.id}')">Edit</button>
+        <button class="btn-delete" onclick="deleteEntry('${e.id}','${e.client_name.replace(/'/g,"\\'")}')">Delete</button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// ── Filters ───────────────────────────────────────────
+document.querySelectorAll('.filter-chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    renderTable(currentFilter);
+  });
+});
+
+// ── Modal open/close ──────────────────────────────────
+function openAdd() {
+  editingId = null; newImageFile = null;
+  document.getElementById('modal-title').textContent = 'Add Portfolio Entry';
+  document.getElementById('f-client').value = '';
+  document.getElementById('f-type').value   = 'dd';
+  document.getElementById('f-label').value  = '';
+  document.getElementById('f-year').value   = '';
+  document.getElementById('f-venue').value  = '';
+  document.getElementById('f-pax').value    = '';
+  document.getElementById('f-desc').value   = '';
+  document.getElementById('f-image').value  = '';
+  document.getElementById('upload-preview').style.display = 'none';
+  document.getElementById('current-image').style.display = 'none';
+  document.getElementById('modal-bg').classList.add('open');
+}
+
+function openEdit(id) {
+  const e = allEntries.find(x => x.id === id);
+  if (!e) return;
+  editingId = id; newImageFile = null;
+  document.getElementById('modal-title').textContent = 'Edit Entry';
+  document.getElementById('f-client').value = e.client_name || '';
+  document.getElementById('f-type').value   = e.event_type  || 'dd';
+  document.getElementById('f-label').value  = e.event_label || '';
+  document.getElementById('f-year').value   = e.year        || '';
+  document.getElementById('f-venue').value  = e.venue       || '';
+  document.getElementById('f-pax').value    = e.pax         || '';
+  document.getElementById('f-desc').value   = e.description || '';
+  document.getElementById('f-image').value  = '';
+  document.getElementById('upload-preview').style.display = 'none';
+  const curImg = document.getElementById('current-image');
+  if (e.image_url) {
+    curImg.style.display = 'block';
+    document.getElementById('current-image-img').src = e.image_url;
+  } else {
+    curImg.style.display = 'none';
+  }
+  document.getElementById('modal-bg').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-bg').classList.remove('open');
+  newImageFile = null;
+}
+
+document.getElementById('btn-add').addEventListener('click', openAdd);
+document.getElementById('btn-cancel').addEventListener('click', closeModal);
+document.getElementById('modal-bg').addEventListener('click', e => { if (e.target === document.getElementById('modal-bg')) closeModal(); });
+
+// ── Image preview ─────────────────────────────────────
+document.getElementById('f-image').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { toast('Image too large — max 5MB'); e.target.value = ''; return; }
+  newImageFile = file;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const preview = document.getElementById('upload-preview');
+    preview.src = ev.target.result;
+    preview.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+});
+
+// ── Upload image to Supabase Storage ─────────────────
+async function uploadImage(file, entryId) {
+  const ext  = file.name.split('.').pop();
+  const path = `${entryId}.${ext}`;
+  const prog = document.getElementById('upload-progress');
+  const bar  = document.getElementById('upload-progress-bar');
+  prog.style.display = 'block'; bar.style.width = '30%';
+
+  const { error } = await sb.storage.from('portfolio-images').upload(path, file, { upsert: true });
+  bar.style.width = '100%';
+  setTimeout(() => { prog.style.display = 'none'; bar.style.width = '0%'; }, 600);
+  if (error) throw error;
+
+  const { data } = sb.storage.from('portfolio-images').getPublicUrl(path);
+  return data.publicUrl + '?t=' + Date.now(); // cache-bust
+}
+
+// ── Save (create / update) ────────────────────────────
+document.getElementById('btn-save').addEventListener('click', async () => {
+  const client = document.getElementById('f-client').value.trim();
+  if (!client) { toast('Client name is required'); return; }
+
+  const btn = document.getElementById('btn-save');
+  btn.textContent = 'Saving…'; btn.disabled = true;
+
+  try {
+    const payload = {
+      client_name:   client,
+      event_type:    document.getElementById('f-type').value,
+      event_label:   document.getElementById('f-label').value.trim() || TYPE_LABELS[document.getElementById('f-type').value],
+      year:          document.getElementById('f-year').value.trim(),
+      venue:         document.getElementById('f-venue').value.trim(),
+      pax:           document.getElementById('f-pax').value.trim(),
+      description:   document.getElementById('f-desc').value.trim(),
+    };
+
+    let savedId = editingId;
+
+    if (!editingId) {
+      // Insert first to get ID for image path
+      const { data, error } = await sb.from('portfolio').insert(payload).select().single();
+      if (error) throw error;
+      savedId = data.id;
+    }
+
+    // Upload image if selected
+    if (newImageFile) {
+      payload.image_url = await uploadImage(newImageFile, savedId);
+    }
+
+    if (!editingId) {
+      // Update with image URL
+      if (payload.image_url) {
+        await sb.from('portfolio').update({ image_url: payload.image_url }).eq('id', savedId);
+      }
+    } else {
+      const { error } = await sb.from('portfolio').update(payload).eq('id', editingId);
+      if (error) throw error;
+    }
+
+    toast(editingId ? '✓ Entry updated' : '✓ Entry added');
+    closeModal();
+    await loadPortfolio();
+  } catch (err) {
+    toast('Error: ' + (err.message || 'Unknown error'));
+  } finally {
+    btn.textContent = 'Save Entry'; btn.disabled = false;
+  }
+});
+
+// ── Delete ────────────────────────────────────────────
+async function deleteEntry(id, name) {
+  if (!confirm(`Delete "${name}"?\n\nThis cannot be undone.`)) return;
+  const entry = allEntries.find(e => e.id === id);
+  const { error } = await sb.from('portfolio').delete().eq('id', id);
+  if (error) { toast('Error deleting entry'); return; }
+  // Also delete image from storage if exists
+  if (entry && entry.image_url) {
+    const path = entry.image_url.split('/portfolio-images/')[1]?.split('?')[0];
+    if (path) await sb.storage.from('portfolio-images').remove([path]);
+  }
+  toast(`✓ "${name}" deleted`);
+  await loadPortfolio();
+}
+
+// Auto-populate label when type changes
+document.getElementById('f-type').addEventListener('change', e => {
+  const lbl = document.getElementById('f-label');
+  if (!lbl.value || Object.values(TYPE_LABELS).includes(lbl.value)) {
+    lbl.value = TYPE_LABELS[e.target.value] || '';
+  }
+});
+</script>
+</body>
+</html>
