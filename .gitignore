@@ -1,7 +1,9 @@
 .vercel
 Deck/
-Deck/
 past html/
 logo/
 *.pdf
 elitez-events-final.html
+# Supabase local dev files (never commit — contains local credentials)
+.supabase/
+supabase/.temp/
