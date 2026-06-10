@@ -717,13 +717,14 @@ document.getElementById('btn-save').addEventListener('click', async () => {
 
   try {
     const payload = {
-      client_name:   client,
-      event_type:    document.getElementById('f-type').value,
-      event_label:   document.getElementById('f-label').value.trim() || TYPE_LABELS[document.getElementById('f-type').value],
-      year:          document.getElementById('f-year').value.trim(),
-      venue:         document.getElementById('f-venue').value.trim(),
-      pax:           document.getElementById('f-pax').value.trim(),
-      description:   document.getElementById('f-desc').value.trim(),
+      client_name:     client,
+      event_type:      document.getElementById('f-type').value,
+      event_label:     document.getElementById('f-label').value.trim() || TYPE_LABELS[document.getElementById('f-type').value],
+      year:            document.getElementById('f-year').value.trim(),
+      venue:           document.getElementById('f-venue').value.trim(),
+      pax:             document.getElementById('f-pax').value.trim(),
+      description:     document.getElementById('f-desc').value.trim(),
+      image_position:  currentImagePosition,
     };
 
     let savedId = editingId;
