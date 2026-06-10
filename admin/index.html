@@ -676,18 +676,14 @@ document.getElementById('btn-add').addEventListener('click', openAdd);
 document.getElementById('btn-cancel').addEventListener('click', closeModal);
 document.getElementById('modal-bg').addEventListener('click', e => { if (e.target === document.getElementById('modal-bg')) closeModal(); });
 
-// ── Image preview ─────────────────────────────────────
+// ── Image file selected → show picker ─────────────────
 document.getElementById('f-image').addEventListener('change', e => {
   const file = e.target.files[0];
   if (!file) return;
-  if (file.size > 5 * 1024 * 1024) { toast('Image too large — max 5MB'); e.target.value = ''; return; }
+  if (file.size > 10 * 1024 * 1024) { toast('Image too large — max 10MB'); e.target.value = ''; return; }
   newImageFile = file;
   const reader = new FileReader();
-  reader.onload = ev => {
-    const preview = document.getElementById('upload-preview');
-    preview.src = ev.target.result;
-    preview.style.display = 'block';
-  };
+  reader.onload = ev => initPicker(ev.target.result, 50, 50, 1.0);
   reader.readAsDataURL(file);
 });
 
