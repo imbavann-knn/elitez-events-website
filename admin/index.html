@@ -655,13 +655,16 @@ function openEdit(id) {
   document.getElementById('f-pax').value    = e.pax         || '';
   document.getElementById('f-desc').value   = e.description || '';
   document.getElementById('f-image').value  = '';
-  document.getElementById('upload-preview').style.display = 'none';
-  const curImg = document.getElementById('current-image');
+
+  // Load existing photo into picker so user can reposition without re-uploading
   if (e.image_url) {
-    curImg.style.display = 'block';
-    document.getElementById('current-image-img').src = e.image_url;
+    const pos = (e.image_position || '50% 50%').split(' ');
+    const px  = parseFloat(pos[0]) || 50;
+    const py  = parseFloat(pos[1]) || 50;
+    initPicker(e.image_url, px, py, 1.0);
+    document.getElementById('upload-zone-text').innerHTML = '✓ Photo loaded — drag frame to reposition, or click to replace';
   } else {
-    curImg.style.display = 'none';
+    hidePicker();
   }
   document.getElementById('modal-bg').classList.add('open');
 }
