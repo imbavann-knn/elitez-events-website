@@ -391,7 +391,7 @@
         card.innerHTML = `
           <div class="portfolio-card-img">
             ${entry.image_url
-              ? `<img src="${entry.image_url}" alt="${entry.client_name}" loading="lazy" />`
+              ? `<img src="${entry.image_url}" alt="${entry.client_name}" loading="lazy" style="object-position:${entry.image_position||'50% 50%'}" />`
               : `<div class="port-placeholder" data-lbl="Photo coming soon" style="background:${GRADIENTS[entry.event_type]||GRADIENTS.dd}"></div>`
             }
           </div>
