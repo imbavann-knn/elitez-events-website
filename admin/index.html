@@ -423,6 +423,112 @@ let currentFilter = 'all';
 let editingId = null;
 let newImageFile = null;
 
+// ── Image position picker state ────────────────────────
+let pickerPosX = 50, pickerPosY = 50;  // object-position percentages
+let pickerZoom  = 1.0;                 // scale multiplier (1–3)
+let pickerDragging = false;
+let pickerLastX = 0, pickerLastY = 0;
+let currentImagePosition = '50% 50%';
+
+function initPicker(url, posX, posY, zoom) {
+  pickerPosX = posX ?? 50;
+  pickerPosY = posY ?? 50;
+  pickerZoom  = zoom  ?? 1.0;
+  const img = document.getElementById('img-picker-img');
+  img.src = url;
+  document.getElementById('img-picker-wrap').style.display = 'block';
+  const zone = document.getElementById('upload-zone');
+  zone.style.borderStyle = 'solid';
+  zone.style.borderColor = 'var(--gold-border)';
+  document.getElementById('upload-zone-text').innerHTML = '✓ Photo selected — drag frame below to reposition';
+  updatePickerDisplay();
+}
+
+function updatePickerDisplay() {
+  const img = document.getElementById('img-picker-img');
+  img.style.objectPosition = `${pickerPosX}% ${pickerPosY}%`;
+  img.style.transform      = `scale(${pickerZoom})`;
+  const label = `${Math.round(pickerPosX)}% ${Math.round(pickerPosY)}%${pickerZoom > 1 ? ' · ' + pickerZoom.toFixed(1) + '×' : ''}`;
+  document.getElementById('picker-pos-label').textContent = label;
+  currentImagePosition = `${pickerPosX}% ${pickerPosY}%`;
+}
+
+function resetPicker() {
+  pickerPosX = 50; pickerPosY = 50; pickerZoom = 1.0;
+  updatePickerDisplay();
+}
+
+function hidePicker() {
+  document.getElementById('img-picker-wrap').style.display = 'none';
+  document.getElementById('upload-zone').style.borderStyle = 'dashed';
+  document.getElementById('upload-zone').style.borderColor = '';
+  document.getElementById('upload-zone-text').innerHTML = 'Drop photo here or <strong>click to browse</strong>';
+  currentImagePosition = '50% 50%';
+}
+
+// Picker drag — mouse
+(function() {
+  const frame = document.getElementById('img-picker-frame');
+
+  frame.addEventListener('mousedown', e => {
+    if (document.getElementById('img-picker-wrap').style.display === 'none') return;
+    pickerDragging = true;
+    pickerLastX = e.clientX; pickerLastY = e.clientY;
+    frame.classList.add('dragging');
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!pickerDragging) return;
+    const dx = e.clientX - pickerLastX;
+    const dy = e.clientY - pickerLastY;
+    pickerLastX = e.clientX; pickerLastY = e.clientY;
+    const fw = frame.offsetWidth, fh = frame.offsetHeight;
+    // Drag right → see more left side → posX decreases
+    pickerPosX = Math.max(0, Math.min(100, pickerPosX - (dx / fw * 100 / pickerZoom)));
+    pickerPosY = Math.max(0, Math.min(100, pickerPosY - (dy / fh * 100 / pickerZoom)));
+    updatePickerDisplay();
+  });
+
+  document.addEventListener('mouseup', () => {
+    pickerDragging = false;
+    frame.classList.remove('dragging');
+  });
+
+  // Touch support
+  frame.addEventListener('touchstart', e => {
+    if (document.getElementById('img-picker-wrap').style.display === 'none') return;
+    const t = e.touches[0];
+    pickerDragging = true;
+    pickerLastX = t.clientX; pickerLastY = t.clientY;
+    e.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('touchmove', e => {
+    if (!pickerDragging) return;
+    const t = e.touches[0];
+    const dx = t.clientX - pickerLastX, dy = t.clientY - pickerLastY;
+    pickerLastX = t.clientX; pickerLastY = t.clientY;
+    const fw = frame.offsetWidth, fh = frame.offsetHeight;
+    pickerPosX = Math.max(0, Math.min(100, pickerPosX - (dx / fw * 100 / pickerZoom)));
+    pickerPosY = Math.max(0, Math.min(100, pickerPosY - (dy / fh * 100 / pickerZoom)));
+    updatePickerDisplay();
+  }, { passive: false });
+
+  document.addEventListener('touchend', () => { pickerDragging = false; });
+
+  // Scroll to zoom
+  frame.addEventListener('wheel', e => {
+    e.preventDefault();
+    pickerZoom = Math.max(1.0, Math.min(3.0, pickerZoom + (e.deltaY < 0 ? 0.1 : -0.1)));
+    updatePickerDisplay();
+  }, { passive: false });
+})();
+
+document.getElementById('btn-zoom-in').addEventListener('click',  () => { pickerZoom = Math.min(3.0, pickerZoom + 0.2); updatePickerDisplay(); });
+document.getElementById('btn-zoom-out').addEventListener('click', () => { pickerZoom = Math.max(1.0, pickerZoom - 0.2); updatePickerDisplay(); });
+document.getElementById('btn-reset-pos').addEventListener('click', resetPicker);
+
 // ── Toast ──────────────────────────────────────────────
 function toast(msg, duration = 2800) {
   const t = document.getElementById('toast');
