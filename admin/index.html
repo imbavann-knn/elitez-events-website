@@ -374,14 +374,27 @@
         <div class="upload-zone" id="upload-zone">
           <input type="file" id="f-image" accept="image/*" />
           <div class="upload-zone-icon">📸</div>
-          <div class="upload-zone-text">Drop photo here or <strong>click to browse</strong></div>
-          <div class="upload-zone-text" style="margin-top:4px;font-size:11px;">JPG, PNG, WebP — max 5MB</div>
+          <div class="upload-zone-text" id="upload-zone-text">Drop photo here or <strong>click to browse</strong></div>
+          <div class="upload-zone-text" style="margin-top:4px;font-size:11px;">JPG, PNG, WebP — max 10MB</div>
         </div>
-        <img class="upload-preview" id="upload-preview" alt="Preview" />
         <div class="upload-progress" id="upload-progress"><div class="upload-progress-bar" id="upload-progress-bar"></div></div>
-        <div class="current-image" id="current-image" style="display:none;">
-          <div class="current-image-label">Current photo:</div>
-          <img id="current-image-img" alt="Current" />
+
+        <!-- Position picker — 4:3 frame matching portfolio cards exactly -->
+        <div class="img-picker-wrap" id="img-picker-wrap">
+          <div class="img-picker-hint">
+            <strong>Drag</strong> to reposition · <strong>Scroll</strong> or use +/− to zoom · Frame is exactly how it appears on the portfolio page
+          </div>
+          <div class="img-picker-frame" id="img-picker-frame">
+            <img id="img-picker-img" draggable="false" alt="Preview" />
+          </div>
+          <div class="img-picker-controls">
+            <div class="img-picker-zoom">
+              <button class="btn-zoom" id="btn-zoom-out" type="button" title="Zoom out">−</button>
+              <span class="picker-pos-label" id="picker-pos-label">50% 50%</span>
+              <button class="btn-zoom" id="btn-zoom-in" type="button" title="Zoom in">+</button>
+            </div>
+            <button class="btn-reset-pos" id="btn-reset-pos" type="button">↺ Reset</button>
+          </div>
         </div>
       </div>
     </div>
