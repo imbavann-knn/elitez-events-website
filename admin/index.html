@@ -178,6 +178,48 @@
     .current-image img { max-height: 80px; border: 1px solid var(--border); }
     .current-image-label { font-size: 10px; color: var(--steel); margin-bottom: 4px; }
 
+    /* ── Image position picker ── */
+    .img-picker-wrap { display: none; margin-top: 16px; }
+    .img-picker-hint {
+      font-size: 11px; color: var(--steel); text-align: center; margin-bottom: 10px;
+      letter-spacing: 0.04em; line-height: 1.5;
+    }
+    .img-picker-hint strong { color: var(--gold); }
+    .img-picker-frame {
+      position: relative; width: 100%; aspect-ratio: 4/3;
+      overflow: hidden; cursor: grab; border: 1px solid var(--gold-border);
+      user-select: none; background: var(--midnight);
+      touch-action: none;
+    }
+    .img-picker-frame.dragging { cursor: grabbing; }
+    .img-picker-frame img {
+      position: absolute; width: 100%; height: 100%;
+      object-fit: cover; pointer-events: none;
+      transform-origin: center; will-change: object-position;
+    }
+    .img-picker-frame::after {
+      content: ''; position: absolute; inset: 0;
+      border: 2px dashed rgba(201,146,58,0.25); pointer-events: none;
+    }
+    .img-picker-controls {
+      display: flex; align-items: center; justify-content: space-between; margin-top: 8px;
+    }
+    .img-picker-zoom { display: flex; align-items: center; gap: 8px; }
+    .btn-zoom {
+      background: var(--gold-dim); border: 1px solid var(--gold-border);
+      color: var(--gold); font-size: 15px; font-weight: 700;
+      width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s; line-height: 1; padding: 0;
+    }
+    .btn-zoom:hover { background: var(--gold); color: var(--midnight); }
+    .picker-pos-label { font-size: 10px; color: var(--steel); letter-spacing: 0.1em; min-width: 64px; text-align: center; }
+    .btn-reset-pos {
+      font-size: 10px; background: none; border: 1px solid var(--border);
+      color: var(--steel); padding: 5px 12px; cursor: pointer;
+      transition: all 0.2s; letter-spacing: 0.08em; text-transform: uppercase; font-family: var(--font-body);
+    }
+    .btn-reset-pos:hover { border-color: var(--gold-border); color: var(--cream); }
+
     .modal-actions { display: flex; gap: 12px; margin-top: 28px; justify-content: flex-end; }
     .btn-cancel { background: none; border: 1px solid var(--border); color: var(--steel); padding: 11px 24px; font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
     .btn-cancel:hover { border-color: var(--gold-border); color: var(--cream); }
