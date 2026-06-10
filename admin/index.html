@@ -672,6 +672,7 @@ function openEdit(id) {
 function closeModal() {
   document.getElementById('modal-bg').classList.remove('open');
   newImageFile = null;
+  hidePicker();
 }
 
 document.getElementById('btn-add').addEventListener('click', openAdd);
