@@ -214,7 +214,7 @@ import Layout from '../../layouts/Layout.astro';
   <div class="service-block" id="dd">
     <div class="service-block-inner reveal">
       <div class="service-block-img">
-        <img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/16ea02d6-f187-493e-bd9b-470bc9b17334/cover.jpg" alt="DSTA Corporate Dinner & Dance by Elitez Events" style="object-position:50% 50%">
+        <img src="/assets/img/portfolio/dsta-dd-2024.jpg" alt="DSTA Corporate Dinner & Dance by Elitez Events" style="object-position:50% 50%">
       </div>
       <div class="service-block-content">
         <div class="service-block-num">01</div>
@@ -242,7 +242,7 @@ import Layout from '../../layouts/Layout.astro';
   <div class="service-block" id="awards">
     <div class="service-block-inner reveal">
       <div class="service-block-img">
-        <img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/1fbe1905-12ae-4df8-9c36-2aee3a900d2a.png?t=1782372118738" alt="Mandai Wildlife Group Awards Ceremony by Elitez Events" style="object-position:50% 50%">
+        <img src="/assets/img/portfolio/mandai-awards-2024.png" alt="Mandai Wildlife Group Awards Ceremony by Elitez Events" style="object-position:50% 50%">
       </div>
       <div class="service-block-content">
         <div class="service-block-num">02</div>
@@ -269,7 +269,7 @@ import Layout from '../../layouts/Layout.astro';
   <div class="service-block" id="familyday">
     <div class="service-block-inner reveal">
       <div class="service-block-img">
-        <img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/a8663521-968d-4388-a227-b49151b8d905.jpeg?t=1782470171227" alt="Morrison Express Family Day by Elitez Events" style="object-position:50% 50%">
+        <img src="/assets/img/portfolio/morrison-familyday-2024.jpg" alt="Morrison Express Family Day by Elitez Events" style="object-position:50% 50%">
       </div>
       <div class="service-block-content">
         <div class="service-block-num">03</div>
@@ -296,7 +296,7 @@ import Layout from '../../layouts/Layout.astro';
   <div class="service-block" id="conferences">
     <div class="service-block-inner reveal">
       <div class="service-block-img">
-        <img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/5e56f463-6101-4877-b7de-1a4a142d046c.png?t=1782468872573" alt="BytePlus Sales Kick-Off Conference by Elitez Events" style="object-position:50% 50%">
+        <img src="/assets/img/portfolio/byteplus-conference-2024.png" alt="BytePlus Sales Kick-Off Conference by Elitez Events" style="object-position:50% 50%">
       </div>
       <div class="service-block-content">
         <div class="service-block-num">04</div>
@@ -343,7 +343,7 @@ import Layout from '../../layouts/Layout.astro';
   <div class="service-block" id="teambuilding">
     <div class="service-block-inner reveal">
       <div class="service-block-img">
-        <img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/495b2296-97e6-492d-976c-16718dd7f64b.jpeg?t=1782470424837" alt="NUH DDI Team Building Event by Elitez Events" style="object-position:50% 50%">
+        <img src="/assets/img/portfolio/nuh-teambuilding-2024.jpg" alt="NUH DDI Team Building Event by Elitez Events" style="object-position:50% 50%">
       </div>
       <div class="service-block-content">
         <div class="service-block-num">06</div>
@@ -377,28 +377,4 @@ import Layout from '../../layouts/Layout.astro';
     </div>
   </section>
 
-  <script is:inline>
-  // Auto-refresh service photos from Supabase when better images are added
-  (function() {
-    var SECTION_TYPE = { dd: 'dd', awards: 'awards', familyday: 'familyday', conferences: 'conference', teambuilding: 'familyday' };
-    var API = 'https://rqqgrnttbelsxpmfikaa.supabase.co/rest/v1/portfolio';
-    var KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxcWdybnR0YmVsc3hwbWZpa2FhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3ODYzNzIsImV4cCI6MjA5NjM2MjM3Mn0.cfSwq0ie2fsiwOgYYGgpS5WTj_eCZkYXJFntDNgbn94';
-    fetch(API + '?select=event_type,image_url,image_position&image_url=not.is.null&order=display_order.asc&limit=50', {
-      headers: { 'apikey': KEY, 'Accept': 'application/json' }
-    }).then(function(r) { return r.ok ? r.json() : null; }).then(function(data) {
-      if (!data) return;
-      var byType = {};
-      data.forEach(function(row) { if (!byType[row.event_type]) byType[row.event_type] = row; });
-      Object.keys(SECTION_TYPE).forEach(function(sectionId) {
-        var type = SECTION_TYPE[sectionId];
-        var row = byType[type];
-        if (!row) return;
-        var section = document.getElementById(sectionId);
-        if (!section) return;
-        var img = section.querySelector('.service-block-img img');
-        if (img) { img.src = row.image_url; img.style.objectPosition = row.image_position || '50% 50%'; }
-      });
-    }).catch(function() {});
-  })();
-  </script>
 </Layout>
