@@ -1,0 +1,134 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  activeNav?: string;
+  isHome?: boolean;
+}
+const {
+  title,
+  description,
+  canonical,
+  ogTitle,
+  ogDescription,
+  activeNav = '',
+  isHome = false,
+} = Astro.props;
+
+const navItems = [
+  { key: 'services',  label: 'Services',   href: '/pages/services'  },
+  { key: 'portfolio', label: 'Portfolio',   href: '/pages/portfolio' },
+  { key: 'rallies',   label: 'Rallies™',   href: '/pages/rallies'   },
+  { key: 'about',     label: 'About',       href: '/pages/about'     },
+];
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {isHome && <meta name="google-site-verification" content="HT-yX6Z6H1M4-M52oV3d-eFzNHMmurC6wWvSxYd0x9M" />}
+  <meta name="description" content={description} />
+  <title>{title}</title>
+  <link rel="canonical" href={canonical} />
+  <meta name="geo.region" content="SG" />
+  <meta name="geo.placename" content="Singapore" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:title" content={ogTitle || title} />
+  <meta property="og:description" content={ogDescription || description} />
+  <meta property="og:image" content="https://events.elitez.ai/assets/img/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={ogTitle || title} />
+  <meta name="twitter:description" content={ogDescription || description} />
+  <meta name="twitter:image" content="https://events.elitez.ai/assets/img/og-image.jpg" />
+  <link rel="icon" type="image/png" href="/assets/img/logo-white.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <script is:inline defer src="/assets/js/analytics.js"></script>
+  <script is:inline defer src="/assets/js/animations.js"></script>
+  <slot name="head" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-logo">
+      <img src="/assets/img/logo-white.png" alt="Elitez Events" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
+      <span class="nav-logo-text" style="display:none">Elitez <em>Events</em></span>
+    </a>
+    <ul class="nav-links">
+      {navItems.map(item => (
+        <li><a href={item.href} class={activeNav === item.key ? 'active' : ''}>{item.label}</a></li>
+      ))}
+      <li><a href="/pages/contact" class:list={['nav-cta', { active: activeNav === 'contact' }]}>Get a Quote</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <slot />
+
+  <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <img src="/assets/img/logo-white.png" alt="Elitez Events" class="footer-logo" onerror="this.style.display='none'" />
+        <p class="footer-tagline">"We stage moments that matter."</p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="Facebook">fb</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-col-links">
+          <li><a href="/pages/services#dd">Dinner &amp; Dance</a></li>
+          <li><a href="/pages/services#awards">Awards Ceremonies</a></li>
+          <li><a href="/pages/services#familyday">Family Day</a></li>
+          <li><a href="/pages/services#conferences">Conferences</a></li>
+          <li><a href="/pages/rallies">Rallies™</a></li>
+          <li><a href="/pages/services#teambuilding">Team Building</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-col-links">
+          <li><a href="/pages/about">About Us</a></li>
+          <li><a href="/pages/portfolio">Portfolio</a></li>
+          <li><a href="/pages/about#team">Our Team</a></li>
+          <li><a href="/pages/contact">Contact</a></li>
+          <li><a href="https://fmcg.elitez.ai">Elitez FMCG ↗</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-label">Address</div>
+          <div class="footer-contact-value">2 Kallang Avenue #03-08<br />CT Hub, Singapore 188613</div>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-label">Email</div>
+          <div class="footer-contact-value"><a href="mailto:eevann.seah@elitez.asia">eevann.seah@elitez.asia</a></div>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-label">Phone</div>
+          <div class="footer-contact-value"><a href="tel:+6581800994">+65 8180 0994</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Elitez Events. Part of <span>Elitez Group of Companies</span>.</div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+  </footer>
+
+  <script is:inline src="/assets/js/main.js"></script>
+</body>
+</html>

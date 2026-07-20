@@ -1,218 +1,193 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="canonical" href="https://events.elitez.ai/pages/services" />
-  <meta name="description" content="Elitez Events services — Corporate D&D, Awards Ceremonies, Family Day, Conferences, Rallies™, and Team Building in Singapore." />
-  <title>Services — Elitez Events</title>
-  <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="https://events.elitez.ai/pages/services" />
-  <meta property="og:title"       content="Services — Elitez Events" />
-  <meta property="og:description" content="Corporate D&D, Awards Ceremonies, Family Day, Conferences, Team Building and Rallies™ in Singapore." />
-  <meta property="og:image"       content="https://events.elitez.ai/assets/img/og-image.jpg" />
-  <meta name="twitter:card"       content="summary_large_image" />
-  <link rel="icon" type="image/png" href="../assets/img/logo-white.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../assets/css/style.css" />
-  <style>
-    /* ── SERVICE BLOCK ──────────────────────────────── */
-    .service-block {
-      padding: var(--pad-sect) var(--pad-x);
-      border-bottom: 1px solid var(--border);
-    }
-    .service-block:nth-child(even) { background: var(--navy); }
-    .service-block:nth-child(odd)  { background: var(--midnight); }
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="Services — Elitez Events"
+  description="Elitez Events services — Corporate D&D, Awards Ceremonies, Family Day, Conferences, Rallies™, and Team Building in Singapore."
+  canonical="https://events.elitez.ai/pages/services"
+  ogTitle="Services — Elitez Events"
+  ogDescription="Corporate D&D, Awards Ceremonies, Family Day, Conferences, Team Building and Rallies™ in Singapore."
+  activeNav="services"
+  isHome={false}
+>
+  <Fragment slot="head">
+    <style is:global>
+      /* ── SERVICE BLOCK ──────────────────────────────── */
+      .service-block {
+        padding: var(--pad-sect) var(--pad-x);
+        border-bottom: 1px solid var(--border);
+      }
+      .service-block:nth-child(even) { background: var(--navy); }
+      .service-block:nth-child(odd)  { background: var(--midnight); }
 
-    .service-block-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 96px;
-      align-items: center;
-    }
-    .service-block:nth-child(even) .service-block-inner { direction: rtl; }
-    .service-block:nth-child(even) .service-block-inner > * { direction: ltr; }
+      .service-block-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 96px;
+        align-items: center;
+      }
+      .service-block:nth-child(even) .service-block-inner { direction: rtl; }
+      .service-block:nth-child(even) .service-block-inner > * { direction: ltr; }
 
-    .service-block-img {
-      aspect-ratio: 4/3;
-      background: var(--midnight);
-      position: relative;
-      overflow: hidden;
-    }
-    .service-block:nth-child(even) .service-block-img { background: var(--navy-2); }
+      .service-block-img {
+        aspect-ratio: 4/3;
+        background: var(--midnight);
+        position: relative;
+        overflow: hidden;
+      }
+      .service-block:nth-child(even) .service-block-img { background: var(--navy-2); }
 
-    .service-block-img img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-    }
-    .service-img-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-    .service-img-placeholder::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 60% 60% at 50% 60%, rgba(201,146,58,0.08) 0%, transparent 70%);
-    }
-    .service-img-label {
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: rgba(240,235,224,0.2);
-      position: relative;
-      z-index: 1;
-    }
+      .service-block-img img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+      }
+      .service-img-placeholder {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+      .service-img-placeholder::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 60% 60% at 50% 60%, rgba(201,146,58,0.08) 0%, transparent 70%);
+      }
+      .service-img-label {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: rgba(240,235,224,0.2);
+        position: relative;
+        z-index: 1;
+      }
 
-    /* Gold accent line on image */
-    .service-block-img::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--gold);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.5s var(--ease-out);
-    }
-    .service-block:hover .service-block-img::after { transform: scaleX(1); }
+      /* Gold accent line on image */
+      .service-block-img::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 3px;
+        background: var(--gold);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.5s var(--ease-out);
+      }
+      .service-block:hover .service-block-img::after { transform: scaleX(1); }
 
-    .service-block-content {}
-    .service-block-num {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 48px;
-      color: rgba(201,146,58,0.15);
-      line-height: 1;
-      margin-bottom: 16px;
-    }
-    .service-block-title {
-      font-family: var(--font-display);
-      font-weight: 400;
-      font-size: clamp(32px, 3.5vw, 52px);
-      line-height: 1.05;
-      color: var(--cream);
-      margin-bottom: 20px;
-      letter-spacing: -0.01em;
-    }
-    .service-block-body {
-      font-size: 15px;
-      font-weight: 300;
-      color: var(--steel);
-      line-height: 1.85;
-      margin-bottom: 32px;
-    }
+      .service-block-content {}
+      .service-block-num {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 48px;
+        color: rgba(201,146,58,0.15);
+        line-height: 1;
+        margin-bottom: 16px;
+      }
+      .service-block-title {
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: clamp(32px, 3.5vw, 52px);
+        line-height: 1.05;
+        color: var(--cream);
+        margin-bottom: 20px;
+        letter-spacing: -0.01em;
+      }
+      .service-block-body {
+        font-size: 15px;
+        font-weight: 300;
+        color: var(--steel);
+        line-height: 1.85;
+        margin-bottom: 32px;
+      }
 
-    .service-includes {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin-bottom: 36px;
-      border-top: 1px solid var(--border);
-    }
-    .service-include-item {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--cream);
-    }
-    .service-include-item::before {
-      content: '';
-      width: 6px; height: 6px;
-      background: var(--gold);
-      flex-shrink: 0;
-      transform: rotate(45deg);
-    }
+      .service-includes {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        margin-bottom: 36px;
+        border-top: 1px solid var(--border);
+      }
+      .service-include-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--cream);
+      }
+      .service-include-item::before {
+        content: '';
+        width: 6px; height: 6px;
+        background: var(--gold);
+        flex-shrink: 0;
+        transform: rotate(45deg);
+      }
 
-    /* ── SCALE STRIP ────────────────────────────────── */
-    .scale-strip {
-      background: var(--gold);
-      padding: 40px var(--pad-x);
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      gap: 32px;
-      flex-wrap: wrap;
-    }
-    .scale-item { text-align: center; }
-    .scale-num {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 44px;
-      line-height: 1;
-      color: var(--midnight);
-      letter-spacing: -0.02em;
-    }
-    .scale-lbl {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(8,12,24,0.6);
-      margin-top: 6px;
-    }
-    .scale-divider {
-      width: 1px; height: 48px;
-      background: rgba(8,12,24,0.15);
-    }
+      /* ── SCALE STRIP ────────────────────────────────── */
+      .scale-strip {
+        background: var(--gold);
+        padding: 40px var(--pad-x);
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      .scale-item { text-align: center; }
+      .scale-num {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 44px;
+        line-height: 1;
+        color: var(--midnight);
+        letter-spacing: -0.02em;
+      }
+      .scale-lbl {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(8,12,24,0.6);
+        margin-top: 6px;
+      }
+      .scale-divider {
+        width: 1px; height: 48px;
+        background: rgba(8,12,24,0.15);
+      }
 
-    @media (max-width: 1024px) {
-      .service-block-inner { grid-template-columns: 1fr; gap: 48px; }
-      .service-block:nth-child(even) .service-block-inner { direction: ltr; }
+      @media (max-width: 1024px) {
+        .service-block-inner { grid-template-columns: 1fr; gap: 48px; }
+        .service-block:nth-child(even) .service-block-inner { direction: ltr; }
+      }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home",     "item": "https://events.elitez.ai/" },
+            { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://events.elitez.ai/pages/services" }
+          ]
+        },
+        { "@type": "Service", "name": "Corporate Dinner & Dance", "provider": { "@type": "LocalBusiness", "name": "Elitez Events" }, "areaServed": "Singapore", "description": "Full-service corporate D&D planning including theme concepting, entertainment, AV, staging and show-calling for 200–2,000 guests." },
+        { "@type": "Service", "name": "Awards Ceremonies",        "provider": { "@type": "LocalBusiness", "name": "Elitez Events" }, "areaServed": "Singapore", "description": "End-to-end awards ceremony production including script, staging, MC briefing, video production and VIP management." },
+        { "@type": "Service", "name": "Family Day Events",        "provider": { "@type": "LocalBusiness", "name": "Elitez Events" }, "areaServed": "Singapore", "description": "Corporate family day planning with game booths, live entertainment, kids programming and full F&B coordination." },
+        { "@type": "Service", "name": "Conferences & Seminars",   "provider": { "@type": "LocalBusiness", "name": "Elitez Events" }, "areaServed": "Singapore", "description": "Corporate conference and seminar management including AV, speaker coordination, hybrid capability and delegate management." },
+        { "@type": "Service", "name": "Rallies™",                 "provider": { "@type": "LocalBusiness", "name": "Elitez Events" }, "areaServed": "Singapore", "description": "Singapore's only proprietary corporate sports activation format — a competitive team-based pickleball tournament for employee engagement." },
+        { "@type": "Service", "name": "Team Building",            "provider": { "@type": "LocalBusiness", "name": "Elitez Events" }, "areaServed": "Singapore", "description": "Customised team building programmes for 20–500+ participants, indoor and outdoor formats, facilitated by experienced event professionals." }
+      ]
     }
-  </style>
-  <script defer src="../assets/js/analytics.js"></script>
-  <script defer src="../assets/js/animations.js"></script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home",     "item": "https://events.elitez.ai/" },
-          { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://events.elitez.ai/pages/services" }
-        ]
-      },
-      { "@type": "Service", "name": "Corporate Dinner & Dance", "provider": { "@type": "LocalBusiness", "name": "Elitez Events" }, "areaServed": "Singapore", "description": "Full-service corporate D&D planning including theme concepting, entertainment, AV, staging and show-calling for 200–2,000 guests." },
-      { "@type": "Service", "name": "Awards Ceremonies",        "provider": { "@type": "LocalBusiness", "name": "Elitez Events" }, "areaServed": "Singapore", "description": "End-to-end awards ceremony production including script, staging, MC briefing, video production and VIP management." },
-      { "@type": "Service", "name": "Family Day Events",        "provider": { "@type": "LocalBusiness", "name": "Elitez Events" }, "areaServed": "Singapore", "description": "Corporate family day planning with game booths, live entertainment, kids programming and full F&B coordination." },
-      { "@type": "Service", "name": "Conferences & Seminars",   "provider": { "@type": "LocalBusiness", "name": "Elitez Events" }, "areaServed": "Singapore", "description": "Corporate conference and seminar management including AV, speaker coordination, hybrid capability and delegate management." },
-      { "@type": "Service", "name": "Rallies™",                 "provider": { "@type": "LocalBusiness", "name": "Elitez Events" }, "areaServed": "Singapore", "description": "Singapore's only proprietary corporate sports activation format — a competitive team-based pickleball tournament for employee engagement." },
-      { "@type": "Service", "name": "Team Building",            "provider": { "@type": "LocalBusiness", "name": "Elitez Events" }, "areaServed": "Singapore", "description": "Customised team building programmes for 20–500+ participants, indoor and outdoor formats, facilitated by experienced event professionals." }
-    ]
-  }
-  </script>
-</head>
-<body>
-
-  <!-- NAV -->
-  <nav class="nav">
-    <a href="/" class="nav-logo">
-      <img src="../assets/img/logo-white.png" alt="Elitez Events" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-      <span class="nav-logo-text" style="display:none">Elitez <em>Events</em></span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="services" class="active">Services</a></li>
-      <li><a href="portfolio">Portfolio</a></li>
-      <li><a href="rallies">Rallies™</a></li>
-      <li><a href="about">About</a></li>
-      <li><a href="contact" class="nav-cta">Get a Quote</a></li>
-    </ul>
-    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
-  </nav>
+    </script>
+  </Fragment>
 
   <!-- PAGE HERO -->
   <div class="page-hero">
@@ -255,7 +230,7 @@
           <div class="service-include-item">Guest experience &amp; logistics management</div>
         </div>
         <p style="font-size:12px;font-weight:500;letter-spacing:0.1em;color:var(--steel);margin-bottom:20px;">SCALE: 200 – 2,000 guests &nbsp;·&nbsp; Venues: Marina Bay Sands, Suntec, Ritz Carlton, Shangri-La and more</p>
-        <a href="contact" class="btn btn-gold">
+        <a href="/pages/contact" class="btn btn-gold">
           Enquire Now
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -282,7 +257,7 @@
           <div class="service-include-item">Guest &amp; VIP management</div>
           <div class="service-include-item">Post-event photo &amp; video coordination</div>
         </div>
-        <a href="contact" class="btn btn-gold">
+        <a href="/pages/contact" class="btn btn-gold">
           Enquire Now
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -309,7 +284,7 @@
           <div class="service-include-item">Kids' programming &amp; engagement</div>
           <div class="service-include-item">End-to-end event operations</div>
         </div>
-        <a href="contact" class="btn btn-gold">
+        <a href="/pages/contact" class="btn btn-gold">
           Enquire Now
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -336,7 +311,7 @@
           <div class="service-include-item">Hybrid &amp; livestream capability</div>
           <div class="service-include-item">On-site event management team</div>
         </div>
-        <a href="contact" class="btn btn-gold">
+        <a href="/pages/contact" class="btn btn-gold">
           Enquire Now
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -348,7 +323,7 @@
   <div class="service-block" id="rallies" style="background:var(--navy-2)!important;">
     <div class="service-block-inner reveal">
       <div class="service-block-img" style="border:1px solid var(--gold-border);">
-        <img src="../assets/img/rallies-court.jpg" alt="Rallies™ Pickleball Tournament at Plaza Singapura by Elitez Events" style="object-position:50% 40%">
+        <img src="/assets/img/rallies-court.jpg" alt="Rallies™ Pickleball Tournament at Plaza Singapura by Elitez Events" style="object-position:50% 40%">
       </div>
       <div class="service-block-content">
         <div class="service-block-num">05</div>
@@ -356,7 +331,7 @@
         <h2 class="service-block-title">Rallies™</h2>
         <p class="service-block-body">Rallies™ is a one-of-a-kind employee engagement format created and owned by Elitez Events. A competitive, team-based sports activation designed for organisations that want more than just a fun day — they want a shared experience that builds real team spirit.</p>
         <p style="font-size:13px;font-weight:400;color:var(--gold);margin-bottom:28px;">No other agency in Singapore offers this format.</p>
-        <a href="rallies" class="btn btn-gold" style="margin-right:12px;">
+        <a href="/pages/rallies" class="btn btn-gold" style="margin-right:12px;">
           Learn About Rallies™
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -382,7 +357,7 @@
           <div class="service-include-item">Scalable from 20 to 500+ participants</div>
           <div class="service-include-item">Post-event debrief &amp; culture alignment</div>
         </div>
-        <a href="contact" class="btn btn-gold">
+        <a href="/pages/contact" class="btn btn-gold">
           Enquire Now
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -396,53 +371,13 @@
       <div class="cta-eyebrow">Not sure which service fits?</div>
       <div class="cta-title">Tell us about<br>your event and<br><em>we'll advise.</em></div>
       <div class="btn-pair btn-pair-center">
-        <a href="contact" class="btn btn-gold">Get a Quote</a>
-        <a href="portfolio" class="btn btn-outline">See Our Work</a>
+        <a href="/pages/contact" class="btn btn-gold">Get a Quote</a>
+        <a href="/pages/portfolio" class="btn btn-outline">See Our Work</a>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-main">
-      <div class="footer-brand">
-        <img src="../assets/img/logo-white.png" alt="Elitez Events" class="footer-logo" onerror="this.style.display='none'">
-        <p class="footer-tagline">"We stage moments that matter."</p>
-      </div>
-      <div>
-        <div class="footer-col-title">Services</div>
-        <ul class="footer-col-links">
-          <li><a href="services#dd">Dinner &amp; Dance</a></li>
-          <li><a href="services#awards">Awards Ceremonies</a></li>
-          <li><a href="services#familyday">Family Day</a></li>
-          <li><a href="services#conferences">Conferences</a></li>
-          <li><a href="rallies">Rallies™</a></li>
-          <li><a href="services#teambuilding">Team Building</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Company</div>
-        <ul class="footer-col-links">
-          <li><a href="about">About Us</a></li>
-          <li><a href="portfolio">Portfolio</a></li>
-          <li><a href="contact">Contact</a></li>
-          <li><a href="https://fmcg.elitez.ai">Elitez FMCG ↗</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Contact</div>
-        <div class="footer-contact-item"><div class="footer-contact-label">Email</div><div class="footer-contact-value"><a href="mailto:eevann.seah@elitez.asia">eevann.seah@elitez.asia</a></div></div>
-        <div class="footer-contact-item"><div class="footer-contact-label">Phone</div><div class="footer-contact-value"><a href="tel:+6581800994">+65 8180 0994</a></div></div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2026 Elitez Events. Part of <span>Elitez Group of Companies</span>.</div>
-      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
-    </div>
-  </footer>
-
-  <script src="../assets/js/main.js"></script>
-  <script>
+  <script is:inline>
   // Auto-refresh service photos from Supabase when better images are added
   (function() {
     var SECTION_TYPE = { dd: 'dd', awards: 'awards', familyday: 'familyday', conferences: 'conference', teambuilding: 'familyday' };
@@ -466,5 +401,4 @@
     }).catch(function() {});
   })();
   </script>
-</body>
-</html>
+</Layout>

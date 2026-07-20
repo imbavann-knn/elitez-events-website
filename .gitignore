@@ -7,3 +7,10 @@ elitez-events-final.html
 # Supabase local dev files (never commit — contains local credentials)
 .supabase/
 supabase/.temp/
+# Astro build output and dependencies (Cloudflare builds these remotely)
+node_modules/
+dist/
+.astro/
+.DS_Store
+.env
+.env.local

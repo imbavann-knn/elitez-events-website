@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-site-verification" content="HT-yX6Z6H1M4-M52oV3d-eFzNHMmurC6wWvSxYd0x9M" />
   <meta name="description" content="Elitez Events — Singapore's corporate events agency. D&D, awards ceremonies, family days, conferences and Rallies™. Trusted by DSTA, SingHealth, Mandai and more." />
   <title>Elitez Events — Singapore Corporate Events Agency</title>
   <link rel="canonical" href="https://events.elitez.ai/" />
@@ -21,19 +22,43 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Elitez Events",
-    "description": "Singapore corporate events agency — D&D, awards ceremonies, family days, conferences and Rallies™.",
-    "url": "https://events.elitez.ai",
-    "image": "https://events.elitez.ai/assets/img/og-image.jpg",
-    "email": "events@elitez.asia",
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "SG",
-      "addressLocality": "Singapore"
-    },
-    "areaServed": "Singapore",
-    "serviceType": ["Dinner & Dance", "Awards Ceremonies", "Family Days", "Conferences", "Corporate Rallies"]
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://events.elitez.ai/#website",
+        "url": "https://events.elitez.ai/",
+        "name": "Elitez Events",
+        "publisher": { "@id": "https://events.elitez.ai/#business" }
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://events.elitez.ai/#business",
+        "name": "Elitez Events",
+        "description": "Singapore corporate events agency — Dinner & Dance, awards ceremonies, family days, conferences, team building and Rallies™, a proprietary corporate pickleball tournament format.",
+        "url": "https://events.elitez.ai",
+        "logo": "https://events.elitez.ai/assets/img/logo-white.png",
+        "image": "https://events.elitez.ai/assets/img/og-image.jpg",
+        "email": "eevann.seah@elitez.asia",
+        "telephone": "+6581800994",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "SG",
+          "addressLocality": "Singapore"
+        },
+        "areaServed": { "@type": "Country", "name": "Singapore" },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Elitez Group",
+          "url": "https://elitez.asia"
+        },
+        "sameAs": [
+          "https://elitez.asia"
+        ],
+        "serviceType": ["Corporate Dinner & Dance", "Awards Ceremonies", "Family Day Events", "Conferences & Seminars", "Team Building", "Rallies™ Corporate Pickleball"],
+        "slogan": "We stage moments that matter.",
+        "knowsAbout": ["Corporate event management", "Dinner and dance planning", "Awards ceremony production", "Corporate sports events", "Pickleball tournaments"]
+      }
+    ]
   }
   </script>
   <!-- Favicon -->
@@ -489,6 +514,8 @@
       .service-row-right { display: none; }
     }
   </style>
+  <script defer src="assets/js/analytics.js"></script>
+  <script defer src="assets/js/animations.js"></script>
 </head>
 <body>
 
@@ -668,24 +695,24 @@
     </div>
     <div class="portfolio-grid reveal" data-d="1">
       <div class="port-card">
-        <div class="port-img"><div class="port-img-placeholder" data-label="Photo coming soon"></div></div>
+        <div class="port-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/16ea02d6-f187-493e-bd9b-470bc9b17334/cover.jpg" alt="DSTA Annual Dinner and Dance, 1,400 guests at Marina Bay Sands — by Elitez Events" loading="lazy"></div>
         <div class="port-meta"><div class="port-type">Dinner &amp; Dance</div><div class="port-name">DSTA Annual D&amp;D</div><div class="port-detail">1,400 pax · Marina Bay Sands</div></div>
       </div>
       <div class="port-card">
-        <div class="port-img"><div class="port-img-placeholder" data-label="Photo coming soon"></div></div>
+        <div class="port-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/7531f5aa-c474-41b7-b5f7-cb7b2bcb858c.jpg?t=1782355391384" alt="Chip Eng Seng CNY Dinner, 1,500 guests at Suntec City — by Elitez Events" loading="lazy"></div>
         <div class="port-meta"><div class="port-type">CNY Dinner</div><div class="port-name">Chip Eng Seng</div><div class="port-detail">1,500 pax · Suntec City</div></div>
       </div>
       <div class="port-card">
-        <div class="port-img"><div class="port-img-placeholder" data-label="Photo coming soon"></div></div>
+        <div class="port-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/cf76d4e6-88cf-4b01-873f-0f03b397db0b.jpg?t=1782274298056" alt="SIT Annual Staff Night, 1,100 guests at Ritz Carlton — by Elitez Events" loading="lazy"></div>
         <div class="port-meta"><div class="port-type">Staff Night</div><div class="port-name">SIT Staff Night</div><div class="port-detail">1,100 pax · Ritz Carlton</div></div>
       </div>
       <div class="port-card">
-        <div class="port-img"><div class="port-img-placeholder" data-label="Photo coming soon"></div></div>
+        <div class="port-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/0765603c-1309-4598-a400-0cb8f7fcfab0/cover.jpg" alt="SingHealth Gala Dinner, 800 guests at Shangri-La Hotel — by Elitez Events" loading="lazy"></div>
         <div class="port-meta"><div class="port-type">Gala Dinner</div><div class="port-name">SingHealth Gala</div><div class="port-detail">800 pax · Shangri-La Hotel</div></div>
       </div>
       <div class="port-card">
-        <div class="port-img"><div class="port-img-placeholder" data-label="Photo coming soon"></div></div>
-        <div class="port-meta"><div class="port-type">Activation</div><div class="port-name">Rallies™ — Mandai</div><div class="port-detail">Mandai Wildlife Group</div></div>
+        <div class="port-img"><img src="assets/img/rallies-court.jpg" alt="Rallies™ corporate pickleball tournament at Plaza Singapura — by Elitez Events" loading="lazy" style="object-position:50% 40%"></div>
+        <div class="port-meta"><div class="port-type">Activation</div><div class="port-name">Rallies™</div><div class="port-detail">Pickleball Tournament · Plaza Singapura</div></div>
       </div>
     </div>
   </section>
@@ -732,6 +759,7 @@
           <li><a href="pages/portfolio">Portfolio</a></li>
           <li><a href="pages/about#team">Our Team</a></li>
           <li><a href="pages/contact">Contact</a></li>
+          <li><a href="https://fmcg.elitez.ai">Elitez FMCG ↗</a></li>
         </ul>
       </div>
       <div>
@@ -751,7 +779,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2025 Elitez Events. Part of <span>Elitez Group of Companies</span>.</div>
+      <div class="footer-copy">© 2026 Elitez Events. Part of <span>Elitez Group of Companies</span>.</div>
       <div class="footer-legal">
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Use</a>

@@ -1,0 +1,454 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="Portfolio — Elitez Events Singapore | Corporate Events Gallery"
+  description="Elitez Events portfolio — DSTA, SIT, Mandai Wildlife, Hermes, Toyota, Allied World, L'Oreal and more across Singapore's corporate events landscape."
+  canonical="https://events.elitez.ai/pages/portfolio"
+  ogTitle="Portfolio — Elitez Events"
+  ogDescription="80+ events. 60+ clients. DSTA, SIT, Mandai Wildlife, Hermes, Toyota, Allied World and more."
+  activeNav="portfolio"
+  isHome={false}
+>
+  <Fragment slot="head">
+    <style is:global>
+      /* ── FILTER BAR ─────────────────────────────────── */
+      .filter-bar {
+        padding: 32px var(--pad-x);
+        background: var(--navy);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .filter-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--steel);
+        margin-right: 8px;
+        flex-shrink: 0;
+      }
+      .filter-btn {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--steel);
+        border: 1px solid var(--border);
+        background: none;
+        padding: 8px 18px;
+        cursor: pointer;
+        transition: border-color 0.28s, color 0.28s, background 0.28s;
+      }
+      .filter-btn:hover,
+      .filter-btn.active {
+        border-color: var(--gold);
+        color: var(--cream);
+        background: var(--gold-dim);
+      }
+
+      /* ── PORTFOLIO STATS STRIP ──────────────────────── */
+      .port-stats {
+        background: var(--midnight);
+        border-bottom: 1px solid var(--border);
+        padding: 28px var(--pad-x);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 56px;
+        flex-wrap: wrap;
+      }
+      .port-stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      .port-stat-num {
+        font-family: var(--font-display);
+        font-size: 36px;
+        font-weight: 600;
+        color: var(--gold);
+        line-height: 1;
+      }
+      .port-stat-lbl {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--steel);
+      }
+
+      /* ── PORTFOLIO GRID ─────────────────────────────── */
+      .port-section {
+        padding: var(--pad-sect) var(--pad-x);
+        background: var(--midnight);
+      }
+      .portfolio-masonry {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+      }
+      .portfolio-card {
+        background: var(--navy);
+        position: relative;
+        overflow: hidden;
+        transition: opacity 0.3s;
+      }
+      .portfolio-card.hidden { display: none; }
+
+      .portfolio-card-img {
+        width: 100%;
+        aspect-ratio: 4/3;
+        background: var(--midnight);
+        position: relative;
+        overflow: hidden;
+      }
+      .portfolio-card-img img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s var(--ease-out);
+      }
+      .portfolio-card:hover .portfolio-card-img img { transform: scale(1.04); }
+
+      .port-placeholder {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .port-placeholder::after {
+        content: attr(data-lbl);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(240,235,224,0.18);
+      }
+
+      /* Unique gradient per card type */
+      [data-type="dd"]         .port-placeholder { background: linear-gradient(145deg,#1a1428,#0d0e22 50%,#1a100a); }
+      [data-type="awards"]     .port-placeholder { background: linear-gradient(145deg,#0c1a14,#081018); }
+      [data-type="familyday"]  .port-placeholder { background: linear-gradient(145deg,#0e1820,#0a1218); }
+      [data-type="conference"] .port-placeholder { background: linear-gradient(145deg,#0a1428,#100a1c); }
+      [data-type="activation"] .port-placeholder { background: linear-gradient(145deg,#1c1208,#0e0c18); }
+      [data-type="rallies"]    .port-placeholder { background: linear-gradient(145deg,#1a0c14,#0e1820); }
+
+      .portfolio-card-meta {
+        padding: 18px 22px 20px;
+      }
+      .portfolio-card-type {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 4px;
+      }
+      .portfolio-card-name {
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 17px;
+        color: var(--cream);
+        line-height: 1.2;
+        margin-bottom: 4px;
+      }
+      .portfolio-card-detail {
+        font-size: 12px;
+        font-weight: 300;
+        color: var(--steel);
+      }
+      .portfolio-card-year {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        color: rgba(201,146,58,0.5);
+        margin-top: 6px;
+      }
+
+      .portfolio-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(201,146,58,0.04);
+        opacity: 0;
+        transition: opacity 0.35s;
+        pointer-events: none;
+      }
+      .portfolio-card:hover::after { opacity: 1; }
+
+      .portfolio-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 2px;
+        background: var(--gold);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s var(--ease-out);
+        z-index: 1;
+      }
+      .portfolio-card:hover::before { transform: scaleX(1); }
+
+      /* ── SECTOR TAGS ROW ────────────────────────────── */
+      .sector-strip {
+        background: var(--navy);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 48px var(--pad-x);
+      }
+      .sector-strip-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .sector-strip-title {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--steel);
+        margin-bottom: 24px;
+      }
+      .sector-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+      }
+      .sector-tag {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--cream);
+        border: 1px solid var(--border);
+        padding: 6px 14px;
+      }
+
+      @media (max-width: 768px) {
+        .portfolio-masonry { grid-template-columns: 1fr 1fr; }
+        .port-stats { gap: 32px; }
+      }
+      @media (max-width: 480px) {
+        .portfolio-masonry { grid-template-columns: 1fr; }
+      }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Elitez Events Portfolio — Singapore Corporate Events",
+      "description": "80+ corporate events across Singapore. DSTA, SIT, Mandai Wildlife Group, MOE, SingHealth, Toyota, Capitol Kempinski and 60+ clients.",
+      "url": "https://events.elitez.ai/pages/portfolio",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://events.elitez.ai/" },
+          { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://events.elitez.ai/pages/portfolio" }
+        ]
+      }
+    }
+    </script>
+  </Fragment>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-breadcrumb"><a href="/">Home</a><span>/</span> Portfolio</div>
+      <div class="eyebrow reveal">Our Work</div>
+      <h1 class="display-lg reveal" data-d="1">Events that<br>earned their<br><em class="gold">standing ovation</em></h1>
+      <p class="reveal" data-d="2" style="margin-top:20px;font-size:15px;font-weight:300;color:var(--steel);line-height:1.85;max-width:520px;">Four years of corporate events across Singapore's most trusted names — government agencies, luxury brands, healthcare institutions, and Fortune 500 companies.</p>
+    </div>
+  </div>
+
+  <!-- STATS STRIP -->
+  <div class="port-stats">
+    <div class="port-stat"><div class="port-stat-num">4+</div><div class="port-stat-lbl">Years Delivering</div></div>
+    <div class="port-stat"><div class="port-stat-num">80+</div><div class="port-stat-lbl">Events Completed</div></div>
+    <div class="port-stat"><div class="port-stat-num">60+</div><div class="port-stat-lbl">Clients Served</div></div>
+    <div class="port-stat"><div class="port-stat-num">1,500</div><div class="port-stat-lbl">Largest Event (pax)</div></div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-bar">
+    <span class="filter-label">Filter by</span>
+    <button class="filter-btn active" data-filter="all">All Events</button>
+    <button class="filter-btn" data-filter="dd">Dinner &amp; Dance</button>
+    <button class="filter-btn" data-filter="awards">Awards</button>
+    <button class="filter-btn" data-filter="familyday">Family Day</button>
+    <button class="filter-btn" data-filter="conference">Conference</button>
+    <button class="filter-btn" data-filter="activation">Brand Activation</button>
+    <button class="filter-btn" data-filter="rallies">Rallies™</button>
+  </div>
+
+  <!-- PORTFOLIO GRID -->
+  <section class="port-section">
+    <div class="portfolio-masonry reveal" id="portfolioGrid">
+
+      <div class="portfolio-card" data-type="dd" data-static="1">
+        <div class="portfolio-card-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/16ea02d6-f187-493e-bd9b-470bc9b17334/cover.jpg" alt="DSTA Dinner and Dance 2024 by Elitez Events Singapore" loading="lazy" style="object-position:50% 50%"></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Dinner &amp; Dance</div><div class="portfolio-card-name">DSTA D&amp;D 2024</div><div class="portfolio-card-detail">1,400 pax</div><div class="portfolio-card-year">2024</div></div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd" data-static="1">
+        <div class="portfolio-card-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/2a962692-73c4-4a8f-b01f-e64711972f6f.JPG?t=1782370916564" alt="Mandai Wildlife Group Dinner and Dance by Elitez Events" loading="lazy" style="object-position:50% 50%"></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Dinner &amp; Dance</div><div class="portfolio-card-name">Mandai Wildlife Group</div><div class="portfolio-card-year">2024</div></div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd" data-static="1">
+        <div class="portfolio-card-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/cf76d4e6-88cf-4b01-873f-0f03b397db0b.jpg?t=1782274298056" alt="SIT Annual Staff Night by Elitez Events Singapore" loading="lazy" style="object-position:50% 50%"></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Dinner &amp; Dance</div><div class="portfolio-card-name">SIT Annual Staff Night</div><div class="portfolio-card-detail">1,100 pax</div><div class="portfolio-card-year">2024</div></div>
+      </div>
+
+      <div class="portfolio-card" data-type="conference" data-static="1">
+        <div class="portfolio-card-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/5e56f463-6101-4877-b7de-1a4a142d046c.png?t=1782468872573" alt="BytePlus Sales Kick-Off Conference by Elitez Events" loading="lazy" style="object-position:50% 50%"></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Conference</div><div class="portfolio-card-name">BytePlus Sales Kick-Off</div><div class="portfolio-card-year">2024</div></div>
+      </div>
+
+      <div class="portfolio-card" data-type="familyday" data-static="1">
+        <div class="portfolio-card-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/a8663521-968d-4388-a227-b49151b8d905.jpeg?t=1782470171227" alt="Morrison Express Family Day by Elitez Events Singapore" loading="lazy" style="object-position:50% 50%"></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Family Day</div><div class="portfolio-card-name">Morrison Express</div><div class="portfolio-card-year">2024</div></div>
+      </div>
+
+      <div class="portfolio-card" data-type="awards" data-static="1">
+        <div class="portfolio-card-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/1fbe1905-12ae-4df8-9c36-2aee3a900d2a.png?t=1782372118738" alt="Mandai Wildlife Group Awards Ceremony by Elitez Events" loading="lazy" style="object-position:50% 50%"></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Awards Ceremony</div><div class="portfolio-card-name">Mandai Wildlife Group</div><div class="portfolio-card-year">2024</div></div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd" data-static="1">
+        <div class="portfolio-card-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/37b52f67-dcd9-433a-98b5-9ea22fa2ec7a.jpg?t=1782280902564" alt="MOE Ministry of Education Dinner and Dance by Elitez Events" loading="lazy" style="object-position:50% 50%"></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Dinner &amp; Dance</div><div class="portfolio-card-name">MOE Dinner &amp; Dance</div><div class="portfolio-card-year">2023</div></div>
+      </div>
+
+      <div class="portfolio-card" data-type="awards" data-static="1">
+        <div class="portfolio-card-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/e2f11f3a-f12d-456c-acd8-fc5224d62b00.jpg?t=1782372984289" alt="SAESL Groundbreaking Awards Ceremony by Elitez Events" loading="lazy" style="object-position:50% 50%"></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Awards Ceremony</div><div class="portfolio-card-name">SAESL Groundbreaking</div><div class="portfolio-card-year">2024</div></div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd" data-static="1">
+        <div class="portfolio-card-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/e032440d-a623-49f9-938c-7d8eb5c762df.jpg?t=1782281762023" alt="Toyota Motor Asia Dinner and Dance by Elitez Events" loading="lazy" style="object-position:50% 50%"></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Dinner &amp; Dance</div><div class="portfolio-card-name">Toyota Motor Asia</div><div class="portfolio-card-year">2023</div></div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd" data-static="1">
+        <div class="portfolio-card-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/0765603c-1309-4598-a400-0cb8f7fcfab0/cover.jpg" alt="SingHealth Allied Health Day by Elitez Events Singapore" loading="lazy" style="object-position:50% 50%"></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Dinner &amp; Dance</div><div class="portfolio-card-name">SingHealth Allied Health Day</div><div class="portfolio-card-detail">800 pax</div><div class="portfolio-card-year">2024</div></div>
+      </div>
+
+      <div class="portfolio-card" data-type="familyday" data-static="1">
+        <div class="portfolio-card-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/324fedfc-298f-44e7-b56a-9f73434ab185.jpg?t=1782470314403" alt="Hong Leong Club Family Day by Elitez Events Singapore" loading="lazy" style="object-position:50% 50%"></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Family Day</div><div class="portfolio-card-name">Hong Leong Club</div><div class="portfolio-card-year">2024</div></div>
+      </div>
+
+      <div class="portfolio-card" data-type="dd" data-static="1">
+        <div class="portfolio-card-img"><img src="https://rqqgrnttbelsxpmfikaa.supabase.co/storage/v1/object/public/portfolio-images/bbd3f93a-306a-4c50-8cfa-58f39f9fa51c/cover.jpg" alt="Capitol Kempinski Dinner and Dance by Elitez Events" loading="lazy" style="object-position:50% 50%"></div>
+        <div class="portfolio-card-meta"><div class="portfolio-card-type">Dinner &amp; Dance</div><div class="portfolio-card-name">Capitol Kempinski</div><div class="portfolio-card-year">2023</div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTOR TAGS -->
+  <div class="sector-strip">
+    <div class="sector-strip-inner">
+      <div class="sector-strip-title">Industries we've served</div>
+      <div class="sector-tags">
+        <span class="sector-tag">Government &amp; Defence</span>
+        <span class="sector-tag">Healthcare</span>
+        <span class="sector-tag">Education</span>
+        <span class="sector-tag">Technology</span>
+        <span class="sector-tag">Finance &amp; Insurance</span>
+        <span class="sector-tag">Luxury &amp; Hospitality</span>
+        <span class="sector-tag">Automotive</span>
+        <span class="sector-tag">Logistics &amp; Shipping</span>
+        <span class="sector-tag">Semiconductor</span>
+        <span class="sector-tag">Energy &amp; Engineering</span>
+        <span class="sector-tag">FMCG &amp; Retail</span>
+        <span class="sector-tag">Aerospace</span>
+        <span class="sector-tag">Telco</span>
+        <span class="sector-tag">E-Commerce</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="cta-section" data-ghost="WORK">
+    <div class="cta-inner reveal">
+      <div class="cta-eyebrow">Add your event to this list</div>
+      <div class="cta-title">Let's create something<br><em>worth remembering.</em></div>
+      <div class="btn-pair btn-pair-center">
+        <a href="/pages/contact" class="btn btn-gold">Get a Quote</a>
+        <a href="/pages/services" class="btn btn-outline">Our Services</a>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script is:inline>
+  (function() {
+    const SUPABASE_URL  = 'https://rqqgrnttbelsxpmfikaa.supabase.co';
+    const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxcWdybnR0YmVsc3hwbWZpa2FhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3ODYzNzIsImV4cCI6MjA5NjM2MjM3Mn0.cfSwq0ie2fsiwOgYYGgpS5WTj_eCZkYXJFntDNgbn94';
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    const GRADIENTS = {
+      dd:         'linear-gradient(145deg,#1a1428,#0d0e22 50%,#1a100a)',
+      awards:     'linear-gradient(145deg,#0c1a14,#081018)',
+      familyday:  'linear-gradient(145deg,#0e1820,#0a1218)',
+      conference: 'linear-gradient(145deg,#0a1428,#100a1c)',
+      activation: 'linear-gradient(145deg,#1c1208,#0e0c18)',
+      rallies:    'linear-gradient(145deg,#1a0c14,#0e1820)',
+    };
+
+    async function loadPortfolio() {
+      const { data, error } = await sb.from('portfolio')
+        .select('*').order('display_order').order('created_at');
+
+      const grid    = document.getElementById('portfolioGrid');
+      const loading = document.getElementById('port-loading');
+
+      if (error || !data) {
+        if (loading) loading.innerHTML = '<div style="color:var(--steel);font-size:13px;">Unable to load portfolio — please refresh.</div>';
+        return;
+      }
+
+      // Remove static pre-rendered cards; replace with full dynamic set
+      grid.querySelectorAll('[data-static]').forEach(c => c.remove());
+
+      data.forEach(entry => {
+        const card = document.createElement('div');
+        card.className = 'portfolio-card';
+        card.dataset.type = entry.event_type;
+
+        const detail = [entry.pax, entry.venue].filter(Boolean).join(' · ');
+
+        card.innerHTML = `
+          <div class="portfolio-card-img">
+            ${entry.image_url
+              ? `<img src="${entry.image_url}" alt="${entry.client_name}" loading="lazy" style="object-position:${entry.image_position||'50% 50%'}" />`
+              : `<div class="port-placeholder" data-lbl="Photo coming soon" style="background:${GRADIENTS[entry.event_type]||GRADIENTS.dd}"></div>`
+            }
+          </div>
+          <div class="portfolio-card-meta">
+            <div class="portfolio-card-type">${entry.event_label || entry.event_type}</div>
+            <div class="portfolio-card-name">${entry.client_name}</div>
+            ${detail ? `<div class="portfolio-card-detail">${detail}</div>` : ''}
+            ${entry.year ? `<div class="portfolio-card-year">${entry.year}</div>` : ''}
+          </div>`;
+
+        grid.appendChild(card);
+      });
+
+      // Re-run filter if one is already active
+      const active = document.querySelector('.filter-btn.active');
+      if (active && active.dataset.filter !== 'all') active.click();
+    }
+
+    loadPortfolio();
+  })();
+  </script>
+</Layout>

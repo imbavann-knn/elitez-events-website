@@ -1,0 +1,393 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="About — Elitez Events"
+  description="About Elitez Events — our story, our team, and what makes us Singapore's most trusted corporate events agency."
+  canonical="https://events.elitez.ai/pages/about"
+  ogTitle="About — Elitez Events"
+  ogDescription="Meet the team behind Singapore's most trusted corporate events agency. Small team, senior expertise."
+  activeNav="about"
+  isHome={false}
+>
+  <Fragment slot="head">
+    <style is:global>
+      /* ── STORY SECTION ──────────────────────────────── */
+      .story-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 96px;
+        align-items: center;
+      }
+      .story-pull {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: clamp(24px, 3vw, 36px);
+        line-height: 1.4;
+        color: var(--cream);
+        border-left: 3px solid var(--gold);
+        padding-left: 32px;
+        margin-bottom: 40px;
+      }
+      .story-body {
+        font-size: 15px;
+        font-weight: 300;
+        color: var(--steel);
+        line-height: 1.85;
+        margin-bottom: 20px;
+      }
+      .story-img {
+        aspect-ratio: 4/3;
+        background: var(--navy);
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--border);
+      }
+      .story-img-placeholder {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 60% 60% at 50% 40%, rgba(201,146,58,0.07) 0%, transparent 70%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .story-img-placeholder::after {
+        content: 'Team photo coming soon';
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(240,235,224,0.18);
+      }
+
+      /* ── VALUES ─────────────────────────────────────── */
+      .values-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin-top: 64px;
+      }
+      .value-cell {
+        background: var(--midnight);
+        padding: 40px 32px;
+        transition: background 0.3s;
+      }
+      .value-cell:hover { background: var(--navy-2); }
+      .value-word {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 32px;
+        color: var(--gold);
+        margin-bottom: 16px;
+        line-height: 1;
+      }
+      .value-desc { font-size: 13px; font-weight: 300; color: var(--steel); line-height: 1.8; }
+
+      /* ── TEAM ────────────────────────────────────────── */
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        margin-top: 64px;
+      }
+      .team-card {
+        background: var(--navy);
+        border: 1px solid var(--border);
+        overflow: hidden;
+        transition: border-color 0.35s, transform 0.35s;
+      }
+      .team-card:hover { border-color: var(--gold-border); transform: translateY(-4px); }
+      .team-card-img {
+        aspect-ratio: 1;
+        background: var(--midnight);
+        position: relative;
+        overflow: hidden;
+      }
+      .team-card-img img { width: 100%; height: 100%; object-fit: cover; }
+      .team-img-placeholder {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--midnight);
+      }
+      .team-img-placeholder .initial {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 72px;
+        color: rgba(201,146,58,0.15);
+        line-height: 1;
+      }
+      .team-card-info { padding: 24px; }
+      .team-card-name {
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 20px;
+        color: var(--cream);
+        margin-bottom: 4px;
+      }
+      .team-card-title {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 16px;
+      }
+      .team-card-bio {
+        font-size: 13px;
+        font-weight: 300;
+        color: var(--steel);
+        line-height: 1.75;
+      }
+      .team-card-contact {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+        font-size: 12px;
+        font-weight: 300;
+        color: var(--steel);
+      }
+      .team-card-contact a { color: var(--gold); text-decoration: none; transition: opacity 0.28s; }
+      .team-card-contact a:hover { opacity: 0.75; }
+
+      /* ── ELITEZ GROUP ────────────────────────────────── */
+      .group-section {
+        background: var(--navy);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .group-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 96px;
+        align-items: center;
+      }
+      .group-stat-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin-top: 40px;
+      }
+      .group-stat-cell {
+        background: var(--midnight);
+        padding: 28px 24px;
+      }
+      .group-stat-cell:hover { background: rgba(8,12,24,0.95); }
+      .group-stat-num {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 36px;
+        color: var(--cream);
+        line-height: 1;
+      }
+      .group-stat-lbl {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--steel);
+        margin-top: 6px;
+      }
+      .group-cert-row {
+        display: flex;
+        gap: 16px;
+        margin-top: 32px;
+        flex-wrap: wrap;
+      }
+      .group-cert {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--gold);
+        border: 1px solid var(--gold-border);
+        padding: 8px 16px;
+      }
+
+      @media (max-width: 1024px) {
+        .story-layout  { grid-template-columns: 1fr; gap: 48px; }
+        .group-layout  { grid-template-columns: 1fr; gap: 48px; }
+        .values-grid   { grid-template-columns: 1fr 1fr; }
+        .team-grid     { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 600px) {
+        .values-grid { grid-template-columns: 1fr; }
+        .team-grid   { grid-template-columns: 1fr; }
+      }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home",  "item": "https://events.elitez.ai/" },
+            { "@type": "ListItem", "position": 2, "name": "About", "item": "https://events.elitez.ai/pages/about" }
+          ]
+        },
+        {
+          "@type": "LocalBusiness",
+          "name": "Elitez Events",
+          "url": "https://events.elitez.ai",
+          "logo": "https://events.elitez.ai/assets/img/logo-white.png",
+          "telephone": "+6581800994",
+          "email": "eevann.seah@elitez.asia",
+          "address": { "@type": "PostalAddress", "addressCountry": "SG", "addressLocality": "Singapore" },
+          "description": "Elitez Events is a Singapore corporate events agency specialising in Dinner & Dance, Awards Ceremonies, Family Days, Conferences, Team Building and Rallies™ — a proprietary sports activation format.",
+          "foundingDate": "2021",
+          "numberOfEmployees": { "@type": "QuantitativeValue", "value": "10" },
+          "slogan": "We stage moments that matter."
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-breadcrumb"><a href="/">Home</a><span>/</span> About</div>
+      <div class="eyebrow reveal">Our Story</div>
+      <h1 class="display-lg reveal" data-d="1">We are the team<br>behind the<br><em class="gold">curtain.</em></h1>
+      <p class="reveal" data-d="2" style="margin-top:20px;font-size:15px;font-weight:300;color:var(--steel);line-height:1.85;max-width:540px;">Elitez Events is Singapore's corporate events agency built on two things: genuine sector expertise and an obsession with getting the details right.</p>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <section style="background:var(--midnight);">
+    <div class="story-layout reveal">
+      <div>
+        <div class="eyebrow">Who We Are</div>
+        <div class="story-pull">"We don't produce events. We produce the moments your people carry with them."</div>
+        <p class="story-body">Elitez Events is the corporate events arm of Elitez Group of Companies — one of Singapore's established HR and workforce solutions groups. We were built on a simple premise: that the people who understand your workforce best are the ones best equipped to create events that actually move them.</p>
+        <p class="story-body">Our client portfolio spans Singapore's most recognisable public-sector and private-sector organisations — from DSTA and SingHealth to Mandai Wildlife Group and Singapore Institute of Technology. Each of them came to us because they needed more than logistics management. They needed an agency that understood the stakes.</p>
+        <p class="story-body">We are a compact, senior team. Every account is managed directly by people who have been in the industry long enough to know what can go wrong — and how to make sure it doesn't. That's not a value we wrote for a website. It's how we operate every day.</p>
+      </div>
+      <div class="story-img">
+        <img src="/assets/img/team/team-group.jpg" alt="Elitez Events team at company townhall" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section style="background:var(--navy);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="eyebrow reveal">What We Stand For</div>
+    <h2 class="display-lg reveal" data-d="1">Four words that<br><em class="gold">guide every event.</em></h2>
+    <div class="values-grid reveal" data-d="2">
+      <div class="value-cell">
+        <div class="value-word">Precision</div>
+        <div class="value-desc">Every run-of-show is rehearsed. Every supplier is briefed. Every contingency is planned. The show runs on time because we prepare as if it won't.</div>
+      </div>
+      <div class="value-cell">
+        <div class="value-word">Integrity</div>
+        <div class="value-desc">We tell clients what's realistic. We don't oversell. We don't overpromise. If something can't be done well within your budget, we'll tell you — and offer an alternative.</div>
+      </div>
+      <div class="value-cell">
+        <div class="value-word">Creativity</div>
+        <div class="value-desc">No two organisations are the same. No two events should be either. We start every brief with an open page and build from your culture up — not from a template down.</div>
+      </div>
+      <div class="value-cell">
+        <div class="value-word">People</div>
+        <div class="value-desc">Events exist for people — your employees, your guests, your stakeholders. Everything we design is filtered through one question: will the people in the room feel this was made for them?</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" style="background:var(--midnight);">
+    <div class="eyebrow reveal">The Team</div>
+    <h2 class="display-lg reveal" data-d="1">Small team.<br><em class="gold">Senior expertise.</em></h2>
+    <div class="team-grid reveal" data-d="2">
+      <div class="team-card">
+        <div class="team-card-img"><img src="/assets/img/team/eevann.jpg" alt="Eevann Seah" /></div>
+        <div class="team-card-info">
+          <div class="team-card-name">Eevann Seah</div>
+          <div class="team-card-title">Associate Director · Creator of Rallies™</div>
+          <div class="team-card-bio">Business Unit Leader and creator of the Rallies™ IP. Eevann brings strategic leadership and a deep understanding of what corporate clients need from their events — having served organisations across defence, healthcare, education, and conservation.</div>
+          <div class="team-card-contact"><a href="mailto:eevann.seah@elitez.asia">eevann.seah@elitez.asia</a></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-img"><img src="/assets/img/team/sam.jpg" alt="Sam Neo" /></div>
+        <div class="team-card-info">
+          <div class="team-card-name">Sam Neo</div>
+          <div class="team-card-title">Assistant Business Development Manager</div>
+          <div class="team-card-bio">Sam brings hands-on event experience from Fractal Events, SAF Yacht Club and corporate brand activations — covering everything from BTL marketing campaigns to large-scale corporate events. At Elitez, he's the client's day-to-day point of contact, managing accounts from brief to post-event debrief.</div>
+          <div class="team-card-contact"><a href="mailto:sam.neo@elitez.asia">sam.neo@elitez.asia</a> &nbsp;·&nbsp; <a href="tel:+6597271292">+65 9727 1292</a></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-img"><img src="/assets/img/team/jorena.jpg" alt="Jorena Tan" /></div>
+        <div class="team-card-info">
+          <div class="team-card-name">Jorena Tan</div>
+          <div class="team-card-title">Assistant Manager</div>
+          <div class="team-card-bio">Operational backbone of the Elitez Events team. Jorena manages vendor relationships, logistics coordination and on-the-ground execution — ensuring every moving part lands exactly where it should, on the day that matters.</div>
+          <div class="team-card-contact"><a href="mailto:jorena.tan@elitez.asia">jorena.tan@elitez.asia</a> &nbsp;·&nbsp; <a href="tel:+6583337613">+65 8333 7613</a></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-img"><img src="/assets/img/team/bryan.jpg" alt="Bryan Lim" /></div>
+        <div class="team-card-info">
+          <div class="team-card-name">Bryan Lim Bock Hai</div>
+          <div class="team-card-title">Senior Events Consultant</div>
+          <div class="team-card-bio">With 20+ years in the Singapore events industry, Bryan serves as our senior consultant — the depth behind our production quality. His portfolio spans MediaCorp productions (Anugerah Planet Musik, Singapore Television Awards), large-scale Family Days for ExxonMobil, MPA and New Balance, and gala dinners up to 3,000 pax. When complexity is high, Bryan's experience is in the room.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM GROUP PHOTO -->
+  <section style="background:var(--midnight);padding:0 0 80px;">
+    <div style="max-width:1100px;margin:0 auto;padding:0 var(--pad-x);">
+      <div class="reveal" style="position:relative;overflow:hidden;border:1px solid var(--border);">
+        <img src="/assets/img/team/team-group.jpg" alt="Elitez Events team" style="width:100%;display:block;max-height:560px;object-fit:cover;object-position:center 30%;" />
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:28px 32px;background:linear-gradient(to top,rgba(8,12,24,0.88) 0%,transparent 100%);">
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">The Elitez Events Team</div>
+          <div style="font-family:var(--font-display);font-size:18px;color:var(--cream);font-weight:600;">Breaking barriers — Elitez Group Townhall 2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ELITEZ GROUP -->
+  <section class="group-section">
+    <div class="group-layout reveal">
+      <div>
+        <div class="eyebrow">Part of Something Larger</div>
+        <h2 class="display-lg">Elitez<br><em class="gold">Group of<br>Companies</em></h2>
+        <p style="margin-top:20px;font-size:15px;font-weight:300;color:var(--steel);line-height:1.85;">Elitez Events sits within the Elitez Group — a regional HR and workforce solutions group operating across 6 countries in Southeast Asia, led by CEO Derrick Teo. The Group's HR and staffing expertise means Elitez Events understands workforce culture at a level most event agencies simply don't.</p>
+        <p style="margin-top:16px;font-size:15px;font-weight:300;color:var(--steel);line-height:1.85;">This connection gives our clients a genuine advantage: events informed by real organisational insight, not just event production experience.</p>
+        <div class="group-cert-row">
+          <div class="group-cert">ISO Certified</div>
+          <div class="group-cert">EcoVadis Certified</div>
+          <div class="group-cert">6 Countries</div>
+        </div>
+      </div>
+      <div>
+        <div class="group-stat-row">
+          <div class="group-stat-cell"><div class="group-stat-num">6</div><div class="group-stat-lbl">Countries in Southeast Asia</div></div>
+          <div class="group-stat-cell"><div class="group-stat-num">20+</div><div class="group-stat-lbl">Years of group operations</div></div>
+          <div class="group-stat-cell"><div class="group-stat-num">300+</div><div class="group-stat-lbl">Promoters deployed weekly (FMCG arm)</div></div>
+          <div class="group-stat-cell"><div class="group-stat-num">2</div><div class="group-stat-lbl">ISO &amp; EcoVadis certifications</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" data-ghost="ABOUT">
+    <div class="cta-inner reveal">
+      <div class="cta-eyebrow">Let's work together</div>
+      <div class="cta-title">Tell us about<br>your next <em>event.</em></div>
+      <div class="btn-pair btn-pair-center">
+        <a href="/pages/contact" class="btn btn-gold">Get a Quote</a>
+        <a href="/pages/portfolio" class="btn btn-outline">See Our Work</a>
+      </div>
+    </div>
+  </section>
+</Layout>

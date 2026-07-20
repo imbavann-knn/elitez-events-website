@@ -1,0 +1,1004 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="Rallies™ — Elitez Events"
+  description="Rallies™ by Elitez Events — Singapore's premier pickleball brand activation. A bespoke brand activation built around Singapore's fastest-growing sport."
+  canonical="https://events.elitez.ai/pages/rallies"
+  ogTitle="Rallies™ — Elitez Events"
+  ogDescription="Singapore's premier pickleball brand activation. 5.2M+ reach, 278 players, NPS +26. Partner with Rallies™."
+  activeNav="rallies"
+  isHome={false}
+>
+  <Fragment slot="head">
+    <style is:global>
+      /* ── RALLIES HERO ─────────────────────────────────── */
+      .rallies-hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 80px;
+        padding-left: var(--pad-x);
+        padding-right: var(--pad-x);
+        position: relative;
+        overflow: hidden;
+        background: #050810;
+      }
+      .rallies-hero-photo {
+        position: absolute;
+        inset: 0;
+        background: url('/assets/img/rallies/photo-crowd-overhead.jpg') center/cover no-repeat;
+      }
+      .rallies-hero-photo::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(5,8,16,0.45) 0%,
+          rgba(5,8,16,0.30) 40%,
+          rgba(5,8,16,0.75) 75%,
+          rgba(5,8,16,0.97) 100%
+        );
+      }
+      .rallies-hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 900px;
+      }
+      .rallies-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(201,146,58,0.15);
+        border: 1px solid rgba(201,146,58,0.4);
+        padding: 8px 16px;
+        margin-bottom: 32px;
+      }
+      .rallies-badge-dot {
+        width: 6px; height: 6px;
+        background: var(--gold);
+        border-radius: 50%;
+      }
+      .rallies-badge-text {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+      .rallies-wordmark {
+        font-family: var(--font-display);
+        font-size: clamp(72px, 14vw, 180px);
+        font-weight: 700;
+        color: var(--cream);
+        line-height: 0.9;
+        letter-spacing: -0.02em;
+        margin-bottom: 24px;
+      }
+      .rallies-wordmark .tm {
+        font-size: 0.3em;
+        vertical-align: super;
+        color: var(--gold);
+        font-weight: 400;
+      }
+      .rallies-hero-sub {
+        font-size: clamp(16px, 2vw, 22px);
+        font-weight: 300;
+        color: var(--cream);
+        opacity: 0.85;
+        max-width: 560px;
+        line-height: 1.55;
+        margin-bottom: 40px;
+      }
+      .rallies-hero-cta {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* ── ACUVUE EDITION STRIP ─────────────────────────── */
+      .edition-strip {
+        background: #0C0F1A;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 20px var(--pad-x);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .edition-strip-label {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        white-space: nowrap;
+      }
+      .edition-strip-divider {
+        width: 1px;
+        height: 20px;
+        background: var(--border);
+      }
+      .edition-strip-items {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      .edition-strip-item {
+        font-size: 12px;
+        font-weight: 300;
+        color: var(--steel);
+      }
+      .edition-strip-item strong { color: var(--cream); font-weight: 500; }
+
+      /* ── WHY NOW STATS ────────────────────────────────── */
+      .why-now-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+      }
+      .why-now-card {
+        padding: 48px 40px;
+        border-right: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        transition: background 0.3s;
+      }
+      .why-now-card:last-child { border-right: none; }
+      .why-now-card:hover { background: var(--navy); }
+      .why-now-stat {
+        font-family: var(--font-display);
+        font-size: clamp(40px, 5vw, 64px);
+        font-weight: 700;
+        color: var(--gold);
+        line-height: 1;
+        margin-bottom: 12px;
+      }
+      .why-now-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--cream);
+        margin-bottom: 8px;
+        line-height: 1.3;
+      }
+      .why-now-sub {
+        font-size: 11px;
+        font-weight: 300;
+        color: var(--steel);
+        line-height: 1.5;
+      }
+
+      /* ── RALLIES WAY — VS TABLE ───────────────────────── */
+      .vs-section {
+        background: var(--midnight);
+      }
+      .vs-grid {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 0;
+        border: 1px solid var(--border);
+      }
+      .vs-col {
+        padding: 48px 40px;
+      }
+      .vs-col-left { background: rgba(255,255,255,0.02); }
+      .vs-col-right { background: var(--navy); }
+      .vs-col-middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 24px;
+        background: var(--midnight);
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+      }
+      .vs-label-vs {
+        font-family: var(--font-display);
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--border);
+        writing-mode: vertical-rl;
+        letter-spacing: 0.1em;
+      }
+      .vs-col-header {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        margin-bottom: 32px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      .vs-col-left .vs-col-header { color: var(--steel); }
+      .vs-col-right .vs-col-header { color: var(--gold); }
+      .vs-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.5;
+      }
+      .vs-col-left .vs-item { color: var(--steel); }
+      .vs-col-right .vs-item { color: var(--cream); font-weight: 400; }
+      .vs-icon {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 1px;
+        font-size: 10px;
+        font-weight: 700;
+      }
+      .vs-col-left .vs-icon { background: rgba(138,143,168,0.15); color: var(--steel); }
+      .vs-col-right .vs-icon { background: rgba(201,146,58,0.2); color: var(--gold); }
+
+      /* ── PROOF IT WORKS — ACUVUE × RALLIES ───────────── */
+      .proof-section {
+        background: var(--midnight);
+      }
+      .proof-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: start;
+      }
+      .proof-photo-stack {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 300px 200px;
+        gap: 8px;
+      }
+      .proof-photo {
+        overflow: hidden;
+        background: var(--navy);
+      }
+      .proof-photo:first-child {
+        grid-column: span 2;
+      }
+      .proof-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s ease;
+      }
+      .proof-photo:hover img { transform: scale(1.04); }
+      .proof-stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin-top: 40px;
+      }
+      .proof-stat {
+        background: var(--navy);
+        padding: 28px 24px;
+      }
+      .proof-stat-num {
+        font-family: var(--font-display);
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--gold);
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+      .proof-stat-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--cream);
+        margin-bottom: 4px;
+      }
+      .proof-stat-sub {
+        font-size: 10px;
+        font-weight: 300;
+        color: var(--steel);
+        line-height: 1.4;
+      }
+      .proof-endorsement {
+        margin-top: 32px;
+        background: var(--gold-dim);
+        border: 1px solid var(--gold-border);
+        padding: 24px 28px;
+      }
+      .proof-endorsement-label {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 12px;
+      }
+      .proof-endorsement-quote {
+        font-size: 15px;
+        font-weight: 300;
+        color: var(--cream);
+        line-height: 1.65;
+        font-style: italic;
+      }
+      .proof-endorsement-attr {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--steel);
+        margin-top: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      /* ── WHAT WE BUILD — 6 ACTIVATIONS ───────────────── */
+      .activations-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+      }
+      .activation-card {
+        background: var(--navy);
+        padding: 40px 36px;
+        transition: background 0.3s;
+        position: relative;
+      }
+      .activation-card::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: var(--gold);
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
+        transform-origin: bottom;
+      }
+      .activation-card:hover { background: #131A2E; }
+      .activation-card:hover::before { transform: scaleY(1); }
+      .activation-num {
+        font-family: var(--font-display);
+        font-size: 48px;
+        font-weight: 700;
+        color: rgba(201,146,58,0.2);
+        line-height: 1;
+        margin-bottom: 16px;
+      }
+      .activation-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--cream);
+        margin-bottom: 12px;
+      }
+      .activation-body {
+        font-size: 13px;
+        font-weight: 300;
+        color: var(--steel);
+        line-height: 1.65;
+      }
+
+      /* ── EXPERIENCE PILLARS ───────────────────────────── */
+      .experience-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+      }
+      .experience-card {
+        background: var(--midnight);
+        padding: 40px 40px;
+        transition: background 0.3s;
+      }
+      .experience-card:hover { background: var(--navy); }
+      .experience-num {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 16px;
+      }
+      .experience-title {
+        font-family: var(--font-display);
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--cream);
+        margin-bottom: 12px;
+      }
+      .experience-body {
+        font-size: 14px;
+        font-weight: 300;
+        color: var(--steel);
+        line-height: 1.65;
+      }
+
+      /* ── PHOTO GALLERY ────────────────────────────────── */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        grid-template-rows: 280px 280px;
+        gap: 8px;
+      }
+      .gallery-item {
+        overflow: hidden;
+        background: var(--navy);
+      }
+      .gallery-item:first-child { grid-row: span 2; }
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s ease;
+      }
+      .gallery-item:hover img { transform: scale(1.04); }
+
+      /* ── REGIONAL EXPANSION ───────────────────────────── */
+      .regional-section {
+        background: var(--midnight);
+      }
+      .regional-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+      .regional-markets {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        border: 1px solid var(--border);
+      }
+      .regional-market {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 28px;
+        border-bottom: 1px solid var(--border);
+        transition: background 0.25s;
+      }
+      .regional-market:last-child { border-bottom: none; }
+      .regional-market:hover { background: var(--navy); }
+      .regional-market-name {
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--cream);
+      }
+      .regional-market-country {
+        font-size: 11px;
+        font-weight: 300;
+        color: var(--steel);
+        margin-top: 2px;
+      }
+      .regional-badge {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 5px 12px;
+      }
+      .regional-badge.active {
+        background: rgba(201,146,58,0.15);
+        color: var(--gold);
+        border: 1px solid rgba(201,146,58,0.4);
+      }
+      .regional-badge.available {
+        background: rgba(30,37,64,0.8);
+        color: var(--steel);
+        border: 1px solid var(--border);
+      }
+      .regional-big {
+        font-family: var(--font-display);
+        font-size: clamp(36px, 5vw, 56px);
+        font-weight: 700;
+        color: var(--cream);
+        line-height: 1.1;
+        margin-bottom: 24px;
+      }
+      .regional-big em { color: var(--gold); font-style: italic; }
+
+      /* ── PARTNERS STRIP ───────────────────────────────── */
+      .partners-section {
+        background: var(--navy);
+        padding: 80px var(--pad-x);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .partners-img {
+        width: 100%;
+        max-width: 860px;
+        margin: 40px auto 0;
+        display: block;
+        filter: grayscale(20%);
+        opacity: 0.85;
+        transition: opacity 0.3s;
+      }
+      .partners-img:hover { opacity: 1; filter: none; }
+
+      /* ── TESTIMONIAL ──────────────────────────────────── */
+      .testimonial-section {
+        background: var(--midnight);
+      }
+      .testimonial-inner {
+        max-width: 760px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .testimonial-quote {
+        font-family: var(--font-display);
+        font-size: clamp(22px, 3vw, 34px);
+        font-weight: 400;
+        font-style: italic;
+        color: var(--cream);
+        line-height: 1.5;
+        margin-bottom: 32px;
+      }
+      .testimonial-attr {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--steel);
+      }
+
+      /* ── SPONSOR PACKAGE CTA BAND ─────────────────────── */
+      .package-band {
+        background: var(--gold);
+        padding: 80px var(--pad-x);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+      .package-band-left {}
+      .package-band-eyebrow {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: rgba(8,12,24,0.6);
+        margin-bottom: 12px;
+      }
+      .package-band-heading {
+        font-family: var(--font-display);
+        font-size: clamp(28px, 4vw, 48px);
+        font-weight: 700;
+        color: var(--midnight);
+        line-height: 1.1;
+      }
+      .package-band-sub {
+        font-size: 14px;
+        font-weight: 400;
+        color: rgba(8,12,24,0.7);
+        margin-top: 12px;
+        max-width: 480px;
+        line-height: 1.6;
+      }
+      .btn-dark {
+        background: var(--midnight);
+        color: var(--cream);
+        font-family: var(--font-body);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 18px 36px;
+        display: inline-block;
+        border: none;
+        transition: background 0.28s;
+        white-space: nowrap;
+      }
+      .btn-dark:hover { background: var(--navy); }
+
+      /* ── FOUNDER CALLOUT ──────────────────────────────── */
+      .founders-block {
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-top: 40px;
+      }
+      .founder-item {
+        font-size: 13px;
+        font-weight: 300;
+        color: var(--steel);
+      }
+      .founder-item strong { color: var(--cream); font-weight: 500; }
+
+      /* ── RESPONSIVE ───────────────────────────────────── */
+      @media (max-width: 1100px) {
+        .why-now-grid { grid-template-columns: repeat(2, 1fr); }
+        .proof-layout { grid-template-columns: 1fr; gap: 48px; }
+        .activations-grid { grid-template-columns: repeat(2, 1fr); }
+        .regional-layout { grid-template-columns: 1fr; gap: 48px; }
+        .vs-grid { grid-template-columns: 1fr; }
+        .vs-col-middle { display: none; }
+      }
+      @media (max-width: 768px) {
+        .why-now-grid { grid-template-columns: 1fr 1fr; }
+        .why-now-card { padding: 32px 24px; }
+        .activations-grid { grid-template-columns: 1fr; }
+        .experience-grid { grid-template-columns: 1fr; }
+        .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 200px 200px; }
+        .gallery-item:first-child { grid-column: span 2; grid-row: span 1; }
+        .proof-photo-stack { grid-template-rows: 220px 160px; }
+      }
+      @media (max-width: 600px) {
+        .why-now-grid { grid-template-columns: 1fr; }
+        .proof-stats-grid { grid-template-columns: 1fr; }
+        .package-band { flex-direction: column; align-items: flex-start; }
+      }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home",     "item": "https://events.elitez.ai/" },
+            { "@type": "ListItem", "position": 2, "name": "Rallies™", "item": "https://events.elitez.ai/pages/rallies" }
+          ]
+        },
+        {
+          "@type": "Service",
+          "name": "Rallies™ — Corporate Pickleball Tournament",
+          "url": "https://events.elitez.ai/pages/rallies",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "Elitez Events",
+            "url": "https://events.elitez.ai"
+          },
+          "areaServed": { "@type": "Country", "name": "Singapore" },
+          "description": "Rallies™ is a proprietary corporate sports activation format created and owned by Elitez Events — a competitive, team-based pickleball tournament designed for employee engagement, company sports days and brand activations. Rallies 1.0 hosted 280 participants at Plaza Singapura; Rallies 1.5 (Women's Open) ran as a 32-pair tournament.",
+          "serviceType": "Corporate sports event management",
+          "brand": { "@type": "Brand", "name": "Rallies™" }
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <!-- HERO -->
+  <section class="rallies-hero">
+    <div class="rallies-hero-photo"></div>
+    <div class="rallies-hero-content">
+      <div class="rallies-badge reveal">
+        <div class="rallies-badge-dot"></div>
+        <div class="rallies-badge-text">By Elitez Events · Singapore</div>
+      </div>
+      <h1 class="rallies-wordmark reveal" data-d="1">Rallies<span class="tm">™</span></h1>
+      <p class="rallies-hero-sub reveal" data-d="2">Where brands, corporates, creators and the community rally together — built around Singapore's fastest-growing sport.</p>
+      <div class="rallies-hero-cta reveal" data-d="3">
+        <a href="/pages/contact" class="btn-gold">Become a Partner</a>
+        <a href="#proof" class="btn-outline">See Edition 1.0</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITION STRIP -->
+  <div class="edition-strip">
+    <div class="edition-strip-label">Edition 1.0</div>
+    <div class="edition-strip-divider"></div>
+    <div class="edition-strip-items">
+      <div class="edition-strip-item"><strong>ACUVUE × Rallies</strong> — Title Sponsor</div>
+      <div class="edition-strip-item"><strong>Plaza Singapura</strong> — Official Venue</div>
+      <div class="edition-strip-item"><strong>1–12 April 2026</strong></div>
+      <div class="edition-strip-item">Guest of Honour: <strong>Mayor Denise Phua</strong></div>
+    </div>
+  </div>
+
+  <!-- WHY PICKLEBALL, WHY NOW -->
+  <section style="background:var(--midnight); padding-top:96px; padding-bottom:0;">
+    <div style="padding: 0 var(--pad-x); margin-bottom: 56px;">
+      <div class="eyebrow reveal">Why Pickleball, Why Now</div>
+      <h2 class="display-md reveal" data-d="1">The perfect<br><em class="gold">brand stage.</em></h2>
+      <p class="reveal" data-d="2" style="max-width:520px; font-size:15px; font-weight:300; color:var(--steel); line-height:1.8; margin-top:20px;">Pickleball uniquely bridges corporate and community — accessible, social, and highly photogenic. This is not just a sport. It's a media platform your brand sits at the centre of.</p>
+    </div>
+    <div class="why-now-grid reveal" data-d="1">
+      <div class="why-now-card">
+        <div class="why-now-stat">#1</div>
+        <div class="why-now-label">Fastest-growing sport globally</div>
+        <div class="why-now-sub">WSJ, 2024</div>
+      </div>
+      <div class="why-now-card">
+        <div class="why-now-stat">25–54</div>
+        <div class="why-now-label">Prime working-age core demographic</div>
+        <div class="why-now-sub">85% of our players</div>
+      </div>
+      <div class="why-now-card">
+        <div class="why-now-stat">60/40</div>
+        <div class="why-now-label">Male / Female player split</div>
+        <div class="why-now-sub">Highly inclusive</div>
+      </div>
+      <div class="why-now-card" style="border-right:none;">
+        <div class="why-now-stat">SG</div>
+        <div class="why-now-label">One of Asia's most active markets</div>
+        <div class="why-now-sub">Growing rapidly</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO WE ARE -->
+  <section style="background:var(--midnight); padding:96px var(--pad-x);">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;">
+      <div>
+        <div class="eyebrow reveal">What Rallies Is</div>
+        <h2 class="display-md reveal" data-d="1">Built to create<br><em class="gold">brand moments.</em></h2>
+        <p class="reveal" data-d="2" style="font-size:15px; font-weight:300; color:var(--steel); line-height:1.8; margin-top:20px; margin-bottom:40px;">Rallies is a Singapore-based event platform that designs and runs premium pickleball competitions. We don't just organise events — we build brand-aligned experiences that put your message at the centre of the action.</p>
+        <div class="founders-block reveal" data-d="3">
+          <div class="founder-item"><strong>Founded by</strong><br>Eevann Seah &amp; Andy Sma</div>
+          <div class="founder-item"><strong>Under</strong><br>Elitez Group of Companies</div>
+          <div class="founder-item"><strong>Based in</strong><br>Singapore · <a href="https://rallies.elitez.asia" style="color:var(--gold); text-decoration:none;">rallies.elitez.asia</a></div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:0; border:1px solid var(--border);" class="reveal" data-d="1">
+        <div style="padding:28px 32px; border-bottom:1px solid var(--border);">
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">01 Competition Design</div>
+          <div style="font-size:14px;font-weight:300;color:var(--cream);line-height:1.6;">Bespoke tournament formats matched to your brand narrative and audience.</div>
+        </div>
+        <div style="padding:28px 32px; border-bottom:1px solid var(--border);">
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">02 Brand Integration</div>
+          <div style="font-size:14px;font-weight:300;color:var(--cream);line-height:1.6;">From naming rights to on-court branding — every touchpoint is yours.</div>
+        </div>
+        <div style="padding:28px 32px;">
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">03 Community Access</div>
+          <div style="font-size:14px;font-weight:300;color:var(--cream);line-height:1.6;">Direct reach into Singapore's most engaged pickleball player network.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE RALLIES WAY -->
+  <section class="vs-section" style="padding:96px var(--pad-x);">
+    <div style="margin-bottom:56px;">
+      <div class="eyebrow reveal">A Different Kind of Sports Partnership</div>
+      <h2 class="display-md reveal" data-d="1">The Rallies Way.</h2>
+    </div>
+    <div class="vs-grid reveal" data-d="1">
+      <div class="vs-col vs-col-left">
+        <div class="vs-col-header">The Old Way</div>
+        <div class="vs-item"><div class="vs-icon">✕</div>Organise an event, hope sponsors show up</div>
+        <div class="vs-item"><div class="vs-icon">✕</div>Fit brand into an existing format</div>
+        <div class="vs-item"><div class="vs-icon">✕</div>Generic exposure, low recall</div>
+        <div class="vs-item"><div class="vs-icon">✕</div>You adapt to the event</div>
+      </div>
+      <div class="vs-col-middle">
+        <div class="vs-label-vs">VS</div>
+      </div>
+      <div class="vs-col vs-col-right">
+        <div class="vs-col-header">The Rallies Way</div>
+        <div class="vs-item"><div class="vs-icon">✓</div>Brand brief comes first — we design the event around you</div>
+        <div class="vs-item"><div class="vs-icon">✓</div>Your messaging drives the format</div>
+        <div class="vs-item"><div class="vs-icon">✓</div>Deep engagement, high recall</div>
+        <div class="vs-item"><div class="vs-icon">✓</div>The event adapts to your brand</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF IT WORKS -->
+  <section id="proof" class="proof-section" style="padding:96px var(--pad-x);">
+    <div style="margin-bottom:56px;">
+      <div class="eyebrow reveal">Proof It Works</div>
+      <h2 class="display-md reveal" data-d="1">ACUVUE × Rallies 1.0</h2>
+      <p class="reveal" data-d="2" style="font-size:15px;font-weight:300;color:var(--steel);line-height:1.8;max-width:560px;margin-top:16px;">Singapore's first in-mall pickleball competition. 12 days. Plaza Singapura Level 1 Atrium. Guest of Honour: Mayor Denise Phua.</p>
+    </div>
+    <div class="proof-layout">
+      <div class="reveal">
+        <div class="proof-photo-stack">
+          <div class="proof-photo">
+            <img src="/assets/img/rallies/photo-mediaday-1.jpg" alt="Rallies 1.0 court at Plaza Singapura" />
+          </div>
+          <div class="proof-photo">
+            <img src="/assets/img/rallies/photo-mayor.jpg" alt="Mayor Denise Phua at Rallies" />
+          </div>
+          <div class="proof-photo">
+            <img src="/assets/img/rallies/photo-celeb-all4.jpg" alt="Celebrity exhibition games at Rallies" />
+          </div>
+        </div>
+      </div>
+      <div class="reveal" data-d="1">
+        <div class="proof-stats-grid">
+          <div class="proof-stat">
+            <div class="proof-stat-num">5.2M+</div>
+            <div class="proof-stat-label">Campaign Reach</div>
+            <div class="proof-stat-sub">Digital + on-ground + PR</div>
+          </div>
+          <div class="proof-stat">
+            <div class="proof-stat-num">278</div>
+            <div class="proof-stat-label">Registered Players</div>
+            <div class="proof-stat-sub">40% female, 36 teams</div>
+          </div>
+          <div class="proof-stat">
+            <div class="proof-stat-num">344K+</div>
+            <div class="proof-stat-label">Instagram Views</div>
+            <div class="proof-stat-sub">99.9% organic</div>
+          </div>
+          <div class="proof-stat">
+            <div class="proof-stat-num">350+</div>
+            <div class="proof-stat-label">Peak Spectators</div>
+            <div class="proof-stat-sub">Grand Final crowd</div>
+          </div>
+          <div class="proof-stat">
+            <div class="proof-stat-num">310K+</div>
+            <div class="proof-stat-label">KOL Reach</div>
+            <div class="proof-stat-sub">20 KOLs activated</div>
+          </div>
+          <div class="proof-stat">
+            <div class="proof-stat-num">+26</div>
+            <div class="proof-stat-label">NPS Score</div>
+            <div class="proof-stat-sub">74% return intent</div>
+          </div>
+        </div>
+        <div class="proof-endorsement">
+          <div class="proof-endorsement-label">Player Testimonial · NPS 10</div>
+          <div class="proof-endorsement-quote">"Really great experience! First time playing in a mall and the atrium of spectators made it that much more exciting!"</div>
+          <div class="proof-endorsement-attr">— Kampong Kaki Participant, Edition 1.0</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO GALLERY -->
+  <section style="background:var(--midnight); padding:0 var(--pad-x) 96px;">
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="/assets/img/rallies/photo-crowd-overhead.jpg" alt="Aerial view of Rallies court at Plaza Singapura" />
+      </div>
+      <div class="gallery-item reveal" data-d="1">
+        <img src="/assets/img/rallies/photo-winner-corporate.jpg" alt="Corporate category winners" />
+      </div>
+      <div class="gallery-item reveal" data-d="2">
+        <img src="/assets/img/rallies/photo-winner-kk.jpg" alt="Kampong Kaki category winners" />
+      </div>
+      <div class="gallery-item reveal" data-d="1">
+        <img src="/assets/img/rallies/photo-crowd-3.jpg" alt="Crowd at Rallies Grand Final" />
+      </div>
+      <div class="gallery-item reveal" data-d="2">
+        <img src="/assets/img/rallies/photo-group-5.jpg" alt="Teams at Rallies 1.0" />
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE BUILD -->
+  <section style="background:var(--navy); padding:96px var(--pad-x); border-top:1px solid var(--border);">
+    <div style="margin-bottom:56px;">
+      <div class="eyebrow reveal">Your Activation, Your Rules</div>
+      <h2 class="display-md reveal" data-d="1">What we build<br><em class="gold">for you.</em></h2>
+    </div>
+    <div class="activations-grid reveal" data-d="1">
+      <div class="activation-card">
+        <div class="activation-num">01</div>
+        <div class="activation-title">On-Site Brand Takeover</div>
+        <div class="activation-body">Naming rights, court banners, branded zones, signage throughout venue — your brand lives everywhere.</div>
+      </div>
+      <div class="activation-card">
+        <div class="activation-num">02</div>
+        <div class="activation-title">Social &amp; Content Engine</div>
+        <div class="activation-body">KOL activation, branded reels, live coverage and a post-event media report with full analytics.</div>
+      </div>
+      <div class="activation-card">
+        <div class="activation-num">03</div>
+        <div class="activation-title">Product Sampling &amp; Trials</div>
+        <div class="activation-body">Direct product-to-hand distribution to every player and spectator. High recall, zero hard sell.</div>
+      </div>
+      <div class="activation-card">
+        <div class="activation-num">04</div>
+        <div class="activation-title">Data Capture &amp; Lead Gen</div>
+        <div class="activation-body">Registration data, on-site interactions and engagement metrics — all structured for your CRM.</div>
+      </div>
+      <div class="activation-card">
+        <div class="activation-num">05</div>
+        <div class="activation-title">Corporate Team-Building</div>
+        <div class="activation-body">A dedicated corporate category lets your clients, partners or staff compete under your brand.</div>
+      </div>
+      <div class="activation-card">
+        <div class="activation-num">06</div>
+        <div class="activation-title">Regional Expansion</div>
+        <div class="activation-body">Take the format beyond Singapore — Malaysia, Thailand, Indonesia. One brief, multiple markets.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE EXPERIENCE -->
+  <section style="background:var(--midnight); padding:96px var(--pad-x); border-top:1px solid var(--border);">
+    <div style="margin-bottom:56px;">
+      <div class="eyebrow reveal">The Experience</div>
+      <h2 class="display-md reveal" data-d="1">What a Rallies event<br><em class="gold">delivers.</em></h2>
+    </div>
+    <div class="experience-grid reveal" data-d="1">
+      <div class="experience-card">
+        <div class="experience-num">01 · In-Mall Venue</div>
+        <div class="experience-title">Premium visibility, natural spectator flow.</div>
+        <div class="experience-body">Atrium courts inside premier Singapore malls — massive footfall that your brand can't buy elsewhere.</div>
+      </div>
+      <div class="experience-card">
+        <div class="experience-num">02 · Competitive Format</div>
+        <div class="experience-title">A week-long media arc.</div>
+        <div class="experience-body">Group stage → knockouts → Grand Final. Your brand stays top-of-mind across multiple days of coverage.</div>
+      </div>
+      <div class="experience-card">
+        <div class="experience-num">03 · Dual Audience</div>
+        <div class="experience-title">Corporate meets community.</div>
+        <div class="experience-body">Both categories run simultaneously — speaking to MNC professionals and grassroots players in one event.</div>
+      </div>
+      <div class="experience-card">
+        <div class="experience-num">04 · Grand Final Energy</div>
+        <div class="experience-title">A headline moment built for content.</div>
+        <div class="experience-body">Full crowds, trophy ceremony, sponsor-branded podium and complete media coverage. This is the moment.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGIONAL EXPANSION -->
+  <section class="regional-section" style="padding:96px var(--pad-x);">
+    <div class="regional-layout">
+      <div>
+        <div class="eyebrow reveal">Think Bigger</div>
+        <div class="regional-big reveal" data-d="1">One brief.<br><em>Four markets.</em><br>Your brand.</div>
+        <p class="reveal" data-d="2" style="font-size:15px;font-weight:300;color:var(--steel);line-height:1.8;max-width:420px;margin-top:20px;">Rallies can replicate the activation model across Southeast Asia — giving you consistent brand presence with local flavour. We handle local logistics, venues and community activation in every market. You stay focused on the brand.</p>
+      </div>
+      <div class="regional-markets reveal" data-d="1">
+        <div class="regional-market">
+          <div>
+            <div class="regional-market-name">Singapore</div>
+            <div class="regional-market-country">Home Market</div>
+          </div>
+          <div class="regional-badge active">Active</div>
+        </div>
+        <div class="regional-market">
+          <div>
+            <div class="regional-market-name">Kuala Lumpur</div>
+            <div class="regional-market-country">Malaysia</div>
+          </div>
+          <div class="regional-badge available">Available</div>
+        </div>
+        <div class="regional-market">
+          <div>
+            <div class="regional-market-name">Bangkok</div>
+            <div class="regional-market-country">Thailand</div>
+          </div>
+          <div class="regional-badge available">Available</div>
+        </div>
+        <div class="regional-market">
+          <div>
+            <div class="regional-market-name">Jakarta</div>
+            <div class="regional-market-country">Indonesia</div>
+          </div>
+          <div class="regional-badge available">Available</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <div class="partners-section">
+    <div class="eyebrow" style="text-align:center;">Trusted by Brands That Mean Business</div>
+    <div class="display-sm reveal" data-d="1" style="text-align:center;margin-top:12px;">Our past partners.</div>
+    <img src="/assets/img/rallies/sponsors.jpg" alt="Rallies past partners: ACUVUE, Plaza Singapura, H-TWO-O, Guzman y Gomez, Yeo's, Energizer, UCC, Snickers, Compressport, Selkirk and more" class="partners-img reveal" data-d="1" />
+  </div>
+
+  <!-- TESTIMONIAL -->
+  <section class="testimonial-section" style="padding:100px var(--pad-x);">
+    <div class="testimonial-inner reveal">
+      <div class="testimonial-quote">"We don't just organise events — we build brand-aligned experiences that put your message at the centre of the action."</div>
+      <div class="testimonial-attr">Eevann Seah, Co-Founder · Rallies by Elitez Events</div>
+    </div>
+  </section>
+
+  <!-- SPONSOR PACKAGE CTA -->
+  <div class="package-band">
+    <div class="package-band-left">
+      <div class="package-band-eyebrow">Title Sponsor Package</div>
+      <div class="package-band-heading">Let's build this<br>around your brand.</div>
+      <div class="package-band-sub">Custom packages from discovery to delivery. Priced per scope — let's start with your brief. Full naming rights, brand integration across all comms, KOL content, product sampling, corporate category, post-event analytics and regional expansion.</div>
+    </div>
+    <a href="/pages/contact" class="btn-dark">Start with a Brief</a>
+  </div>
+</Layout>
