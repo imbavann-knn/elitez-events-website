@@ -30,7 +30,15 @@
 
 /* ─── RESET ──────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 24px); }
+
+/* ─── KEYBOARD FOCUS (visible only for keyboard nav) ──── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+:focus:not(:focus-visible) { outline: none; }
 body {
   background: var(--midnight);
   color: var(--cream);
@@ -231,17 +239,17 @@ section { padding: var(--pad-sect) var(--pad-x); }
   gap: 12px;
 }
 .footer-social a {
-  width: 36px; height: 36px;
+  width: 44px; height: 44px;
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
   color: var(--steel);
-  font-size: 12px;
-  transition: border-color 0.28s, color 0.28s;
+  transition: border-color 0.28s, color 0.28s, background 0.28s;
 }
-.footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+.footer-social a:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+.footer-social svg { width: 18px; height: 18px; }
 
 .footer-col-title {
   font-size: 10px;
