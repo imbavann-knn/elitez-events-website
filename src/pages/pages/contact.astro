@@ -388,4 +388,19 @@ import Layout from '../../layouts/Layout.astro';
       </div>
     </div>
   </section>
+
+  <script>
+    // Also log every enquiry into the shared Elitez leads sheet (labelled by source).
+    // The form still submits to FormSubmit as before — sendBeacon fires reliably even
+    // as the page navigates away. Paste the Apps Script Web App /exec URL below.
+    const LEADS_ENDPOINT = 'PASTE_WEB_APP_URL_HERE';
+    document.getElementById('enquiry-form')?.addEventListener('submit', function () {
+      try {
+        if (!/^https:\/\//.test(LEADS_ENDPOINT)) return;
+        const p = new URLSearchParams(); p.set('source', 'Events Website');
+        new FormData(this).forEach((v, k) => { if (k[0] !== '_') p.append(k, v); });
+        navigator.sendBeacon(LEADS_ENDPOINT, p);
+      } catch (e) {}
+    });
+  </script>
 </Layout>
