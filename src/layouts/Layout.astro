@@ -50,6 +50,22 @@ const navItems = [
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/style.css" />
+
+  <!-- Google tag (gtag.js) — shared Elitez Ads account, same base tag as fmcg.elitez.ai -->
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=AW-629589652"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-629589652');
+    // Enquiry-form conversion: FormSubmit redirects to /pages/contact?sent=1 on success.
+    // Paste the Events "Enquiry Form Submit" conversion label below to activate reporting.
+    var AW_CONVERSION_LABEL = ''; // TODO: e.g. 'AbC-D_efG12hIjKl'
+    if (AW_CONVERSION_LABEL && window.location.search.indexOf('sent=1') !== -1) {
+      gtag('event', 'conversion', { send_to: 'AW-629589652/' + AW_CONVERSION_LABEL });
+    }
+  </script>
+
   <script is:inline defer src="/assets/js/analytics.js"></script>
   <script is:inline defer src="/assets/js/animations.js"></script>
   <slot name="head" />
