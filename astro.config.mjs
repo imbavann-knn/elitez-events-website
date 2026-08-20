@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 export default defineConfig({
   output: 'static',
-  site: 'https://events.elitez.ai',
+  site: 'https://events.elitez.asia',
   trailingSlash: 'never',
   // Emit flat files (pages/services.html) not directories (pages/services/index.html)
   // so Cloudflare serves clean no-trailing-slash URLs matching the sitemap + canonicals,

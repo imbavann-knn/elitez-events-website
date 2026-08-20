@@ -7,11 +7,11 @@
 - End-to-end production — concept, staging, manpower and on-site delivery — for government and enterprise clients in Singapore.
 
 ## Key pages
-- [Home](https://events.elitez.ai/): event types and approach.
-- [Services](https://events.elitez.ai/pages/services.html): D&D, awards, family days, conferences.
-- [Portfolio](https://events.elitez.ai/pages/portfolio.html): past events and clients.
-- [Rallies](https://events.elitez.ai/pages/rallies.html): large-format corporate rallies.
-- [Contact](https://events.elitez.ai/pages/contact.html): enquire.
+- [Home](https://events.elitez.asia/): event types and approach.
+- [Services](https://events.elitez.asia/pages/services.html): D&D, awards, family days, conferences.
+- [Portfolio](https://events.elitez.asia/pages/portfolio.html): past events and clients.
+- [Rallies](https://events.elitez.asia/pages/rallies.html): large-format corporate rallies.
+- [Contact](https://events.elitez.asia/pages/contact.html): enquire.
 
 ## Operator
 - Elitez Group of Companies (Singapore). Contact: events@elitez.asia.

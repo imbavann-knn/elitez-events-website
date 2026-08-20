@@ -33,4 +33,4 @@ Allow: /
 User-agent: Meta-ExternalAgent
 Allow: /
 
-Sitemap: https://events.elitez.ai/sitemap.xml
+Sitemap: https://events.elitez.asia/sitemap.xml
