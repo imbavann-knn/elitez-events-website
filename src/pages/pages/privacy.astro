@@ -1,0 +1,111 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="Privacy Policy & PDPA Notice | Elitez Events"
+  description="How Elitez Events collects, uses and protects your personal data under Singapore's PDPA — enquiry forms, cookies, analytics, your rights, and how to contact our Data Protection Officer."
+  canonical="https://events.elitez.asia/pages/privacy"
+  ogTitle="Privacy Policy & PDPA Notice | Elitez Events"
+  ogDescription="How Elitez Events collects, uses and protects your personal data under Singapore's PDPA."
+  activeNav=""
+  isHome={false}
+>
+  <Fragment slot="head">
+    <style is:global>
+      .legal { max-width: 760px; }
+      .legal .updated {
+        font-size: 12px; font-weight: 500; letter-spacing: 0.12em;
+        text-transform: uppercase; color: var(--steel); margin-bottom: 40px;
+      }
+      .legal .lead {
+        font-size: 16px; font-weight: 300; color: var(--cream);
+        line-height: 1.85; margin-bottom: 8px;
+      }
+      .legal h2 {
+        font-family: var(--font-display); font-weight: 600; font-size: 22px;
+        color: var(--cream); margin: 44px 0 14px; line-height: 1.2;
+      }
+      .legal p { font-size: 15px; font-weight: 300; color: var(--steel); line-height: 1.85; margin-bottom: 14px; }
+      .legal ul { list-style: none; margin: 4px 0 14px; padding: 0; }
+      .legal li {
+        font-size: 15px; font-weight: 300; color: var(--steel); line-height: 1.8;
+        padding-left: 22px; position: relative; margin-bottom: 8px;
+      }
+      .legal li::before {
+        content: ''; position: absolute; left: 0; top: 11px;
+        width: 5px; height: 5px; background: var(--gold); border-radius: 50%;
+      }
+      .legal strong { color: var(--cream); font-weight: 500; }
+      .legal a { color: var(--gold); text-decoration: none; transition: opacity 0.28s; }
+      .legal a:hover { opacity: 0.75; }
+      .legal .contact-card {
+        margin-top: 20px; border-left: 3px solid var(--gold);
+        padding: 20px 0 20px 28px; background: var(--gold-dim);
+        border-radius: 0 3px 3px 0;
+      }
+      .legal .contact-card p { color: var(--cream); margin-bottom: 4px; font-size: 14px; }
+    </style>
+  </Fragment>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-breadcrumb"><a href="/">Home</a><span>/</span> Privacy</div>
+      <div class="eyebrow reveal">PDPA Notice</div>
+      <h1 class="display-lg reveal" data-d="1">Privacy <em class="gold">Policy</em></h1>
+    </div>
+  </div>
+
+  <section style="background:var(--midnight);">
+    <div class="wrap">
+      <div class="legal reveal">
+        <div class="updated">Last updated: 22 August 2026</div>
+
+        <p class="lead">Elitez Events ("we", "us", "our") is a corporate events brand of <strong>Elitez Pte Ltd</strong>, registered at 2 Kallang Avenue #03-08, CT Hub, Singapore 339407. This notice explains what personal data we collect on <strong>events.elitez.asia</strong>, how we use it, and your rights under Singapore's Personal Data Protection Act (PDPA).</p>
+
+        <h2>1. What we collect</h2>
+        <ul>
+          <li><strong>Enquiry details</strong> — when you submit an enquiry, we collect your name, company or organisation, email address, phone number, and details about your event (event type, estimated guest count, preferred date, venue and your message).</li>
+          <li><strong>Usage &amp; device data</strong> — through cookies and analytics: pages visited, referring source, approximate location, and browser/device type.</li>
+        </ul>
+
+        <h2>2. How we use your data</h2>
+        <ul>
+          <li>To respond to your enquiry and prepare a tailored proposal or quote.</li>
+          <li>To contact you about your event and our services.</li>
+          <li>To understand how our website is used and improve it.</li>
+          <li>To measure and improve the performance of our advertising.</li>
+        </ul>
+
+        <h2>3. Cookies &amp; tracking</h2>
+        <p>We use <strong>Google Ads conversion tracking</strong> (cookies) to measure the effectiveness of our advertising, and <strong>website analytics (PostHog)</strong> to understand how the site is used. You can control or block cookies through your browser settings.</p>
+
+        <h2>4. How enquiries are processed</h2>
+        <p>Enquiry form submissions are handled by <strong>FormSubmit</strong>, a third-party form-delivery service, and delivered to our team by email so that we can respond to you.</p>
+
+        <h2>5. Sharing &amp; disclosure</h2>
+        <p>We do not sell your personal data. We share it only with:</p>
+        <ul>
+          <li>service providers who process data on our behalf — FormSubmit (form delivery), Google (advertising measurement) and PostHog (analytics); and</li>
+          <li>companies within the Elitez Group of Companies, where needed to respond to your enquiry.</li>
+        </ul>
+
+        <h2>6. Retention</h2>
+        <p>We keep your enquiry data only for as long as necessary to respond to you and for our legitimate business records, after which it is securely deleted.</p>
+
+        <h2>7. Your rights under the PDPA</h2>
+        <p>You may request to access or correct the personal data we hold about you, or withdraw your consent to our use of it, at any time. To make a request, contact our Data Protection Officer at <a href="mailto:DPO@elitez.asia">DPO@elitez.asia</a>.</p>
+
+        <h2>8. Consent</h2>
+        <p>By submitting an enquiry through this site, you consent to Elitez Events collecting, using and disclosing your personal data as described in this notice.</p>
+
+        <h2>9. Contact</h2>
+        <div class="contact-card">
+          <p><strong>Data Protection Officer</strong></p>
+          <p>Elitez Events (Elitez Pte Ltd)</p>
+          <p>2 Kallang Avenue #03-08, CT Hub, Singapore 339407</p>
+          <p><a href="mailto:DPO@elitez.asia">DPO@elitez.asia</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
