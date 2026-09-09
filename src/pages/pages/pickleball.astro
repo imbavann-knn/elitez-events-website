@@ -1,0 +1,228 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="Corporate Pickleball Team Building & Tournaments | Elitez Events"
+  description="Corporate team building and internal staff pickleball tournaments on two private, air-conditioned courts with full AV — powered by Rallies™, Elitez Events' proprietary corporate pickleball format."
+  canonical="https://events.elitez.asia/pages/pickleball"
+  ogTitle="Corporate Pickleball Team Building & Tournaments | Elitez Events"
+  ogDescription="Private, air-conditioned courts + full production for corporate team building and internal pickleball tournaments. Powered by Rallies™."
+  activeNav=""
+  isHome={false}
+>
+  <Fragment slot="head">
+    <style is:global>
+      /* ── PB HERO ──────────────────────────────────────── */
+      .pb-hero {
+        min-height: 92vh;
+        display: flex;
+        align-items: flex-end;
+        padding: 0 var(--pad-x) 80px;
+        position: relative;
+        overflow: hidden;
+        background: #050810;
+      }
+      .pb-hero-bg { position: absolute; inset: 0; }
+      .pb-hero-bg::before {
+        content: '';
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(ellipse 55% 60% at 78% 25%, rgba(201,146,58,0.10) 0%, transparent 70%),
+          linear-gradient(160deg, #0B1020 0%, #050810 55%, #0A0E1C 100%);
+      }
+      /* court-line motif */
+      .pb-hero-bg::after {
+        content: '';
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(to right, rgba(201,146,58,0.12) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(201,146,58,0.12) 1px, transparent 1px);
+        background-size: 120px 120px;
+        mask-image: radial-gradient(ellipse 70% 60% at 75% 30%, #000 0%, transparent 70%);
+        -webkit-mask-image: radial-gradient(ellipse 70% 60% at 75% 30%, #000 0%, transparent 70%);
+        opacity: 0.6;
+      }
+      .pb-hero-inner { position: relative; z-index: 2; max-width: 880px; }
+      .pb-hero-eyebrow {
+        display: inline-flex; align-items: center; gap: 10px;
+        background: var(--gold-dim);
+        border: 1px solid var(--gold-border);
+        padding: 8px 16px; border-radius: 2px; margin-bottom: 30px;
+      }
+      .pb-hero-eyebrow span {
+        font-size: 10px; font-weight: 600; letter-spacing: 0.24em;
+        text-transform: uppercase; color: var(--gold);
+      }
+      .pb-hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+      .pb-headline {
+        font-family: var(--font-display); font-weight: 400;
+        font-size: clamp(46px, 7vw, 96px); line-height: 0.98;
+        letter-spacing: -0.01em; color: var(--cream); text-wrap: balance;
+      }
+      .pb-headline em { font-style: italic; color: var(--gold); }
+      .pb-hero-sub {
+        font-size: clamp(15px, 1.8vw, 19px); font-weight: 300;
+        color: var(--steel); line-height: 1.7; max-width: 620px; margin: 26px 0 38px;
+      }
+      .pb-hero-sub strong { color: var(--cream); font-weight: 500; }
+
+      /* ── STATS STRIP (Rallies proof) ──────────────────── */
+      .pb-stats { background: var(--gold); display: flex; align-items: stretch; overflow-x: auto; }
+      .pb-stat { flex: 1; min-width: 190px; padding: 26px 40px; border-right: 1px solid rgba(8,12,24,0.15); }
+      .pb-stat:last-child { border-right: none; }
+      .pb-stat-num { font-family: var(--font-display); font-weight: 700; font-size: 34px; line-height: 1; color: var(--midnight); letter-spacing: -0.02em; }
+      .pb-stat-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(8,12,24,0.65); margin-top: 6px; }
+
+      /* ── SECTION SHELL ────────────────────────────────── */
+      .pb-intro { max-width: 640px; }
+      .pb-intro .section-body { margin-top: 20px; font-size: 15px; font-weight: 300; color: var(--steel); line-height: 1.85; }
+
+      /* ── VENUE CARDS ──────────────────────────────────── */
+      .venue-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 56px; }
+      .venue-cell { background: var(--navy); padding: 34px 28px; transition: background 0.3s; }
+      .venue-cell:hover { background: var(--navy-2); }
+      .venue-cell .vnum { font-family: var(--font-display); font-style: italic; font-size: 30px; color: var(--gold); line-height: 1; }
+      .venue-cell .vtitle { font-family: var(--font-display); font-weight: 600; font-size: 18px; color: var(--cream); margin: 18px 0 8px; }
+      .venue-cell .vdesc { font-size: 13px; font-weight: 300; color: var(--steel); line-height: 1.75; }
+
+      /* ── FORMATS ──────────────────────────────────────── */
+      .fmt-layout { display: grid; grid-template-columns: 5fr 7fr; gap: 96px; align-items: start; }
+      .fmt-intro { position: sticky; top: 100px; }
+      .fmt-list { border-top: 1px solid var(--border); }
+      .fmt-row { display: flex; gap: 28px; padding: 30px 0; border-bottom: 1px solid var(--border); }
+      .fmt-row .fnum { font-family: var(--font-display); font-style: italic; font-size: 13px; color: var(--gold); padding-top: 5px; flex-shrink: 0; }
+      .fmt-row .ftitle { font-family: var(--font-display); font-weight: 400; font-size: 26px; color: var(--cream); line-height: 1.15; margin-bottom: 8px; }
+      .fmt-row .fdesc { font-size: 14px; font-weight: 300; color: var(--steel); line-height: 1.75; max-width: 520px; }
+
+      /* ── WHY ──────────────────────────────────────────── */
+      .why-pb { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+      .why-pb-item { border-top: 1px solid var(--gold-border); padding-top: 22px; }
+      .why-pb-item h3 { font-family: var(--font-display); font-weight: 600; font-size: 18px; color: var(--cream); margin-bottom: 8px; }
+      .why-pb-item p { font-size: 14px; font-weight: 300; color: var(--steel); line-height: 1.8; }
+
+      @media (max-width: 1024px) {
+        .venue-grid { grid-template-columns: 1fr 1fr; }
+        .fmt-layout { grid-template-columns: 1fr; gap: 48px; }
+        .fmt-intro { position: static; }
+        .why-pb { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 600px) { .venue-grid { grid-template-columns: 1fr; } }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://events.elitez.asia/" },
+            { "@type": "ListItem", "position": 2, "name": "Corporate Pickleball", "item": "https://events.elitez.asia/pages/pickleball" }
+          ]
+        },
+        {
+          "@type": "Service",
+          "name": "Corporate Pickleball Team Building & Tournaments",
+          "provider": { "@type": "LocalBusiness", "name": "Elitez Events", "url": "https://events.elitez.asia" },
+          "areaServed": { "@type": "Country", "name": "Singapore" },
+          "description": "Corporate team building and internal staff pickleball tournaments on private, air-conditioned courts with full audio-visual production, powered by Rallies™."
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <!-- HERO -->
+  <section class="pb-hero">
+    <div class="pb-hero-bg"></div>
+    <div class="pb-hero-inner">
+      <div class="pb-hero-eyebrow"><span class="dot"></span><span>Powered by Rallies™</span></div>
+      <h1 class="pb-headline">Corporate pickleball,<br>in a court <em>built for it.</em></h1>
+      <p class="pb-hero-sub">Team-building sessions and company-wide tournaments on <strong>two private, air-conditioned courts</strong> — with an event lounge, full audio-visual production, and the format that made <strong>Rallies™</strong> Singapore's most talked-about corporate pickleball experience.</p>
+      <div class="btn-pair">
+        <a href="/pages/contact" class="btn btn-gold">
+          Plan Your Session
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="/pages/rallies" class="btn btn-outline">See Rallies™</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF STRIP -->
+  <div class="pb-stats">
+    <div class="pb-stat"><div class="pb-stat-num">5.2M+</div><div class="pb-stat-lbl">Rallies™ campaign reach</div></div>
+    <div class="pb-stat"><div class="pb-stat-num">278</div><div class="pb-stat-lbl">Players hosted</div></div>
+    <div class="pb-stat"><div class="pb-stat-num">NPS +26</div><div class="pb-stat-lbl">Participant satisfaction</div></div>
+    <div class="pb-stat"><div class="pb-stat-num">2</div><div class="pb-stat-lbl">Private indoor courts</div></div>
+  </div>
+
+  <!-- THE VENUE -->
+  <section style="background:var(--midnight);">
+    <div class="pb-intro reveal">
+      <div class="eyebrow">The Venue</div>
+      <h2 class="display-lg">A private arena,<br><em class="gold">climate-controlled</em></h2>
+      <p class="section-body">No scrambling for public court time, no heat, no crowds. Our purpose-built indoor space pairs competition-ready courts with a proper event lounge — so the games, the ceremony, and the celebration all happen under one roof.</p>
+    </div>
+    <div class="venue-grid reveal" data-d="1">
+      <div class="venue-cell"><div class="vnum">01</div><div class="vtitle">Two Private Courts</div><div class="vdesc">Competition-standard indoor courts, exclusively yours for the session — enough for parallel matches, coaching, and finals.</div></div>
+      <div class="venue-cell"><div class="vnum">02</div><div class="vtitle">Fully Air-Conditioned</div><div class="vdesc">Cool, comfortable play from the first serve to the last — a rare thing for indoor pickleball in Singapore.</div></div>
+      <div class="venue-cell"><div class="vnum">03</div><div class="vtitle">Event &amp; Holding Space</div><div class="vdesc">A dedicated lounge for briefings, breakouts, F&amp;B, and prize-giving — with a 100" screen and full audio-visual system.</div></div>
+      <div class="venue-cell"><div class="vnum">04</div><div class="vtitle">Turnkey Production</div><div class="vdesc">MC, live scoring, leaderboards, branding and show-calling — the same production polish behind every Rallies™ event.</div></div>
+    </div>
+  </section>
+
+  <!-- FORMATS -->
+  <section style="background:var(--navy);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="fmt-layout">
+      <div class="fmt-intro reveal">
+        <div class="eyebrow">What We Run</div>
+        <h2 class="display-lg">Built for <em class="gold">your</em> people</h2>
+        <p class="section-body" style="margin-top:20px;font-size:15px;font-weight:300;color:var(--steel);line-height:1.85;">Every session is designed around your team — mixed abilities welcome, no experience needed. We coach, run the format, and keep it competitive without leaving anyone on the sidelines.</p>
+        <a href="/pages/contact" class="btn btn-outline" style="margin-top:32px;">
+          Enquire Now
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="fmt-list reveal" data-d="1">
+        <div class="fmt-row">
+          <span class="fnum">01</span>
+          <div><div class="ftitle">Team-Building Sessions</div><div class="fdesc">Coached, all-levels play designed to break the ice and build cohesion — from warm-up drills to mixed-team round-robins. Great for department days and offsites.</div></div>
+        </div>
+        <div class="fmt-row">
+          <span class="fnum">02</span>
+          <div><div class="ftitle">Internal Tournaments &amp; Leagues</div><div class="fdesc">Company-wide competitions with live scoring, leaderboards and a finals-night atmosphere — a season-long rivalry or a single high-energy tournament day.</div></div>
+        </div>
+        <div class="fmt-row" style="border-bottom:none;">
+          <span class="fnum">03</span>
+          <div><div class="ftitle">Client &amp; Partner Engagement</div><div class="fdesc">Branded pickleball days that get clients, partners and staff mixing on the court — memorable, active, and a world away from another dinner or golf day.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section style="background:var(--midnight);">
+    <div class="reveal" style="max-width:640px;margin-bottom:48px;">
+      <div class="eyebrow">Why Elitez</div>
+      <h2 class="display-lg">The pickleball people,<br><em class="gold">not just a court</em></h2>
+    </div>
+    <div class="why-pb reveal" data-d="1">
+      <div class="why-pb-item"><h3>Proprietary IP — Rallies™</h3><p>The only purpose-built corporate pickleball format in Singapore. It's ours, and it can only be experienced through us.</p></div>
+      <div class="why-pb-item"><h3>Proven at Scale</h3><p>5.2M+ campaign reach, 278 players hosted, an NPS of +26 — this isn't a first attempt, it's a refined playbook.</p></div>
+      <div class="why-pb-item"><h3>End-to-End, One Team</h3><p>Format, coaching, MC, scoring, AV, branding and F&amp;B coordination — handled by the team that stages Singapore's biggest corporate events.</p></div>
+      <div class="why-pb-item"><h3>Private &amp; Comfortable</h3><p>Your own air-conditioned courts and lounge for the day — no public-court lottery, no weather, no compromise.</p></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" data-ghost="RALLIES">
+    <div class="cta-inner reveal">
+      <div class="cta-eyebrow">Get your team on the court</div>
+      <div class="cta-title">Let's plan your<br><em>pickleball day.</em></div>
+      <div class="btn-pair btn-pair-center">
+        <a href="/pages/contact" class="btn btn-gold">Enquire Now</a>
+        <a href="/pages/rallies" class="btn btn-outline">Explore Rallies™</a>
+      </div>
+    </div>
+  </section>
+</Layout>
