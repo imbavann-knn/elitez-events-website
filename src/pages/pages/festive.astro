@@ -1,0 +1,218 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="Festive Corporate Events — Year-End, Christmas & CNY | Elitez Events"
+  description="Year-end Dinner & Dance, Christmas parties and Chinese New Year corporate celebrations, staged end-to-end in Singapore. Peak dates fill fast — secure yours. Trusted by DSTA, SingHealth & 60+ clients."
+  canonical="https://events.elitez.asia/pages/festive"
+  ogTitle="Festive Corporate Events — Year-End, Christmas & CNY | Elitez Events"
+  ogDescription="Year-end D&D, Christmas parties & Chinese New Year corporate celebrations, staged in full. Peak dates fill fast — secure yours with Elitez Events."
+  activeNav=""
+  isHome={false}
+>
+  <Fragment slot="head">
+    <style is:global>
+      /* ── FESTIVE HERO ─────────────────────────────────── */
+      .fv-hero {
+        min-height: 90vh;
+        display: flex;
+        align-items: flex-end;
+        padding: 0 var(--pad-x) 80px;
+        position: relative;
+        overflow: hidden;
+        background: #050810;
+      }
+      .fv-hero-bg { position: absolute; inset: 0; }
+      .fv-hero-bg::before {
+        content: '';
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(ellipse 50% 55% at 80% 20%, rgba(201,146,58,0.14) 0%, transparent 70%),
+          radial-gradient(ellipse 60% 50% at 15% 90%, rgba(140,20,30,0.10) 0%, transparent 70%),
+          linear-gradient(165deg, #0B1020 0%, #050810 55%, #0A0E1C 100%);
+      }
+      /* soft golden light specks — festive shimmer */
+      .fv-hero-bg::after {
+        content: '';
+        position: absolute; inset: 0;
+        background-image:
+          radial-gradient(circle at 20% 30%, rgba(201,146,58,0.35) 0 1.5px, transparent 2px),
+          radial-gradient(circle at 70% 60%, rgba(201,146,58,0.28) 0 1.5px, transparent 2px),
+          radial-gradient(circle at 45% 80%, rgba(201,146,58,0.22) 0 1px, transparent 2px),
+          radial-gradient(circle at 85% 40%, rgba(201,146,58,0.30) 0 1.5px, transparent 2px),
+          radial-gradient(circle at 33% 55%, rgba(201,146,58,0.18) 0 1px, transparent 2px);
+        background-size: 240px 240px, 300px 300px, 180px 180px, 360px 360px, 200px 200px;
+        mask-image: radial-gradient(ellipse 80% 70% at 70% 30%, #000 0%, transparent 75%);
+        -webkit-mask-image: radial-gradient(ellipse 80% 70% at 70% 30%, #000 0%, transparent 75%);
+        opacity: 0.7;
+      }
+      .fv-hero-inner { position: relative; z-index: 2; max-width: 900px; }
+      .fv-hero-eyebrow {
+        display: inline-flex; align-items: center; gap: 10px;
+        background: var(--gold-dim);
+        border: 1px solid var(--gold-border);
+        padding: 8px 16px; border-radius: 2px; margin-bottom: 30px;
+      }
+      .fv-hero-eyebrow span {
+        font-size: 10px; font-weight: 600; letter-spacing: 0.24em;
+        text-transform: uppercase; color: var(--gold);
+      }
+      .fv-hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+      .fv-headline {
+        font-family: var(--font-display); font-weight: 400;
+        font-size: clamp(46px, 7vw, 94px); line-height: 0.98;
+        letter-spacing: -0.01em; color: var(--cream); text-wrap: balance;
+      }
+      .fv-headline em { font-style: italic; color: var(--gold); }
+      .fv-hero-sub {
+        font-size: clamp(15px, 1.8vw, 19px); font-weight: 300;
+        color: var(--steel); line-height: 1.7; max-width: 640px; margin: 26px 0 38px;
+      }
+      .fv-hero-sub strong { color: var(--cream); font-weight: 500; }
+
+      /* ── URGENCY STRIP ────────────────────────────────── */
+      .fv-strip { background: var(--gold); display: flex; align-items: stretch; overflow-x: auto; }
+      .fv-strip-cell { flex: 1; min-width: 190px; padding: 26px 40px; border-right: 1px solid rgba(8,12,24,0.15); }
+      .fv-strip-cell:last-child { border-right: none; }
+      .fv-strip-num { font-family: var(--font-display); font-weight: 700; font-size: 32px; line-height: 1; color: var(--midnight); letter-spacing: -0.02em; }
+      .fv-strip-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(8,12,24,0.65); margin-top: 6px; }
+
+      /* ── INTRO ────────────────────────────────────────── */
+      .fv-intro { max-width: 660px; }
+      .fv-intro .section-body { margin-top: 20px; font-size: 15px; font-weight: 300; color: var(--steel); line-height: 1.85; }
+      .fv-intro .section-body strong { color: var(--cream); font-weight: 500; }
+
+      /* ── OCCASION ROWS ────────────────────────────────── */
+      .fv-layout { display: grid; grid-template-columns: 5fr 7fr; gap: 96px; align-items: start; }
+      .fv-sticky { position: sticky; top: 100px; }
+      .fv-list { border-top: 1px solid var(--border); }
+      .fv-row { display: flex; gap: 28px; padding: 32px 0; border-bottom: 1px solid var(--border); }
+      .fv-row .fnum { font-family: var(--font-display); font-style: italic; font-size: 13px; color: var(--gold); padding-top: 6px; flex-shrink: 0; }
+      .fv-row .ftitle { font-family: var(--font-display); font-weight: 400; font-size: 27px; color: var(--cream); line-height: 1.15; margin-bottom: 9px; }
+      .fv-row .ftitle span { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-family: var(--font-body); font-style: normal; margin-bottom: 10px; }
+      .fv-row .fdesc { font-size: 14px; font-weight: 300; color: var(--steel); line-height: 1.8; max-width: 540px; }
+
+      /* ── WHY ──────────────────────────────────────────── */
+      .fv-why { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+      .fv-why-item { border-top: 1px solid var(--gold-border); padding-top: 22px; }
+      .fv-why-item h3 { font-family: var(--font-display); font-weight: 600; font-size: 18px; color: var(--cream); margin-bottom: 8px; }
+      .fv-why-item p { font-size: 14px; font-weight: 300; color: var(--steel); line-height: 1.8; }
+
+      @media (max-width: 1024px) {
+        .fv-layout { grid-template-columns: 1fr; gap: 48px; }
+        .fv-sticky { position: static; }
+        .fv-why { grid-template-columns: 1fr; }
+      }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://events.elitez.asia/" },
+            { "@type": "ListItem", "position": 2, "name": "Festive Corporate Events", "item": "https://events.elitez.asia/pages/festive" }
+          ]
+        },
+        {
+          "@type": "Service",
+          "name": "Festive Corporate Events — Year-End, Christmas & Chinese New Year",
+          "provider": { "@type": "LocalBusiness", "name": "Elitez Events", "url": "https://events.elitez.asia" },
+          "areaServed": { "@type": "Country", "name": "Singapore" },
+          "description": "End-to-end production of year-end Dinner & Dance, Christmas corporate parties and Chinese New Year celebrations for companies in Singapore."
+        }
+      ]
+    }
+    </script>
+  </Fragment>
+
+  <!-- HERO -->
+  <section class="fv-hero">
+    <div class="fv-hero-bg"></div>
+    <div class="fv-hero-inner">
+      <div class="fv-hero-eyebrow"><span class="dot"></span><span>Year-End · Christmas · Chinese New Year 2027</span></div>
+      <h1 class="fv-headline">The festive season,<br><em>staged in full.</em></h1>
+      <p class="fv-hero-sub">Year-end Dinner &amp; Dance, Christmas parties and Chinese New Year celebrations — <strong>concept to curtain call</strong>, handled by one team. The season's best dates and venues go first. <strong>Lock yours in now.</strong></p>
+      <div class="btn-pair">
+        <a href="/pages/contact" class="btn btn-gold">
+          Secure Your Date
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="/pages/portfolio" class="btn btn-outline">See Our Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- URGENCY STRIP -->
+  <div class="fv-strip">
+    <div class="fv-strip-cell"><div class="fv-strip-num">Nov–Feb</div><div class="fv-strip-lbl">Peak festive season</div></div>
+    <div class="fv-strip-cell"><div class="fv-strip-num">200–2,000</div><div class="fv-strip-lbl">Guests, fully staged</div></div>
+    <div class="fv-strip-cell"><div class="fv-strip-num">24 hrs</div><div class="fv-strip-lbl">Quote turnaround</div></div>
+    <div class="fv-strip-cell"><div class="fv-strip-num">60+</div><div class="fv-strip-lbl">Corporate clients</div></div>
+  </div>
+
+  <!-- INTRO -->
+  <section style="background:var(--midnight);">
+    <div class="fv-intro reveal">
+      <div class="eyebrow">The Festive Season</div>
+      <h2 class="display-lg">Your biggest night<br><em class="gold">of the year</em></h2>
+      <p class="section-body">The year-end and Chinese New Year window is when companies gather their people, thank their clients and set the tone for the year ahead — and it's the one time every venue, act and vendor is booked solid. We handle the <strong>whole production</strong>: theme and creative, venue and catering, staging, entertainment, MC and show-calling, so your festive event lands without the scramble. <strong>Planning usually opens months ahead</strong> — the companies that move early get the dates, the rooms and the headline acts.</p>
+    </div>
+  </section>
+
+  <!-- OCCASIONS -->
+  <section style="background:var(--navy);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="fv-layout">
+      <div class="fv-sticky reveal">
+        <div class="eyebrow">What We Stage</div>
+        <h2 class="display-lg">Three seasons,<br><em class="gold">one team</em></h2>
+        <p class="section-body" style="margin-top:20px;font-size:15px;font-weight:300;color:var(--steel);line-height:1.85;">From a 2,000-guest gala to an intimate client dinner — themed, produced and show-called end to end. One point of contact, one team, from brief to bump-out.</p>
+        <a href="/pages/contact" class="btn btn-outline" style="margin-top:32px;">
+          Get a Festive Quote
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="fv-list reveal" data-d="1">
+        <div class="fv-row">
+          <span class="fnum">01</span>
+          <div><div class="ftitle"><span>Year-End · Nov–Dec</span>Dinner &amp; Dance &amp; Gala Nights</div><div class="fdesc">The flagship year-end celebration — full-production D&amp;D, award ceremonies and gala dinners for 200 to 2,000 guests. Theming, staging, live entertainment, MC, awards reveal and after-party, all staged to the second.</div></div>
+        </div>
+        <div class="fv-row">
+          <span class="fnum">02</span>
+          <div><div class="ftitle"><span>Christmas · December</span>Christmas &amp; Office Parties</div><div class="fdesc">Themed Christmas celebrations and department parties — from a styled office soirée to a full festive showcase. Décor, catering, roving acts, photo moments and gifting, handled for you.</div></div>
+        </div>
+        <div class="fv-row" style="border-bottom:none;">
+          <span class="fnum">03</span>
+          <div><div class="ftitle"><span>Chinese New Year · Jan–Feb 2027</span>Chinese New Year Celebrations</div><div class="fdesc">Reunion lunches and dinners, prosperity-themed galas, lo hei &amp; yusheng tossing, lion dance, god-of-fortune appearances and client open houses — a festive, auspicious production that honours the season. CNY 2027 falls on 6 February — the calendar fills fast.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section style="background:var(--midnight);">
+    <div class="reveal" style="max-width:660px;margin-bottom:48px;">
+      <div class="eyebrow">Why Elitez</div>
+      <h2 class="display-lg">Festive events,<br><em class="gold">without the stress</em></h2>
+    </div>
+    <div class="fv-why reveal" data-d="1">
+      <div class="fv-why-item"><h3>Full Production, In-House</h3><p>Concept, staging, entertainment, MC and show-calling under one roof — no juggling five vendors in your busiest month.</p></div>
+      <div class="fv-why-item"><h3>Trusted at Scale</h3><p>Year-end events for DSTA, SingHealth, Mandai and 60+ clients at MBS, Suntec and Shangri-La. We've run the big nights.</p></div>
+      <div class="fv-why-item"><h3>Season-Ready</h3><p>We hold venue and act relationships year-round, so we can still secure strong options when the festive calendar is tight.</p></div>
+      <div class="fv-why-item"><h3>Quote Within 24 Hours</h3><p>Tell us the date, headcount and vibe — you'll have a tailored festive proposal back within a day, not a week.</p></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" data-ghost="FESTIVE">
+    <div class="cta-inner reveal">
+      <div class="cta-eyebrow">Year-End · Christmas · Chinese New Year 2027</div>
+      <div class="cta-title">The best dates<br>go <em>first.</em></div>
+      <div class="btn-pair btn-pair-center">
+        <a href="/pages/contact" class="btn btn-gold">Secure Your Date</a>
+        <a href="/pages/services" class="btn btn-outline">Explore Services</a>
+      </div>
+    </div>
+  </section>
+</Layout>
